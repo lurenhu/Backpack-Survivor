@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bisrua6pdd680"]
+
+[ext_resource type="PackedScene" uid="uid://kxv4uklaedpl" path="res://scenes/entities/enemy_shooter.tscn" id="1_ix3vq"]
+[ext_resource type="SpriteFrames" uid="uid://178dassf1d2n" path="res://assets/preset/sprite_frame/skeleton.tres" id="2_vbh4y"]
+
+[sub_resource type="Animation" id="Animation_ix3vq"]
+resource_name = "attack"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"fire_bullet"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vbh4y"]
+_data = {
+&"attack": SubResource("Animation_ix3vq")
+}
+
+[node name="EnemyShooter" unique_id=319728877 instance=ExtResource("1_ix3vq")]
+
+[node name="BodySprite" parent="." index="0" unique_id=445990586]
+sprite_frames = ExtResource("2_vbh4y")
+animation = &"attack"
+
+[node name="AnimationPlayer" parent="." index="1" unique_id=86462427]
+libraries/ = SubResource("AnimationLibrary_vbh4y")
+
+[node name="CollisionShape2D" parent="DamageArea" parent_id_path=PackedInt32Array(1341994768) index="0" unique_id=64009046]
+disabled = true

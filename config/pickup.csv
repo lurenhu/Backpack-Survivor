@@ -1,0 +1,2 @@
+ID,Name,Type,Source,Collision
+1,"金币",GOLD,"res://assets/preset/sprite_frame/Gold.tres","res://assets/preset/collision_shape/gold.tres"

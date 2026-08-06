@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://dhp7edb77g4tt"]
+
+[ext_resource type="Script" uid="uid://brdxeras0isja" path="res://scripts/game/module/main/view/main_menu.gd" id="1_qims6"]
+[ext_resource type="StyleBox" uid="uid://brgbn8u1fmjkl" path="res://assets/preset/style_box_texture/button_normal.tres" id="2_wu84c"]
+[ext_resource type="StyleBox" uid="uid://cofb03f4qoc5d" path="res://assets/preset/style_box_texture/button_pressed.tres" id="3_8ln24"]
+[ext_resource type="Texture2D" uid="uid://c52ou6daw6f2n" path="res://assets/res/ui/底框.png" id="3_rtw2f"]
+[ext_resource type="Texture2D" uid="uid://dp8q3xawhi24n" path="res://assets/res/ui/主界面.jpg" id="3_tbmy8"]
+[ext_resource type="StyleBox" uid="uid://bt0lljh8r713" path="res://assets/preset/style_box_texture/button_hover.tres" id="4_rtw2f"]
+
+[node name="MainMenu" type="Control" unique_id=859401355]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qims6")
+
+[node name="Bg" type="TextureRect" parent="." unique_id=934976796]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_tbmy8")
+expand_mode = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=267138848]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.03828125
+anchor_top = 0.3777778
+anchor_right = 0.27265626
+anchor_bottom = 0.93333334
+offset_left = 1.0
+offset_top = -2.0000305
+offset_right = 1.0
+offset_bottom = -2.0
+grow_vertical = 0
+texture = ExtResource("3_rtw2f")
+patch_margin_left = 51
+patch_margin_top = 49
+patch_margin_right = 60
+patch_margin_bottom = 50
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect" unique_id=549554124]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="StartButton" type="Button" parent="NinePatchRect/VBoxContainer" unique_id=1975709255]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = ExtResource("2_wu84c")
+theme_override_styles/pressed = ExtResource("3_8ln24")
+theme_override_styles/hover = ExtResource("4_rtw2f")
+text = "开始游戏"
+metadata/_edit_use_anchors_ = true
+
+[node name="SettingButton" type="Button" parent="NinePatchRect/VBoxContainer" unique_id=67630272]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = ExtResource("2_wu84c")
+theme_override_styles/pressed = ExtResource("3_8ln24")
+theme_override_styles/hover = ExtResource("4_rtw2f")
+text = "设置"
+metadata/_edit_use_anchors_ = true
+
+[node name="ExitButton" type="Button" parent="NinePatchRect/VBoxContainer" unique_id=476313489]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = ExtResource("2_wu84c")
+theme_override_styles/pressed = ExtResource("3_8ln24")
+theme_override_styles/hover = ExtResource("4_rtw2f")
+text = "退出游戏"
+metadata/_edit_use_anchors_ = true

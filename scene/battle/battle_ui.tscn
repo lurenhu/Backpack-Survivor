@@ -1,0 +1,147 @@
+[gd_scene format=3 uid="uid://cgpwcqun28n5o"]
+
+[ext_resource type="Script" uid="uid://b5l62ayawf3ib" path="res://scripts/game/module/battle/view/battle_UI.gd" id="1_8dqs6"]
+[ext_resource type="Texture2D" uid="uid://ct1d50oovjyh1" path="res://assets/res/ui/panels/BigBar_Base.png" id="2_40w83"]
+[ext_resource type="Texture2D" uid="uid://bic1yh7e0n4ex" path="res://assets/res/ui/panels/BigBar_Fill.png" id="3_xjcqp"]
+[ext_resource type="Texture2D" uid="uid://cj7hh4otle2jg" path="res://assets/res/maps/UI/shop_node.png" id="4_aomqe"]
+[ext_resource type="Texture2D" uid="uid://bxlmex8nqu3c6" path="res://assets/res/ui/icons/Icon_05.png" id="5_a20gn"]
+[ext_resource type="PackedScene" uid="uid://cuko6bv1tbujy" path="res://scene/main/game_over.tscn" id="6_t7400"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aomqe"]
+atlas = ExtResource("2_40w83")
+region = Rect2(104, 9, 112, 51)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjcqp"]
+atlas = ExtResource("3_xjcqp")
+region = Rect2(0, 20, 64, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aomqe"]
+texture = SubResource("AtlasTexture_xjcqp")
+
+[sub_resource type="LabelSettings" id="LabelSettings_aomqe"]
+resource_local_to_scene = true
+font_size = 32
+font_color = Color(1, 1, 0, 1)
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_a20gn"]
+font_size = 32
+font_color = Color(1, 0, 0, 1)
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="BattleUI" type="CanvasLayer" unique_id=1359685648]
+script = ExtResource("1_8dqs6")
+
+[node name="HealthBar" type="Control" parent="." unique_id=497570354]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 300.0
+offset_bottom = 50.0
+
+[node name="BG" type="NinePatchRect" parent="HealthBar" unique_id=999259594]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_aomqe")
+region_rect = Rect2(0, 0, 112, 51)
+patch_margin_left = 20
+patch_margin_top = 16
+patch_margin_right = 19
+patch_margin_bottom = 15
+axis_stretch_horizontal = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="HealthBar" unique_id=1306971484]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -139.0
+offset_top = -12.500001
+offset_right = 139.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/fill = SubResource("StyleBoxTexture_aomqe")
+value = 70.0
+show_percentage = false
+
+[node name="Gold" type="Control" parent="." unique_id=1431910082]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 60.0
+offset_right = 150.0
+offset_bottom = 123.99996
+
+[node name="Icon" type="TextureRect" parent="Gold" unique_id=1567073755]
+layout_mode = 0
+anchor_right = 0.42666668
+anchor_bottom = 1.0666667
+offset_right = -24.0
+offset_bottom = -24.0
+texture = ExtResource("4_aomqe")
+metadata/_edit_use_anchors_ = true
+
+[node name="Value" type="Label" parent="Gold" unique_id=60485487]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 64.0
+offset_top = -22.5
+offset_right = 119.0
+offset_bottom = 22.5
+grow_vertical = 2
+text = "666"
+label_settings = SubResource("LabelSettings_aomqe")
+vertical_alignment = 1
+
+[node name="Wave" type="Control" parent="." unique_id=513954207]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.0
+offset_right = 75.0
+offset_bottom = 63.99996
+grow_horizontal = 2
+
+[node name="Icon" type="TextureRect" parent="Wave" unique_id=2114185625]
+layout_mode = 0
+anchor_right = 0.42666668
+anchor_bottom = 1.0666667
+offset_right = -24.0
+offset_bottom = -24.0
+texture = ExtResource("5_a20gn")
+metadata/_edit_use_anchors_ = true
+
+[node name="Value" type="Label" parent="Wave" unique_id=25816401]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 64.0
+offset_top = -22.5
+offset_right = 119.0
+offset_bottom = 22.5
+grow_vertical = 2
+text = "666"
+label_settings = SubResource("LabelSettings_a20gn")
+vertical_alignment = 1
+
+[node name="DamageShow" type="Control" parent="." unique_id=1356620895]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameOver" parent="." unique_id=540687642 instance=ExtResource("6_t7400")]
+visible = false

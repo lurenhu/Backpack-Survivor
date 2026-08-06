@@ -1,0 +1,5 @@
+ID,Name,Attr,GoldDrop,Source
+1,骑士,"HP:30,ATK:5,SPD:90",2,res://scene/battle/entities/enemy_warrior.tscn
+2,史莱姆,"HP:30,ATK:4,SPD:140",3,res://scene/battle/entities/enemy_slime.tscn
+3,哥布林,"HP:40,ATK:10,SPD:180",4,res://scene/battle/entities/enemy_goblin.tscn
+4,骷髅,"HP:70,ATK:20,SPD:200",5,res://scene/battle/entities/enemy_skeleton.tscn

@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://b2epmjjeendfk"]
+
+[ext_resource type="Script" uid="uid://c0tr7wsx2vbcs" path="res://scripts/game/module/battle/view/entities/enemy.gd" id="1_oi853"]
+
+[node name="Enemy" type="CharacterBody2D" unique_id=319728877]
+collision_layer = 4
+collision_mask = 65
+script = ExtResource("1_oi853")
+
+[node name="BodySprite" type="AnimatedSprite2D" parent="." unique_id=445990586]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=86462427]
+
+[node name="BodyShape" type="CollisionShape2D" parent="." unique_id=212944282]
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=1341994768]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=64009046]
+debug_color = Color(0.86425894, 0.31406105, 0.45322382, 0.41960785)
+
+[node name="DetectArea" type="Area2D" parent="." unique_id=1718658454]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectArea" unique_id=1304389768]
+debug_color = Color(0.3738019, 0.6090703, 0.24952078, 0.41960785)
+
+[node name="HitTimer" type="Timer" parent="." unique_id=24866100]
+wait_time = 0.1
+one_shot = true

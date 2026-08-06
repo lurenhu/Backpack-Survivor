@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://coagr6nca6fjh"]
+
+[ext_resource type="PackedScene" uid="uid://b2epmjjeendfk" path="res://scenes/entities/enemy.tscn" id="1_0ncad"]
+[ext_resource type="SpriteFrames" uid="uid://caxxnx5khu0he" path="res://assets/preset/sprite_frame/goblin.tres" id="2_e0wxl"]
+
+[sub_resource type="Animation" id="Animation_e0wxl"]
+resource_name = "attack"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1nm20"]
+_data = {
+&"attack": SubResource("Animation_e0wxl")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1nm20"]
+radius = 32.0
+height = 144.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e0wxl"]
+radius = 78.51752
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1nm20"]
+radius = 86.37129
+
+[node name="Enemy" unique_id=319728877 instance=ExtResource("1_0ncad")]
+
+[node name="BodySprite" parent="." index="0" unique_id=445990586]
+sprite_frames = ExtResource("2_e0wxl")
+animation = &"run"
+
+[node name="AnimationPlayer" parent="." index="1" unique_id=86462427]
+libraries/ = SubResource("AnimationLibrary_1nm20")
+
+[node name="BodyShape" parent="." index="2" unique_id=212944282]
+shape = SubResource("CapsuleShape2D_1nm20")
+
+[node name="CollisionShape2D" parent="DamageArea" parent_id_path=PackedInt32Array(1341994768) index="0" unique_id=64009046]
+shape = SubResource("CircleShape2D_e0wxl")
+
+[node name="CollisionShape2D" parent="DetectArea" parent_id_path=PackedInt32Array(1718658454) index="0" unique_id=1304389768]
+shape = SubResource("CircleShape2D_1nm20")

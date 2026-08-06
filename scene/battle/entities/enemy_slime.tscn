@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://06q71hfcj77q"]
+
+[ext_resource type="PackedScene" uid="uid://b2epmjjeendfk" path="res://scenes/entities/enemy.tscn" id="1_6r5uy"]
+[ext_resource type="SpriteFrames" uid="uid://lffv7g3g06ks" path="res://assets/preset/sprite_frame/slime.tres" id="2_etyer"]
+
+[sub_resource type="Animation" id="Animation_6r5uy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DamageArea/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_etyer"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DamageArea/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.36666667, 0.40000004, 0.5, 0.53333336, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, true, false, false, true, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wpk5h"]
+_data = {
+&"RESET": SubResource("Animation_6r5uy"),
+&"attack": SubResource("Animation_etyer")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6r5uy"]
+radius = 41.01219
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_etyer"]
+radius = 53.338543
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wpk5h"]
+radius = 62.1289
+
+[node name="Enemy" unique_id=319728877 instance=ExtResource("1_6r5uy")]
+
+[node name="BodySprite" parent="." index="0" unique_id=445990586]
+sprite_frames = ExtResource("2_etyer")
+animation = &"run"
+
+[node name="AnimationPlayer" parent="." index="1" unique_id=86462427]
+libraries/ = SubResource("AnimationLibrary_wpk5h")
+
+[node name="BodyShape" parent="." index="2" unique_id=212944282]
+shape = SubResource("CircleShape2D_6r5uy")
+
+[node name="CollisionShape2D" parent="DamageArea" parent_id_path=PackedInt32Array(1341994768) index="0" unique_id=64009046]
+shape = SubResource("CircleShape2D_etyer")
+disabled = true
+
+[node name="CollisionShape2D" parent="DetectArea" parent_id_path=PackedInt32Array(1718658454) index="0" unique_id=1304389768]
+shape = SubResource("CircleShape2D_wpk5h")

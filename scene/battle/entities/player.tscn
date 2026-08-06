@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://gqawk1lcrsuy"]
+
+[ext_resource type="Script" uid="uid://cupsjfugnlspf" path="res://scripts/game/module/battle/view/entities/player.gd" id="1_er4xr"]
+[ext_resource type="Animation" uid="uid://cn0y63umqxb25" path="res://assets/preset/animation/pudding.res" id="3_1ie0h"]
+[ext_resource type="Texture2D" uid="uid://cl10ur53mwbo3" path="res://assets/res/vfx/Dust_01.png" id="3_42nxq"]
+
+[sub_resource type="Animation" id="Animation_08t41"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodyAni:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.5, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BodyAni:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.5, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_42nxq"]
+_data = {
+&"RESET": SubResource("Animation_08t41"),
+&"pudding": ExtResource("3_1ie0h")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_aipg6"]
+radius = 20.0
+height = 86.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5u6hq"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_1ie0h"]
+_data = [Vector2(0.0064102635, 0.5012667), 0.0, 0.0, 0, 0, Vector2(1, 0.7529859), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_42nxq"]
+_data = [Vector2(0, 0.50361925), 0.0, 0.0, 0, 0, Vector2(1, 0.74592835), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_5u6hq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_d4qa6"]
+curve_x = SubResource("Curve_1ie0h")
+curve_y = SubResource("Curve_42nxq")
+curve_z = SubResource("Curve_5u6hq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d4qa6"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 20.0
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveXYZTexture_d4qa6")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="Player" type="CharacterBody2D" unique_id=664285230]
+collision_layer = 2
+script = ExtResource("1_er4xr")
+
+[node name="BodyAni" type="AnimatedSprite2D" parent="." unique_id=2079101338]
+scale = Vector2(0.5, 0.5)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=950490028]
+libraries/ = SubResource("AnimationLibrary_42nxq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1946567817]
+shape = SubResource("CapsuleShape2D_aipg6")
+
+[node name="WeaponAnchor" type="Node2D" parent="." unique_id=952100804]
+
+[node name="ShooterAnchor" type="Node2D" parent="." unique_id=1418506078]
+
+[node name="Dust" type="GPUParticles2D" parent="." unique_id=1787456655]
+material = SubResource("CanvasItemMaterial_5u6hq")
+position = Vector2(0, 43)
+texture = ExtResource("3_42nxq")
+process_material = SubResource("ParticleProcessMaterial_d4qa6")
+
+[node name="HitTimer" type="Timer" parent="." unique_id=362810383]
+wait_time = 0.5
+one_shot = true

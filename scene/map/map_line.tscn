@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://b5ad7m3ri4mci"]
+
+[ext_resource type="Script" uid="uid://7uxhuttp8nbs" path="res://scripts/game/module/map/view/map_line.gd" id="1_lfjr7"]
+
+[node name="MapLine" type="Line2D" unique_id=1920744587]
+width = 5.0
+default_color = Color(0, 0, 0, 1)
+script = ExtResource("1_lfjr7")

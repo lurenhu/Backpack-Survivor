@@ -1,0 +1,229 @@
+[gd_scene format=3 uid="uid://ct1u46w7t6h86"]
+
+[ext_resource type="Script" uid="uid://cg2iiqhayc0ug" path="res://scripts/game/module/main/view/character_select.gd" id="1_o15et"]
+[ext_resource type="Texture2D" uid="uid://c52ou6daw6f2n" path="res://assets/res/ui/底框.png" id="2_5wdeo"]
+[ext_resource type="Script" uid="uid://b0skyd4kw75gp" path="res://scripts/game/utility/carousel_container.gd" id="2_dmdmg"]
+[ext_resource type="PackedScene" uid="uid://8yutyr6pkw2o" path="res://scene/main/character_card.tscn" id="3_au5l4"]
+[ext_resource type="Texture2D" uid="uid://bpgpvi364llbf" path="res://assets/res/ui/标题底.png" id="3_w1hxv"]
+[ext_resource type="StyleBox" uid="uid://brgbn8u1fmjkl" path="res://assets/preset/style_box_texture/button_normal.tres" id="5_w1hxv"]
+[ext_resource type="StyleBox" uid="uid://cofb03f4qoc5d" path="res://assets/preset/style_box_texture/button_pressed.tres" id="6_w1hxv"]
+[ext_resource type="StyleBox" uid="uid://bt0lljh8r713" path="res://assets/preset/style_box_texture/button_hover.tres" id="7_bqp8h"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5wdeo"]
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+shadow_size = 3
+shadow_color = Color(0, 0, 0, 0.13725491)
+
+[sub_resource type="LabelSettings" id="LabelSettings_bqp8h"]
+resource_local_to_scene = true
+font_size = 32
+font_color = Color(1.1294625, 0.83751404, 0.5196019, 1)
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 0.4627451)
+
+[node name="CharacterSelect" type="Control" unique_id=434395534]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_o15et")
+
+[node name="Scroller" type="Control" parent="." unique_id=2059871547]
+custom_minimum_size = Vector2(600, 100)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -650.0
+offset_top = 100.0
+offset_right = -50.0
+offset_bottom = 200.0
+grow_horizontal = 0
+
+[node name="Left" type="Button" parent="Scroller" unique_id=1944728600]
+custom_minimum_size = Vector2(60, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_right = 0.15
+anchor_bottom = 1.0
+grow_vertical = 2
+theme_override_styles/normal = ExtResource("5_w1hxv")
+theme_override_styles/pressed = ExtResource("6_w1hxv")
+theme_override_styles/hover = ExtResource("7_bqp8h")
+metadata/_edit_use_anchors_ = true
+
+[node name="Right" type="Button" parent="Scroller" unique_id=2060923989]
+custom_minimum_size = Vector2(60, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.85
+anchor_right = 0.95
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/normal = ExtResource("5_w1hxv")
+theme_override_styles/pressed = ExtResource("6_w1hxv")
+theme_override_styles/hover = ExtResource("7_bqp8h")
+metadata/_edit_use_anchors_ = true
+
+[node name="CardContainer" type="Node2D" parent="Scroller" unique_id=1895962319 node_paths=PackedStringArray("position_offset_node")]
+position = Vector2(250, 50)
+script = ExtResource("2_dmdmg")
+spacing = 30.0
+opacity_strength = 0.6
+follow_button_focus = true
+position_offset_node = NodePath("Container")
+metadata/_custom_type_script = "uid://b0skyd4kw75gp"
+
+[node name="Container" type="Control" parent="Scroller/CardContainer" unique_id=2055570096]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -0.5010462
+offset_right = -0.5010462
+
+[node name="CharacterCard" parent="Scroller/CardContainer/Container" unique_id=457543516 instance=ExtResource("3_au5l4")]
+modulate = Color(1, 1, 1, 0.9999952)
+z_index = 1
+layout_mode = 0
+offset_top = -50.0
+offset_bottom = 50.0
+scale = Vector2(0.9999979, 0.9999979)
+pivot_offset = Vector2(50, 50)
+
+[node name="CharacterCard2" parent="Scroller/CardContainer/Container" unique_id=569956329 instance=ExtResource("3_au5l4")]
+modulate = Color(1, 1, 1, 0.40000442)
+z_index = -1
+layout_mode = 0
+offset_left = 130.0
+offset_top = -50.0
+offset_right = 230.0
+offset_bottom = 50.0
+scale = Vector2(0.75000185, 0.75000185)
+pivot_offset = Vector2(50, 50)
+
+[node name="CharacterCard3" parent="Scroller/CardContainer/Container" unique_id=1181062918 instance=ExtResource("3_au5l4")]
+modulate = Color(1, 1, 1, 3.3324761e-06)
+z_index = -2
+layout_mode = 0
+offset_left = 260.0
+offset_top = -50.0
+offset_right = 360.0
+offset_bottom = 50.0
+scale = Vector2(0.5000021, 0.5000021)
+pivot_offset = Vector2(50, 50)
+
+[node name="Descript" type="Control" parent="." unique_id=699509830]
+custom_minimum_size = Vector2(600, 400)
+anchors_preset = 0
+anchor_left = 0.4921875
+anchor_top = 0.2777778
+anchor_right = 0.9609375
+anchor_bottom = 0.8333335
+offset_top = -1.5258789e-05
+metadata/_edit_use_anchors_ = true
+
+[node name="Bg" type="NinePatchRect" parent="Descript" unique_id=367843145]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_5wdeo")
+patch_margin_left = 47
+patch_margin_top = 56
+patch_margin_right = 51
+patch_margin_bottom = 51
+
+[node name="CenterContainer" type="CenterContainer" parent="Descript" unique_id=1897445708]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Descript/CenterContainer" unique_id=641507912]
+layout_mode = 2
+text = "角色描述"
+label_settings = SubResource("LabelSettings_5wdeo")
+
+[node name="Show" type="Control" parent="." unique_id=390226978]
+custom_minimum_size = Vector2(600, 720)
+anchors_preset = 0
+anchor_right = 0.46875
+anchor_bottom = 1.0
+offset_right = -560.0
+offset_bottom = -680.0
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Show" unique_id=2119800182]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="Name" type="Control" parent="." unique_id=2049550091]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 25.0
+offset_right = 100.0
+offset_bottom = 84.999985
+grow_horizontal = 2
+
+[node name="TextureRect" type="TextureRect" parent="Name" unique_id=275763336]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_w1hxv")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Name" unique_id=232619689]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "角色名称"
+label_settings = SubResource("LabelSettings_bqp8h")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DeployButton" type="Button" parent="." unique_id=1088647470]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 200.0
+offset_top = -100.0
+offset_right = 400.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = ExtResource("5_w1hxv")
+theme_override_styles/pressed = ExtResource("6_w1hxv")
+theme_override_styles/hover = ExtResource("7_bqp8h")
+text = "出击"

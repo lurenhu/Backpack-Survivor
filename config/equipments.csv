@@ -1,0 +1,3 @@
+ID,Name,Shape,Rarity,Attr,Price,Source,Type,Collision
+1,木棍,"1;1",0,"ATK:5,ROTATE_RADIUS:90,ROTATE_SPEED:10",5,"res://assets/res/entity/木质短剑（小.png",ROTATE,"res://assets/preset/collision_shape/WoodSward.tres"
+2,法杖,"1;1",0,"ATK:20,SHOOT_INTERVAL:0.5,BULLET_SPEED:200,SHOOT_RADIUS:300",10,"res://assets/res/entity/木质法杖（小.png",SHOOTER,

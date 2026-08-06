@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://8yutyr6pkw2o"]
+
+[ext_resource type="Script" uid="uid://cuc424bnaa8ee" path="res://scripts/game/module/main/view/character_card.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://c52ou6daw6f2n" path="res://assets/res/ui/底框.png" id="2_sdf1t"]
+[ext_resource type="Texture2D" uid="uid://bihg0mvrxnh2n" path="res://assets/res/ui/按钮底.png" id="3_5mrhd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nng66"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_01wtv"]
+bg_color = Color(0, 0, 0, 0.54901963)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nng66"]
+draw_center = false
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.5921569, 0.49019608, 0.4, 1)
+
+[node name="CharacterCard" type="Control" unique_id=457543516]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 100.0
+offset_bottom = 100.0
+focus_mode = 1
+script = ExtResource("1_script")
+
+[node name="CardShow" type="Control" parent="." unique_id=2007870594]
+clip_contents = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Bg" type="NinePatchRect" parent="CardShow" unique_id=1323816569]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_sdf1t")
+patch_margin_left = 43
+patch_margin_top = 46
+patch_margin_right = 44
+patch_margin_bottom = 47
+
+[node name="CardSelect" type="NinePatchRect" parent="CardShow" unique_id=82314226]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.5
+offset_top = -37.5
+offset_right = 37.5
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_5mrhd")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 11
+patch_margin_bottom = 9
+
+[node name="CardSprite" type="AnimatedSprite2D" parent="CardShow" unique_id=1737642687]
+position = Vector2(50, 70)
+scale = Vector2(0.75, 0.75)
+
+[node name="Click" type="Button" parent="." unique_id=1940771048]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_nng66")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_01wtv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_nng66")

@@ -1,0 +1,43 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://caxxnx5khu0he"]
+
+[ext_resource type="Texture2D" uid="uid://bmlxtv1u508qm" path="res://assets/res/entity/哥布林.png" id="1_megkk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1nm20"]
+atlas = ExtResource("1_megkk")
+region = Rect2(0, 0, 168, 141)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bfbt7"]
+atlas = ExtResource("1_megkk")
+region = Rect2(0, 0, 168, 141)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gt3hg"]
+atlas = ExtResource("1_megkk")
+region = Rect2(0, 0, 168, 141)
+
+[resource]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1nm20")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bfbt7")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gt3hg")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]

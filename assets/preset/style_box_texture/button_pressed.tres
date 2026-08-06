@@ -1,0 +1,11 @@
+[gd_resource type="StyleBoxTexture" format=3 uid="uid://cofb03f4qoc5d"]
+
+[ext_resource type="Texture2D" uid="uid://bihg0mvrxnh2n" path="res://assets/res/ui/按钮底.png" id="1_be2ix"]
+
+[resource]
+texture = ExtResource("1_be2ix")
+texture_margin_left = 10.055738
+texture_margin_top = 12.590111
+texture_margin_right = 11.036786
+texture_margin_bottom = 9.728723
+modulate_color = Color(0.56743413, 0.56743413, 0.56743413, 1)

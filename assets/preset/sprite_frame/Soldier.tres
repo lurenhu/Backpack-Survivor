@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://cgixbb5od17fp"]
+
+[ext_resource type="Texture2D" uid="uid://dqjbqvdwrns1e" path="res://assets/res/entity/战士（小人.png" id="1_7ervi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ekppp"]
+atlas = ExtResource("1_7ervi")
+region = Rect2(0, 0, 127, 143)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7icct"]
+atlas = ExtResource("1_7ervi")
+region = Rect2(0, 0, 127, 143)
+
+[resource]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ekppp")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7icct")
+}],
+"loop": true,
+"name": &"run",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_7ervi")
+}],
+"loop": true,
+"name": &"sprite",
+"speed": 5.0
+}]

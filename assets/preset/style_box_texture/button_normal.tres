@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" format=3 uid="uid://brgbn8u1fmjkl"]
+
+[ext_resource type="Texture2D" uid="uid://bihg0mvrxnh2n" path="res://assets/res/ui/按钮底.png" id="1_unodj"]
+
+[resource]
+texture = ExtResource("1_unodj")
+texture_margin_left = 10.873278
+texture_margin_top = 10.219246
+texture_margin_right = 9.319952
+texture_margin_bottom = 14.143436

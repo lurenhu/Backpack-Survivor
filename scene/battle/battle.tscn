@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://t7qtuvc12bbf"]
+
+[ext_resource type="Script" uid="uid://yxvaqf1wai4g" path="res://scripts/game/module/battle/view/battle.gd" id="1_yjev4"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_gk444"]
+[ext_resource type="PackedScene" uid="uid://gqawk1lcrsuy" path="res://scene/battle/entities/player.tscn" id="3_a12nh"]
+[ext_resource type="Texture2D" uid="uid://byrbl0nmtv0jr" path="res://assets/res/maps/Map_1.png" id="3_lpir7"]
+[ext_resource type="PackedScene" uid="uid://cgpwcqun28n5o" path="res://scene/battle/battle_ui.tscn" id="3_wq6iy"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="5_twcql"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_6y0hr"]
+
+[sub_resource type="Resource" id="Resource_5xu2w"]
+script = ExtResource("6_6y0hr")
+
+[node name="Battle" type="Node2D" unique_id=2071766315]
+script = ExtResource("1_yjev4")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=56271998]
+physics_interpolation_mode = 1
+top_level = true
+limit_left = -1200
+limit_top = -900
+limit_right = 1200
+limit_bottom = 900
+editor_draw_limits = true
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D" unique_id=915526490]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("2_gk444")
+
+[node name="Map" type="Node2D" parent="." unique_id=1522311848]
+
+[node name="Sprite2D" type="Sprite2D" parent="Map" unique_id=1812613139]
+texture = ExtResource("3_lpir7")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Map" unique_id=1039566087]
+collision_mask = 6
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Map/StaticBody2D" unique_id=563277774]
+build_mode = 1
+polygon = PackedVector2Array(-711, -309, -974, -134, -858, -28, -987, 139, -750, 309, -825, 395, -827, 554, -718, 687, -517, 691, -392, 565, -275, 611, -183, 526, 137, 523, 225, 606, 363, 556, 492, 683, 673, 682, 809, 553, 808, 407, 751, 333, 1008, 133, 860, 9, 984, -131, 720, -359, 813, -433, 805, -585, 673, -732, 489, -729, 373, -589, 209, -647, 145, -518, -184, -525, -271, -654, -383, -596, -514, -729, -695, -720, -813, -603, -816, -433)
+
+[node name="PickUpContainer" type="Node2D" parent="." unique_id=1657001260]
+
+[node name="EnemyContainer" type="Node2D" parent="." unique_id=644764787]
+
+[node name="BulletContainer" type="Node2D" parent="." unique_id=758089253]
+
+[node name="EnemySpawner" type="Node2D" parent="." unique_id=1714243216]
+
+[node name="Marker1" type="Marker2D" parent="EnemySpawner" unique_id=989921147]
+position = Vector2(-604, -512)
+
+[node name="Marker2" type="Marker2D" parent="EnemySpawner" unique_id=64770755]
+position = Vector2(591, -517)
+
+[node name="Marker3" type="Marker2D" parent="EnemySpawner" unique_id=892596420]
+position = Vector2(-602, 484)
+
+[node name="Marker4" type="Marker2D" parent="EnemySpawner" unique_id=327200245]
+position = Vector2(594, 479)
+
+[node name="Node" type="Node" parent="." unique_id=1443999008]
+
+[node name="Player" parent="Node" unique_id=664285230 instance=ExtResource("3_a12nh")]
+
+[node name="PhantomCamera2D" type="Node2D" parent="Node" unique_id=1375732126 node_paths=PackedStringArray("follow_target")]
+top_level = true
+script = ExtResource("5_twcql")
+priority = 1
+follow_mode = 5
+follow_target = NodePath("../Player")
+tween_resource = SubResource("Resource_5xu2w")
+follow_damping = true
+follow_damping_value = Vector2(0.2, 0.2)
+dead_zone_width = 0.1
+dead_zone_height = 0.1
+show_viewfinder_in_play = true
+draw_limits = true
+limit_left = -1200
+limit_top = -900
+limit_right = 1200
+limit_bottom = 900
+
+[node name="StageTimer" type="Timer" parent="." unique_id=165249974]
+one_shot = true
+
+[node name="BattleUI" parent="." unique_id=1359685648 instance=ExtResource("3_wq6iy")]

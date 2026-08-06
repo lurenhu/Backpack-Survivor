@@ -1,0 +1,42 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://178dassf1d2n"]
+
+[ext_resource type="Texture2D" uid="uid://c6pie3livdbhw" path="res://assets/res/entity/骷髅法师.png" id="1_1xtgv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5025c"]
+atlas = ExtResource("1_1xtgv")
+region = Rect2(0, 0, 148, 104)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wkca"]
+atlas = ExtResource("1_1xtgv")
+region = Rect2(0, 0, 148, 104)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seytf"]
+atlas = ExtResource("1_1xtgv")
+region = Rect2(0, 0, 148, 104)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5025c")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wkca")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_seytf")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]

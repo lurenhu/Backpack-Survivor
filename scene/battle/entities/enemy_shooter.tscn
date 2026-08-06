@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://kxv4uklaedpl"]
+
+[ext_resource type="Script" uid="uid://c4cth4fgjubaw" path="res://scripts/game/module/battle/view/entities/enemy_shooter.gd" id="1_plbx6"]
+[ext_resource type="PackedScene" uid="uid://bwj3dedthwwrx" path="res://scene/battle/entities/shooter.tscn" id="2_5025c"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vbh4y"]
+radius = 32.0
+height = 102.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5025c"]
+radius = 77.02597
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vbh4y"]
+radius = 300.0
+
+[node name="EnemyShooter" type="CharacterBody2D" unique_id=319728877]
+collision_layer = 4
+collision_mask = 65
+script = ExtResource("1_plbx6")
+
+[node name="BodySprite" type="AnimatedSprite2D" parent="." unique_id=445990586]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=86462427]
+
+[node name="BodyShape" type="CollisionShape2D" parent="." unique_id=212944282]
+shape = SubResource("CapsuleShape2D_vbh4y")
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=1341994768]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=64009046]
+shape = SubResource("CircleShape2D_5025c")
+debug_color = Color(0.86425894, 0.31406105, 0.45322382, 0.41960785)
+
+[node name="DetectArea" type="Area2D" parent="." unique_id=1718658454]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectArea" unique_id=1304389768]
+shape = SubResource("CircleShape2D_vbh4y")
+debug_color = Color(0.3738019, 0.6090703, 0.24952078, 0.41960785)
+
+[node name="HitTimer" type="Timer" parent="." unique_id=24866100]
+wait_time = 0.1
+one_shot = true
+
+[node name="Shooter" parent="." unique_id=840961110 instance=ExtResource("2_5025c")]

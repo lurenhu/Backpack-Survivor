@@ -1,0 +1,130 @@
+[gd_scene format=3 uid="uid://drm5m0xdcdnp0"]
+
+[ext_resource type="PackedScene" uid="uid://hiroam8ttu4n" path="res://scene/map/map.tscn" id="1_0ofbn"]
+[ext_resource type="PackedScene" uid="uid://dtc1i4ctt8jx0" path="res://scene/map/map_node_button.tscn" id="2_sxq3w"]
+
+[node name="Map" unique_id=83536416 instance=ExtResource("1_0ofbn")]
+
+[node name="MapNodeButton" parent="MapNodeContainer" parent_id_path=PackedInt32Array(951894821) index="0" unique_id=139152212 instance=ExtResource("2_sxq3w")]
+layout_mode = 0
+offset_left = 139.0
+offset_top = 571.0
+offset_right = 235.0
+offset_bottom = 667.0
+map_id = 1
+
+[node name="MapNodeButton2" parent="MapNodeContainer" parent_id_path=PackedInt32Array(951894821) index="1" unique_id=471926928 instance=ExtResource("2_sxq3w")]
+layout_mode = 0
+offset_left = 130.0
+offset_top = 455.0
+offset_right = 226.0
+offset_bottom = 551.0
+map_id = 1
+layer = 1
+
+[node name="MapNodeButton3" parent="MapNodeContainer" parent_id_path=PackedInt32Array(951894821) index="2" unique_id=1948328673 instance=ExtResource("2_sxq3w")]
+layout_mode = 0
+offset_left = 234.0
+offset_top = 480.0
+offset_right = 330.0
+offset_bottom = 576.0
+map_id = 1
+layer = 1
+index = 1
+
+[node name="MapNodeButton4" parent="MapNodeContainer" parent_id_path=PackedInt32Array(951894821) index="3" unique_id=1747959336 instance=ExtResource("2_sxq3w")]
+layout_mode = 0
+offset_left = 278.0
+offset_top = 579.0
+offset_right = 374.0
+offset_bottom = 675.0
+map_id = 1
+layer = 1
+index = 2
+
+[node name="MapNodeButton5" parent="MapNodeContainer" parent_id_path=PackedInt32Array(951894821) index="4" unique_id=662145243 instance=ExtResource("2_sxq3w")]
+layout_mode = 0
+offset_left = 166.0
+offset_top = 328.0
+offset_right = 262.0
+offset_bottom = 424.0
+map_id = 1
+layer = 2
+
+[node name="MapNodeButton6" parent="MapNodeContainer" parent_id_path=PackedInt32Array(951894821) index="5" unique_id=1257494513 instance=ExtResource("2_sxq3w")]
+layout_mode = 0
+offset_left = 292.0
+offset_top = 383.0
+offset_right = 388.0
+offset_bottom = 479.0
+map_id = 1
+layer = 2
+index = 1
+
+[node name="MapNodeButton7" parent="MapNodeContainer" parent_id_path=PackedInt32Array(951894821) index="6" unique_id=1816042103 instance=ExtResource("2_sxq3w")]
+layout_mode = 0
+offset_left = 411.0
+offset_top = 524.0
+offset_right = 507.0
+offset_bottom = 620.0
+map_id = 1
+layer = 2
+index = 2
+
+[node name="MapNodeButton8" parent="MapNodeContainer" parent_id_path=PackedInt32Array(951894821) index="7" unique_id=1929445781 instance=ExtResource("2_sxq3w")]
+layout_mode = 0
+offset_left = 268.0
+offset_top = 209.0
+offset_right = 364.0
+offset_bottom = 305.0
+map_id = 1
+layer = 3
+
+[node name="MapNodeButton9" parent="MapNodeContainer" parent_id_path=PackedInt32Array(951894821) index="8" unique_id=910806829 instance=ExtResource("2_sxq3w")]
+layout_mode = 0
+offset_left = 394.0
+offset_top = 303.0
+offset_right = 490.0
+offset_bottom = 399.0
+map_id = 1
+layer = 3
+index = 1
+
+[node name="MapNodeButton10" parent="MapNodeContainer" parent_id_path=PackedInt32Array(951894821) index="9" unique_id=917783135 instance=ExtResource("2_sxq3w")]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 389.0
+offset_right = 546.0
+offset_bottom = 485.0
+map_id = 1
+layer = 3
+index = 2
+
+[node name="MapNodeButton11" parent="MapNodeContainer" parent_id_path=PackedInt32Array(951894821) index="10" unique_id=1913969219 instance=ExtResource("2_sxq3w")]
+layout_mode = 0
+offset_left = 535.0
+offset_top = 497.0
+offset_right = 631.0
+offset_bottom = 593.0
+map_id = 1
+layer = 3
+index = 3
+
+[node name="MapNodeButton12" parent="MapNodeContainer" parent_id_path=PackedInt32Array(951894821) index="11" unique_id=742809834 instance=ExtResource("2_sxq3w")]
+layout_mode = 0
+offset_left = 472.0
+offset_top = 184.0
+offset_right = 568.0
+offset_bottom = 280.0
+map_id = 1
+layer = 4
+
+[node name="MapNodeButton13" parent="MapNodeContainer" parent_id_path=PackedInt32Array(951894821) index="12" unique_id=688847770 instance=ExtResource("2_sxq3w")]
+layout_mode = 0
+offset_left = 585.0
+offset_top = 304.0
+offset_right = 681.0
+offset_bottom = 400.0
+map_id = 1
+layer = 4
+index = 1

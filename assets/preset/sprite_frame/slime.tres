@@ -1,0 +1,42 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://lffv7g3g06ks"]
+
+[ext_resource type="Texture2D" uid="uid://db4xk0d0k0x6e" path="res://assets/res/entity/史莱姆1.png" id="1_icivn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30oaa"]
+atlas = ExtResource("1_icivn")
+region = Rect2(0, 0, 101, 95)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bvnwm"]
+atlas = ExtResource("1_icivn")
+region = Rect2(0, 0, 101, 95)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i1bkh"]
+atlas = ExtResource("1_icivn")
+region = Rect2(0, 0, 101, 95)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_30oaa")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bvnwm")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i1bkh")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]

@@ -1,0 +1,13 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# ai skill 及相关配置文件
+.agent/
+.claude/
+skills-lock.json
+
+.vscode/
+.DS_Store
+*.uid
+

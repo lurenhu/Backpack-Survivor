@@ -1,0 +1,151 @@
+[gd_scene format=4 uid="uid://cvaukrbrrjoe6"]
+
+[ext_resource type="TileSet" uid="uid://dbgfs1lakql7e" path="res://assets/preset/tile_set/UI_Grid.tres" id="1_ewcwq"]
+[ext_resource type="Script" uid="uid://dueotw0sjdlh2" path="res://scripts/game/module/backpack/view/package.gd" id="1_rxkfn"]
+[ext_resource type="Texture2D" uid="uid://bpgpvi364llbf" path="res://assets/res/ui/标题底.png" id="2_1nnao"]
+[ext_resource type="Texture2D" uid="uid://c52ou6daw6f2n" path="res://assets/res/ui/底框.png" id="2_5p14u"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1nnao"]
+font_size = 32
+font_color = Color(1.1294625, 0.83751404, 0.5196019, 1)
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 0.4627451)
+
+[node name="Package" type="Control" unique_id=81504182]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 400.0
+offset_bottom = 648.0
+script = ExtResource("1_rxkfn")
+
+[node name="Bg" type="NinePatchRect" parent="." unique_id=1934485852]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_5p14u")
+region_rect = Rect2(0, 0, 130, 128)
+patch_margin_left = 43
+patch_margin_top = 45
+patch_margin_right = 41
+patch_margin_bottom = 51
+metadata/_edit_use_anchors_ = true
+
+[node name="TitlePackage" type="Control" parent="." unique_id=827664362]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.0
+offset_top = 40.0
+offset_right = 60.0
+offset_bottom = 100.0
+grow_horizontal = 2
+
+[node name="TextureRect" type="TextureRect" parent="TitlePackage" unique_id=1973830708]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_1nnao")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="TitlePackage" unique_id=316870358]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -12.0
+offset_right = 20.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "背包"
+label_settings = SubResource("LabelSettings_1nnao")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TitleStage" type="Control" parent="." unique_id=18612998]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.0
+offset_top = 390.0
+offset_right = 60.0
+offset_bottom = 450.0
+grow_horizontal = 2
+
+[node name="TextureRect" type="TextureRect" parent="TitleStage" unique_id=122863061]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_1nnao")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="TitleStage" unique_id=1744872353]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -12.0
+offset_right = 20.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "仓库"
+label_settings = SubResource("LabelSettings_1nnao")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PakageGrid" type="Control" parent="." unique_id=1010992693]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -128.0
+offset_top = 120.0
+offset_right = 128.0
+offset_bottom = 376.0
+grow_horizontal = 2
+
+[node name="GridTile" type="TileMapLayer" parent="PakageGrid" unique_id=877019717]
+tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAMAAQAAAAAAAAAAAAQAAQAAAAAAAAAAAAUAAQAAAAAAAAAAAAYAAQAAAAAAAAAAAAcAAQAAAAAAAAABAAAAAQAAAAAAAAABAAEAAQAAAAAAAAABAAIAAQAAAAAAAAABAAMAAQAAAAAAAAABAAQAAQAAAAAAAAABAAUAAQAAAAAAAAABAAYAAQAAAAAAAAABAAcAAQAAAAAAAAACAAAAAQAAAAAAAAACAAEAAQAAAAAAAAACAAIAAQAAAAAAAAACAAMAAQAAAAAAAAACAAQAAQAAAAAAAAACAAUAAQAAAAAAAAACAAYAAQAAAAAAAAACAAcAAQAAAAAAAAADAAAAAQAAAAAAAAADAAEAAQAAAAAAAAADAAIAAQAAAAAAAAADAAMAAQAAAAAAAAADAAQAAQAAAAAAAAADAAUAAQAAAAAAAAADAAYAAQAAAAAAAAADAAcAAQAAAAAAAAAEAAAAAQAAAAAAAAAEAAEAAQAAAAAAAAAEAAIAAQAAAAAAAAAEAAMAAQAAAAAAAAAEAAQAAQAAAAAAAAAEAAUAAQAAAAAAAAAEAAYAAQAAAAAAAAAEAAcAAQAAAAAAAAAFAAAAAQAAAAAAAAAFAAEAAQAAAAAAAAAFAAIAAQAAAAAAAAAFAAMAAQAAAAAAAAAFAAQAAQAAAAAAAAAFAAUAAQAAAAAAAAAFAAYAAQAAAAAAAAAFAAcAAQAAAAAAAAAGAAAAAQAAAAAAAAAGAAEAAQAAAAAAAAAGAAIAAQAAAAAAAAAGAAMAAQAAAAAAAAAGAAQAAQAAAAAAAAAGAAUAAQAAAAAAAAAGAAYAAQAAAAAAAAAGAAcAAQAAAAAAAAAHAAAAAQAAAAAAAAAHAAEAAQAAAAAAAAAHAAIAAQAAAAAAAAAHAAMAAQAAAAAAAAAHAAQAAQAAAAAAAAAHAAUAAQAAAAAAAAAHAAYAAQAAAAAAAAAHAAcAAQAAAAAAAAA=")
+tile_set = ExtResource("1_ewcwq")
+
+[node name="StageGrid" type="Control" parent="." unique_id=1302915849]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -128.0
+offset_top = -183.0
+offset_right = 128.0
+offset_bottom = -55.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="GridTile" type="TileMapLayer" parent="StageGrid" unique_id=1173733189]
+tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAMAAQAAAAAAAAABAAAAAQAAAAAAAAABAAEAAQAAAAAAAAABAAIAAQAAAAAAAAABAAMAAQAAAAAAAAACAAAAAQAAAAAAAAACAAEAAQAAAAAAAAACAAIAAQAAAAAAAAACAAMAAQAAAAAAAAADAAAAAQAAAAAAAAADAAEAAQAAAAAAAAADAAIAAQAAAAAAAAADAAMAAQAAAAAAAAAEAAAAAQAAAAAAAAAEAAEAAQAAAAAAAAAEAAIAAQAAAAAAAAAEAAMAAQAAAAAAAAAFAAAAAQAAAAAAAAAFAAEAAQAAAAAAAAAFAAIAAQAAAAAAAAAFAAMAAQAAAAAAAAAGAAAAAQAAAAAAAAAGAAEAAQAAAAAAAAAGAAIAAQAAAAAAAAAGAAMAAQAAAAAAAAAHAAAAAQAAAAAAAAAHAAEAAQAAAAAAAAAHAAIAAQAAAAAAAAAHAAMAAQAAAAAAAAA=")
+tile_set = ExtResource("1_ewcwq")
+
+[node name="CardContainer" type="Control" parent="." unique_id=368680537]
+layout_mode = 1
+anchors_preset = 0

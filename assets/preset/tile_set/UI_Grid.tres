@@ -1,0 +1,26 @@
+[gd_resource type="TileSet" format=3 uid="uid://dbgfs1lakql7e"]
+
+[ext_resource type="Texture2D" uid="uid://81rd6m3cqomb" path="res://assets/res/ui/背包格子.png" id="1_h8xdl"]
+[ext_resource type="Texture2D" uid="uid://c4va18lv4mdww" path="res://assets/res/ui/背包格子_绿.png" id="2_7glia"]
+[ext_resource type="Texture2D" uid="uid://blftspfqtdfv7" path="res://assets/res/ui/背包格子_红.png" id="3_h8xdl"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_73gt4"]
+texture = ExtResource("1_h8xdl")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ff8tu"]
+texture = ExtResource("2_7glia")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bpm3h"]
+texture = ExtResource("3_h8xdl")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[resource]
+tile_size = Vector2i(32, 32)
+sources/2 = SubResource("TileSetAtlasSource_ff8tu")
+sources/1 = SubResource("TileSetAtlasSource_73gt4")
+sources/3 = SubResource("TileSetAtlasSource_bpm3h")
