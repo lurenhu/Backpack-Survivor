@@ -2,35 +2,45 @@ class_name Equipment
 extends RefCounted
 ## 装备数据：持有配置ID、形状和旋转状态
 
-enum EQUIPMENT_STATE {
-	SHOP = 0,
-	BACKPACK,
-	STAGE,
-}
-
 enum EQUIPMENT_TYPE {
 	ROTATE = 0,
 	SHOOTER,
 }
 
-var config_id: int = 0
+var id: int = 0
+var name: String
+var rarity: int
+var attr: Dictionary # {"ATK": 5, "ROTATE_RADIUS": 90, ...}
+var price: int
+var source: String
+var collision: String
 var shape: Array[Array] = []
-var rotate_times: int = 0
 var type: EQUIPMENT_TYPE = EQUIPMENT_TYPE.ROTATE
 
+## 当前装备在网格中的旋转次数
+var rotate_times: int = 0
 ## 在背包或者暂存区的网格坐标
 var grid_pos: Vector2i = Vector2i.ZERO
 ## 当前装备位于哪个状态
-var state: EQUIPMENT_STATE = EQUIPMENT_STATE.SHOP
+var state: BackpackManager.GridType = BackpackManager.GridType.NONE
 
 ## 初始化装备数据：加载配置并记录形状
-func _init(p_config_id: int) -> void:
-	config_id = p_config_id
-	var config: EquipmentData = GameConfig.equipment[config_id]
+func _init(equipment_id: int) -> void:
+	var config: EquipmentData = GameConfig.equipment[equipment_id]
 	if config == null:
 		return
+	
+	id = equipment_id
+	name = config.name
+	rarity = config.rarity
+	attr = config.attr.duplicate(true)
+	price = config.price
+	source = config.source
+	collision = config.collision
 	shape = config.shape.duplicate(true)
 	type = config.type
+
+	state = BackpackManager.GridType.NONE
 
 
 ## 顺时针旋转90度并更新形状
@@ -43,7 +53,7 @@ func rotate_clockwise() -> Array[Array]:
 func is_equal(other: Equipment) -> bool:
 	if not other:
 		return false
-	if config_id != other.config_id:
+	if id != other.id:
 		return false
 	if rotate_times != other.rotate_times:
 		return false
@@ -53,17 +63,36 @@ func is_equal(other: Equipment) -> bool:
 		return false
 	return true
 
+
 ## 深拷贝当前装备，包括形状矩阵
 func copy() -> Equipment:
-	var new_equip: Equipment = Equipment.new(config_id)
+	var new_equip: Equipment = Equipment.new(id)
 	new_equip.rotate_times = rotate_times
 	new_equip.grid_pos = grid_pos
 	new_equip.state = state
 	new_equip.shape = shape.duplicate(true)
+	new_equip.attr = attr.duplicate(true)
 	return new_equip
 
+
+## 完全复制传入装备数值
+func copy_equipment(equipment: Equipment):
+	id = equipment.id
+	name = equipment.name
+	rarity = equipment.rarity
+	attr = equipment.attr.duplicate(true)
+	price = equipment.price
+	source = equipment.source
+	collision = equipment.collision
+	shape = equipment.shape.duplicate(true)
+	type = equipment.type
+	rotate_times = equipment.rotate_times
+	grid_pos = equipment.grid_pos
+	state = equipment.state
+
+
 ## 将形状矩阵顺时针旋转90度
-static func _rotate_shape_90(s: Array[Array]) -> Array[Array]:
+func _rotate_shape_90(s: Array[Array]) -> Array[Array]:
 	if s.is_empty():
 		return []
 	var old_h: int = s.size()

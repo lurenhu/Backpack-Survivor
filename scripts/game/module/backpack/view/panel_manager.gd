@@ -20,7 +20,7 @@ func _ready() -> void:
 	map.add_child(map_scene.instantiate())
 
 	for card in shop.get_cards():
-		card.drag_dropped.connect(_on_equipment_dropped)
+		card.drag_dropped.connect(_on_equipment_dropped.bind(card))
 		package.register_dragging_card(card)
 	
 	shop.exit_button.pressed.connect(_on_exit_button_pressed)
@@ -76,61 +76,48 @@ func hide_package() -> void:
 
 ## 拒绝放置：卡片归位
 func _reject_drop(equipment: Equipment) -> void:
-	var card: EquipmentCard = shop.get_card_from_equip(equipment)
-	if card:
-		card.return_to_origin()
+	match equipment.state:
+		BackpackManager.GridType.SHOP:
+			var card: EquipmentCard = shop.get_card_from_equip(equipment)
+			if card:
+				card.return_to_origin()
 
 #endregion
 
 #region 信号回调
 
 ## 装备拖拽放置处理：判断是否落在背包网格内，执行放置或归位
-func _on_equipment_dropped(equipment: Equipment, screen_position: Vector2) -> void:
+func _on_equipment_dropped(screen_position: Vector2, equipment_card: EquipmentCard) -> void:
+	var origin_grid_type: BackpackManager.GridType = equipment_card.origin_equipment.state
+	match origin_grid_type:
+		BackpackManager.GridType.SHOP:
+			if GameState.gold < equipment_card.equipment.price:
+				equipment_card.return_to_origin()
+				return
+
+	# 判断背包对应区域是否可放置对应装备
+	var can_place: bool = false
 	var grid_pos: Vector2i = Vector2i(-1, -1)
-	var target_type: int = -1 # 0=backpack, 1=stage
-
-	var pakage_rect: Rect2 = $Package/PakageGrid.get_global_rect()
-	var stage_rect: Rect2 = $Package/StageGrid.get_global_rect()
-
-	if pakage_rect.has_point(screen_position):
-		grid_pos = BackpackManager.screen_to_grid(screen_position, $Package/PakageGrid.global_position)
-		target_type = 0
-	elif stage_rect.has_point(screen_position):
-		grid_pos = BackpackManager.screen_to_grid(screen_position, $Package/StageGrid.global_position)
-		target_type = 1
-
-	if grid_pos.x < 0 or grid_pos.y < 0:
-		# 未落在任何网格内，归位
-		_reject_drop(equipment)
-		return
-
-	# 扣金币
-	var config: EquipmentData = GameConfig.equipment[equipment.config_id]
-	var price: int = config.price
-	if GameState.gold < price:
-		_reject_drop(equipment)
-		return
-	GameState.gold -= price
-
-	# 拷贝一份装备数据用于放置，避免修改商店卡片的原始引用
-	var equip: Equipment = equipment.copy()
-
-	# 执行放置
-	var placed: bool = false
-	if target_type == 0:
-		placed = BackpackManager.add_to_backpack(equip, grid_pos)
+	if package.backpack_container.get_global_rect().has_point(screen_position):
+		grid_pos = BackpackManager.screen_to_grid(screen_position, package.backpack_container.global_position)
+		equipment_card.equipment.state = BackpackManager.GridType.PACKAGE
+	elif package.stage_container.get_global_rect().has_point(screen_position):
+		grid_pos = BackpackManager.screen_to_grid(screen_position, package.stage_container.global_position)
+		equipment_card.equipment.state = BackpackManager.GridType.STAGE
 	else:
-		placed = BackpackManager.add_to_stage(equip, grid_pos)
+		equipment_card.return_to_origin()
+		return
+	equipment_card.equipment.grid_pos = grid_pos
+	var new_equipment = equipment_card.equipment.copy()
+	can_place = BackpackManager.add_to_equip_grid(new_equipment, grid_pos)
 
-	if placed:
-		var card: EquipmentCard = shop.get_card_from_equip(equipment)
-		if card:
-			card.visible = false
-			card.return_to_origin()
-	else:
-		# 放置失败，归还金币
-		GameState.gold += price
-		_reject_drop(equipment)
+	# 实例化卡片
+	match origin_grid_type:
+		BackpackManager.GridType.SHOP:
+			if can_place and GameState.gold >= equipment_card.equipment.price:
+				GameState.gold -= equipment_card.equipment.price
+				equipment_card.visible = false
+			equipment_card.return_to_origin()
 
 
 ## 关闭隐藏商店界面

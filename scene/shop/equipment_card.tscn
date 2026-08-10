@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://02k27p5jqln6"]
 
-[ext_resource type="Script" uid="uid://bi13phoqi22m3" path="res://scripts/game/module/shop/data/equipment_card.gd" id="1_hafxn"]
+[ext_resource type="Script" uid="uid://yi7osx5icqm1" path="res://scripts/game/module/backpack/view/equipment_card.gd" id="1_hafxn"]
 [ext_resource type="TileSet" uid="uid://dbgfs1lakql7e" path="res://assets/preset/tile_set/UI_Grid.tres" id="2_helbr"]
 [ext_resource type="Shader" uid="uid://d2gb6bwmvr5t" path="res://scripts/game/shader/2d_perspctive.gdshader" id="3_5dr6q"]
 [ext_resource type="Texture2D" uid="uid://c54vhhnq5bn2n" path="res://assets/res/entity/木质短剑（小.png" id="4_2dh77"]
@@ -13,6 +13,7 @@ shader_parameter/cull_back = true
 shader_parameter/y_rot = 0.0
 shader_parameter/x_rot = 0.0
 shader_parameter/inset = 0.0
+shader_parameter/modulate = Color(1, 1, 1, 1)
 
 [node name="EquipmentCard" type="Control" unique_id=63713]
 custom_minimum_size = Vector2(32, 64)

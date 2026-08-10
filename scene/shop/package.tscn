@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://cvaukrbrrjoe6"]
 
 [ext_resource type="TileSet" uid="uid://dbgfs1lakql7e" path="res://assets/preset/tile_set/UI_Grid.tres" id="1_ewcwq"]
-[ext_resource type="Script" uid="uid://dueotw0sjdlh2" path="res://scripts/game/module/backpack/view/package.gd" id="1_rxkfn"]
+[ext_resource type="Script" uid="uid://bw741itnac4q0" path="res://scripts/game/module/backpack/view/package/package.gd" id="1_rxkfn"]
 [ext_resource type="Texture2D" uid="uid://bpgpvi364llbf" path="res://assets/res/ui/标题底.png" id="2_1nnao"]
 [ext_resource type="Texture2D" uid="uid://c52ou6daw6f2n" path="res://assets/res/ui/底框.png" id="2_5p14u"]
 

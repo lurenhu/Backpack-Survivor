@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d3tmcfp4sg3ru"]
 
-[ext_resource type="Script" uid="uid://d3yhsa1wa4ird" path="res://scripts/game/module/shop/view/shop.gd" id="1_rwv1s"]
+[ext_resource type="Script" uid="uid://cf0ya74gjypop" path="res://scripts/game/module/backpack/view/shop/shop.gd" id="1_rwv1s"]
 [ext_resource type="Texture2D" uid="uid://c52ou6daw6f2n" path="res://assets/res/ui/底框.png" id="2_mf44u"]
 [ext_resource type="Texture2D" uid="uid://bpgpvi364llbf" path="res://assets/res/ui/标题底.png" id="3_qvagu"]
 [ext_resource type="StyleBox" uid="uid://brgbn8u1fmjkl" path="res://assets/preset/style_box_texture/button_normal.tres" id="4_8r1wq"]
@@ -168,12 +168,12 @@ metadata/_edit_use_anchors_ = true
 [node name="EquipmentCard" parent="Market/Commodity_1/CenterContainer" unique_id=63713 instance=ExtResource("6_xnav0")]
 layout_mode = 2
 
-[node name="Commodity_2" type="Control" parent="Market" unique_id=427600704]
+[node name="Commodity_2" type="Control" parent="Market" unique_id=538205746]
 custom_minimum_size = Vector2(100, 150)
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Bg" type="NinePatchRect" parent="Market/Commodity_2" unique_id=803970187]
+[node name="Bg" type="NinePatchRect" parent="Market/Commodity_2" unique_id=2042583620]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -187,7 +187,7 @@ patch_margin_top = 46
 patch_margin_right = 38
 patch_margin_bottom = 50
 
-[node name="QualityBg" type="NinePatchRect" parent="Market/Commodity_2" unique_id=356446383]
+[node name="QualityBg" type="NinePatchRect" parent="Market/Commodity_2" unique_id=707460328]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -207,7 +207,7 @@ patch_margin_top = 41
 patch_margin_right = 33
 patch_margin_bottom = 32
 
-[node name="Name" type="Label" parent="Market/Commodity_2" unique_id=1429243438]
+[node name="Name" type="Label" parent="Market/Commodity_2" unique_id=753957135]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -223,7 +223,7 @@ label_settings = SubResource("LabelSettings_phhfx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="Market/Commodity_2" unique_id=56462123]
+[node name="CenterContainer" type="CenterContainer" parent="Market/Commodity_2" unique_id=1928198467]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.1
@@ -234,15 +234,15 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="EquipmentCard" parent="Market/Commodity_2/CenterContainer" unique_id=1843282727 instance=ExtResource("6_xnav0")]
+[node name="EquipmentCard" parent="Market/Commodity_2/CenterContainer" unique_id=1387641001 instance=ExtResource("6_xnav0")]
 layout_mode = 2
 
-[node name="Commodity_3" type="Control" parent="Market" unique_id=226143992]
+[node name="Commodity_3" type="Control" parent="Market" unique_id=2140284759]
 custom_minimum_size = Vector2(100, 150)
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Bg" type="NinePatchRect" parent="Market/Commodity_3" unique_id=406797188]
+[node name="Bg" type="NinePatchRect" parent="Market/Commodity_3" unique_id=1973555433]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -256,7 +256,7 @@ patch_margin_top = 46
 patch_margin_right = 38
 patch_margin_bottom = 50
 
-[node name="QualityBg" type="NinePatchRect" parent="Market/Commodity_3" unique_id=1345943351]
+[node name="QualityBg" type="NinePatchRect" parent="Market/Commodity_3" unique_id=624393996]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -276,7 +276,7 @@ patch_margin_top = 41
 patch_margin_right = 33
 patch_margin_bottom = 32
 
-[node name="Name" type="Label" parent="Market/Commodity_3" unique_id=800655247]
+[node name="Name" type="Label" parent="Market/Commodity_3" unique_id=552150003]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -292,7 +292,7 @@ label_settings = SubResource("LabelSettings_phhfx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="Market/Commodity_3" unique_id=1638268787]
+[node name="CenterContainer" type="CenterContainer" parent="Market/Commodity_3" unique_id=697784085]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.1
@@ -303,15 +303,15 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="EquipmentCard" parent="Market/Commodity_3/CenterContainer" unique_id=542166323 instance=ExtResource("6_xnav0")]
+[node name="EquipmentCard" parent="Market/Commodity_3/CenterContainer" unique_id=1627085069 instance=ExtResource("6_xnav0")]
 layout_mode = 2
 
-[node name="Commodity_4" type="Control" parent="Market" unique_id=978453547]
+[node name="Commodity_4" type="Control" parent="Market" unique_id=307900092]
 custom_minimum_size = Vector2(100, 150)
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Bg" type="NinePatchRect" parent="Market/Commodity_4" unique_id=857717210]
+[node name="Bg" type="NinePatchRect" parent="Market/Commodity_4" unique_id=695825963]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -325,7 +325,7 @@ patch_margin_top = 46
 patch_margin_right = 38
 patch_margin_bottom = 50
 
-[node name="QualityBg" type="NinePatchRect" parent="Market/Commodity_4" unique_id=750736013]
+[node name="QualityBg" type="NinePatchRect" parent="Market/Commodity_4" unique_id=2055967970]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -345,7 +345,7 @@ patch_margin_top = 41
 patch_margin_right = 33
 patch_margin_bottom = 32
 
-[node name="Name" type="Label" parent="Market/Commodity_4" unique_id=1123500412]
+[node name="Name" type="Label" parent="Market/Commodity_4" unique_id=1245884267]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -361,7 +361,7 @@ label_settings = SubResource("LabelSettings_phhfx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="Market/Commodity_4" unique_id=2052963612]
+[node name="CenterContainer" type="CenterContainer" parent="Market/Commodity_4" unique_id=1895674745]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.1
@@ -372,15 +372,15 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="EquipmentCard" parent="Market/Commodity_4/CenterContainer" unique_id=1661705546 instance=ExtResource("6_xnav0")]
+[node name="EquipmentCard" parent="Market/Commodity_4/CenterContainer" unique_id=1243449663 instance=ExtResource("6_xnav0")]
 layout_mode = 2
 
-[node name="Commodity_5" type="Control" parent="Market" unique_id=1138581482]
+[node name="Commodity_5" type="Control" parent="Market" unique_id=2069519813]
 custom_minimum_size = Vector2(100, 150)
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Bg" type="NinePatchRect" parent="Market/Commodity_5" unique_id=522414519]
+[node name="Bg" type="NinePatchRect" parent="Market/Commodity_5" unique_id=1764728227]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -394,7 +394,7 @@ patch_margin_top = 46
 patch_margin_right = 38
 patch_margin_bottom = 50
 
-[node name="QualityBg" type="NinePatchRect" parent="Market/Commodity_5" unique_id=1944143792]
+[node name="QualityBg" type="NinePatchRect" parent="Market/Commodity_5" unique_id=732521817]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -414,7 +414,7 @@ patch_margin_top = 41
 patch_margin_right = 33
 patch_margin_bottom = 32
 
-[node name="Name" type="Label" parent="Market/Commodity_5" unique_id=1063469711]
+[node name="Name" type="Label" parent="Market/Commodity_5" unique_id=1015859266]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -430,7 +430,7 @@ label_settings = SubResource("LabelSettings_phhfx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="Market/Commodity_5" unique_id=1969784853]
+[node name="CenterContainer" type="CenterContainer" parent="Market/Commodity_5" unique_id=641055125]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.1
@@ -441,7 +441,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="EquipmentCard" parent="Market/Commodity_5/CenterContainer" unique_id=620948569 instance=ExtResource("6_xnav0")]
+[node name="EquipmentCard" parent="Market/Commodity_5/CenterContainer" unique_id=674400875 instance=ExtResource("6_xnav0")]
 layout_mode = 2
 
 [node name="RefreshButton" type="Button" parent="." unique_id=1188206376]

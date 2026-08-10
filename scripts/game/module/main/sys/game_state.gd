@@ -1,8 +1,6 @@
 extends Node
 ## 单例：游戏状态管理器，维护全局状态机和运行数据
 
-enum GameStep {MAIN_MENU, CHARACTER, UPGRADE, BATTLE}
-
 @export var fade_out_speed: float = 0.5
 @export var fade_in_speed: float = 0.5
 @export var fade_out_pattern: String = "squares"
@@ -20,7 +18,6 @@ enum GameStep {MAIN_MENU, CHARACTER, UPGRADE, BATTLE}
 @onready var fade_in_options = SceneManager.create_options(fade_in_speed, fade_in_pattern, fade_in_smoothness, fade_in_inverted)
 @onready var general_options = SceneManager.create_general_options(color, timeout, clickable, add_to_back)
 
-var current_state: GameStep = GameStep.MAIN_MENU
 var current_character_id: int = 0
 var total_gold_collected: int = 0
 var gold: int = 0

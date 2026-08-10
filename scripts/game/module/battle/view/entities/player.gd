@@ -97,7 +97,7 @@ func _initialize_weapons() -> void:
 		return
 
 	for equip: Equipment in equip_list:
-		var equip_config_id = equip.config_id
+		var equip_config_id = equip.id
 		match equip.type:
 			Equipment.EQUIPMENT_TYPE.ROTATE:
 				if not rotation_equipment_count.has(equip_config_id):

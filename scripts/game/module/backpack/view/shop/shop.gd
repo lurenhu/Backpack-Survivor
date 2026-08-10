@@ -67,12 +67,10 @@ func refresh_shop(item_ids: Array[int] = []) -> void:
 		if not _equipment_pool.is_empty():
 			item_ids = _roll_from_pool(CARD_COUNT, _equipment_pool)
 	for i in range(CARD_COUNT):
-		if i < item_ids.size():
-			var config: EquipmentData = GameConfig.equipment[item_ids[i]]
-			_cards[i].visible = true
-			_cards[i].setup(item_ids[i])
-			_name_labels[i].text = config.name
-		else:
-			_cards[i].visible = false
+		var card: EquipmentCard = _cards[i]
+		card.setup(item_ids[i])
+		card.equipment.state = BackpackManager.GridType.SHOP
+		card.visible = true
+		_name_labels[i].text = card.equipment.name
 
 #endregion
