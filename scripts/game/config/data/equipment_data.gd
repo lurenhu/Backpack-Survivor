@@ -9,7 +9,6 @@ var attr: Dictionary # {"ATK": 5, "ROTATE_RADIUS": 90, ...}
 var price: int
 var source: String
 var type: Equipment.EQUIPMENT_TYPE
-var collision: String
 
 
 static func from_dict(dict: Dictionary) -> EquipmentData:
@@ -22,7 +21,6 @@ static func from_dict(dict: Dictionary) -> EquipmentData:
 	obj.price = _to_int(dict.get("Price", 0))
 	obj.source = _to_str(dict.get("Source", ""))
 	obj.type = pharse_type(_to_str(dict.get("Type", "")))
-	obj.collision = _to_str(dict.get("Collision", ""))
 	return obj
 
 static func pharse_type(type_str: String) -> Equipment.EQUIPMENT_TYPE:

@@ -90,7 +90,7 @@ func _sync_cards(equip_dict: Dictionary[Vector2i, Equipment], card_dict: Diction
 		if card_pos != card.equipment.grid_pos:
 			card_dict.erase(card_pos)
 			card_dict[card.equipment.grid_pos] = card
-			DebugUtility.info("update_equip_card", "Equipment:%s, pos:%s" % [card.equipment, card.equipment.grid_pos])
+			#DebugUtility.info("update_equip_card", "Equipment:%s, pos:%s" % [card.equipment, card.equipment.grid_pos])
 		card.position = _grid_to_pixel(card.equipment.grid_pos, container) - card.get_rotate_offset()
 
 
@@ -132,8 +132,6 @@ func _erase_card_from_dict(card: EquipmentCard, card_dict: Dictionary[Vector2i, 
 func _grid_to_pixel(grid_pos: Vector2i, container: Control) -> Vector2:
 	var cell_local: Vector2 = Vector2(grid_pos.x * BackpackManager.CELL_SIZE, grid_pos.y * BackpackManager.CELL_SIZE)
 	var cell_global: Vector2 = container.global_position + cell_local
-	DebugUtility.info("container_global", "%s" % container.global_position)
-	DebugUtility.info("card_container_global", "%s" % card_container.global_position)
 	return cell_global - card_container.global_position
 
 

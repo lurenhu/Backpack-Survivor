@@ -1,4 +1,4 @@
-class_name Weapon
+class_name RotateWeapon
 extends Area2D
 ## 武器：围绕父级锚点做圆形旋转，通过信号暴露碰撞接口
 
@@ -24,11 +24,13 @@ func _process(delta: float) -> void:
 	rotation = _angle + ROTATION_OFFSET
 
 ## 设置武器基础属性
-func setup(damage: float, rotate_radius: float, rotate_speed: float, shape: Shape2D, source: Texture2D) -> void:
+func setup(damage: float, rotate_radius: float, rotate_speed: float, shape: Array[Array], source: Texture2D) -> void:
 	_attack_power = damage
 	_rotation_radius = rotate_radius
 	_rotation_speed = rotate_speed
-	collision_shape_2d.shape = shape
+	var capsule_shape: CapsuleShape2D = collision_shape_2d.shape
+	capsule_shape.radius = shape[0].size() / 2.0 * BackpackManager.CELL_SIZE
+	capsule_shape.height = float(shape.size()) * BackpackManager.CELL_SIZE
 	sprite_2d.texture = source
 
 ## 敌人进入武器区域 → 对敌人造成攻击力伤害并发射伤害信号

@@ -5,6 +5,7 @@ extends RefCounted
 enum EQUIPMENT_TYPE {
 	ROTATE = 0,
 	SHOOTER,
+	JEWELRY,
 }
 
 var id: int = 0
@@ -13,7 +14,6 @@ var rarity: int
 var attr: Dictionary # {"ATK": 5, "ROTATE_RADIUS": 90, ...}
 var price: int
 var source: String
-var collision: String
 var shape: Array[Array] = []
 var type: EQUIPMENT_TYPE = EQUIPMENT_TYPE.ROTATE
 
@@ -36,7 +36,6 @@ func _init(equipment_id: int) -> void:
 	attr = config.attr.duplicate(true)
 	price = config.price
 	source = config.source
-	collision = config.collision
 	shape = config.shape.duplicate(true)
 	type = config.type
 
@@ -83,7 +82,6 @@ func copy_equipment(equipment: Equipment):
 	attr = equipment.attr.duplicate(true)
 	price = equipment.price
 	source = equipment.source
-	collision = equipment.collision
 	shape = equipment.shape.duplicate(true)
 	type = equipment.type
 	rotate_times = equipment.rotate_times

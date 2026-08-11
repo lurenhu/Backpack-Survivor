@@ -613,6 +613,8 @@ func set_visibility(visible: bool) -> void:
 
 
 func update_dead_zone() -> void:
+	if not is_instance_valid(_root_node):
+		_root_node = get_tree().current_scene
 	_set_viewfinder(_root_node, true)
 
 

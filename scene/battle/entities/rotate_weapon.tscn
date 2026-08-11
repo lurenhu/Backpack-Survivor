@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dtmfa3vnji0wh"]
+
+[ext_resource type="Shape2D" uid="uid://brayr2gs57umm" path="res://assets/preset/collision_shape/rotate_weapon.tres" id="1_4otrn"]
+[ext_resource type="Script" uid="uid://dki1esry7mnor" path="res://scripts/game/module/battle/view/entities/rotate_weapon.gd" id="1_ys35s"]
+
+[node name="RotateWeapon" type="Area2D" unique_id=851253856]
+collision_layer = 64
+collision_mask = 4
+script = ExtResource("1_ys35s")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=142806682]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=909407148]
+shape = ExtResource("1_4otrn")

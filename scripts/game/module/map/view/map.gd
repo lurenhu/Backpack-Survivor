@@ -9,6 +9,7 @@ var map_node_buttons: Array[MapNodeButton] = []
 
 func _ready() -> void:
 	_setup()
+	update_map_nodes()
 
 #region 公开方法
 

@@ -35,7 +35,7 @@ func change_scene(scene_name: String) -> void:
 func start_new_run(character_id: int) -> void:
 	current_character_id = character_id
 	total_gold_collected = 0
-	gold = 10
+	gold = 999
 	BackpackManager.init_backpack(character_id)
 	MapManager.init_map(1)
 

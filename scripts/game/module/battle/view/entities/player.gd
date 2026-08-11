@@ -9,7 +9,7 @@ extends CharacterBody2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var dust: GPUParticles2D = $Dust
 
-@export var WEAPON_SCENE: PackedScene = preload("res://scene/battle/entities/weapon.tscn")
+@export var ROTATE_WEAPON_SCENE: PackedScene = preload("res://scene/battle/entities/rotate_weapon.tscn")
 @export var SHOOTER_SCENE: PackedScene = preload("res://scene/battle/entities/shooter.tscn")
 
 
@@ -126,12 +126,12 @@ func _init_rotation_weapon() -> void:
 		var damage = float(equip_attrs.get(AttrType.get_key(AttrType.Type.ATK), 0.0))
 		var rotate_radius = float(equip_attrs.get(AttrType.get_key(AttrType.Type.ROTATE_RADIUS), 0.0))
 		var rotate_speed = float(equip_attrs.get(AttrType.get_key(AttrType.Type.ROTATE_SPEED), 0.0))
+		var shape: Array[Array] = equip_config.shape
 		var source = load(equip_config.source) as Texture2D
-		var shape = load(equip_config.collision) as Shape2D
 
 		var count = rotation_equipment_count[equip_config_id]
 		for i in count:
-			var weapon: Weapon = WEAPON_SCENE.instantiate()
+			var weapon: RotateWeapon = ROTATE_WEAPON_SCENE.instantiate()
 			weapon_anchor.add_child(weapon)
 			weapon.setup(damage, rotate_radius, rotate_speed, shape, source)
 			weapon._angle = i * TAU / count
