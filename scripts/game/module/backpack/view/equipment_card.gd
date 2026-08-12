@@ -111,7 +111,7 @@ func _on_drag_end() -> void:
 	grid_preview.visible = equipment.state == BackpackManager.GridType.SHOP
 
 
-## 获取当前卡片所有占用格子的全局中心坐标，Package用于判断网格高亮
+## 获取当前卡片所有占用格子的全局中心坐标，用于判断网格高亮
 func get_occupied_global_centers() -> Array[Vector2]:
 	var centers: Array[Vector2] = []
 	if equipment == null or equipment.shape.is_empty():

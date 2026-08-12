@@ -26,6 +26,9 @@ func _on_map_node_selected(map_node: MapNode) -> void:
 			panel_manager.show_shop()
 		"battle":
 			GameState.change_scene("battle")
+		"forge":
+			panel_manager.hide_map()
+			panel_manager.show_forge()
 		_:
 			DebugUtility.error("can not find node type", "%s" % map_node.node_type)
 

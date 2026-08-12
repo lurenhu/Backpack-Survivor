@@ -24,7 +24,7 @@ shadow_size = 5
 shadow_color = Color(0, 0, 0, 0.4627451)
 
 [node name="Shop" type="Control" unique_id=988208482]
-custom_minimum_size = Vector2(400, 680)
+custom_minimum_size = Vector2(400, 720)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 400.0

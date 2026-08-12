@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cvaukrbrrjoe6" path="res://scene/shop/package.tscn" id="1_5m514"]
 [ext_resource type="PackedScene" uid="uid://drm5m0xdcdnp0" path="res://scene/map/map_1.tscn" id="2_2x2ty"]
 [ext_resource type="PackedScene" uid="uid://d3tmcfp4sg3ru" path="res://scene/shop/shop.tscn" id="2_4k27i"]
+[ext_resource type="PackedScene" uid="uid://b6wngqlhisr42" path="res://scene/forge/forge.tscn" id="5_prnev"]
 
 [sub_resource type="Animation" id="Animation_c1a6u"]
 length = 0.001
@@ -78,6 +79,81 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Forge:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Forge:position:x")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [730.0]
+}
+
+[sub_resource type="Animation" id="Animation_lcx21"]
+resource_name = "hide_forge"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Package:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, 2),
+"update": 0,
+"values": [150.0, -620.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Package:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Forge:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, 2),
+"update": 0,
+"values": [730.0, 1500.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Forge:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_a3e06"]
@@ -186,6 +262,57 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_prnev"]
+resource_name = "show_forge"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Package:position:x")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 0.5, 2),
+"update": 0,
+"values": [-620.0, 150.0, 150.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Package:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Forge:position:x")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 0.5, 2),
+"update": 0,
+"values": [1500.0, 730.0, 730.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Forge:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
 }
 
 [sub_resource type="Animation" id="Animation_rtyo1"]
@@ -299,9 +426,11 @@ tracks/3/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_idtc2"]
 _data = {
 &"RESET": SubResource("Animation_c1a6u"),
+&"hide_forge": SubResource("Animation_lcx21"),
 &"hide_map": SubResource("Animation_a3e06"),
 &"hide_package": SubResource("Animation_ekl3o"),
 &"hide_shop": SubResource("Animation_w247a"),
+&"show_forge": SubResource("Animation_prnev"),
 &"show_map": SubResource("Animation_rtyo1"),
 &"show_package": SubResource("Animation_idtc2"),
 &"show_shop": SubResource("Animation_gphgb")
@@ -330,7 +459,7 @@ layout_mode = 1
 [node name="Package" parent="." unique_id=81504182 instance=ExtResource("1_5m514")]
 layout_mode = 0
 offset_left = 150.0
-offset_right = 550.00006
+offset_right = 549.9999
 
 [node name="Shop" parent="." unique_id=988208482 instance=ExtResource("2_4k27i")]
 layout_mode = 1
@@ -340,6 +469,18 @@ anchor_right = 1.0
 offset_left = -550.0
 offset_right = -149.99951
 grow_horizontal = 0
+
+[node name="Forge" parent="." unique_id=1209823036 instance=ExtResource("5_prnev")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -550.0
+offset_right = -149.99988
+offset_bottom = 720.0
+grow_horizontal = 0
+grow_vertical = 1
 
 [node name="PanelAnimation" type="AnimationPlayer" parent="." unique_id=1534209524]
 libraries/ = SubResource("AnimationLibrary_idtc2")

@@ -11,6 +11,8 @@ static var characters: Dictionary
 static var pickups: Dictionary
 # 商店配置: {ID: ShopConfigData}
 static var shops: Dictionary
+# 装备锻造: {EquipmentID: EquipmentForgeData}
+static var forges: Dictionary
 # 战斗配置: {ID: {WaveID: {MonsterID: BattleConfigData}}}
 static var battles: Dictionary
 # 地图节点: {MapID: {LayerIndex: {NodeIndex: MapNodeData}}}
@@ -33,6 +35,7 @@ static func _load_all() -> void:
 	_load_characters()
 	_load_pickups()
 	_load_shop_configs()
+	_load_equipment_forges()
 	_load_battle_configs()
 	_load_map_nodes()
 
@@ -73,6 +76,11 @@ static func _load_shop_configs() -> void:
 	shops = GameConfigData.build_nested_dict(records, ["ID"], ShopConfigData.from_dict)
 
 
+static func _load_equipment_forges() -> void:
+	var records := _load_csv("res://config/equipment_forge.csv")
+	forges = GameConfigData.build_nested_dict(records, ["EquipmentID"], EquipmentForgeData.from_dict)
+
+
 static func _load_battle_configs() -> void:
 	var records := _load_csv("res://config/battle.csv")
 	battles = GameConfigData.build_nested_dict(records, ["ID", "WaveID", "MonsterID"], BattleConfigData.from_dict)
@@ -82,41 +90,3 @@ static func _load_map_nodes() -> void:
 	var records := _load_csv("res://config/map_data.csv")
 	# MapID 全部为 1 会重复，LayerIndex 也有重复，三层嵌套: MapID -> LayerIndex -> NodeIndex -> Data
 	map_nodes = GameConfigData.build_nested_dict(records, ["MapID", "LayerIndex", "NodeIndex"], MapNodeData.from_dict)
-
-
-# --- 便捷查询 ---
-
-static func get_equipment_by_id(id: int) -> EquipmentData:
-	return equipment.get(id)
-
-
-static func get_monster_by_id(id: int) -> MonsterData:
-	return monsters.get(id)
-
-
-static func get_character_by_id(id: int) -> CharacterData:
-	return characters.get(id)
-
-
-static func get_pickup_by_id(id: int) -> PickupData:
-	return pickups.get(id)
-
-
-static func get_shop_config_by_id(id: int) -> ShopConfigData:
-	return shops.get(id)
-
-
-static func get_battle_config_by_id(id: int) -> BattleConfigData:
-	return battles.get(id)
-
-
-# 获取某个地图某层的所有节点: {NodeIndex: MapNodeData}
-static func get_map_nodes_by_layer(map_id: int, layer: int) -> Dictionary:
-	var map_dict: Dictionary = map_nodes.get(map_id, {})
-	return map_dict.get(layer, {})
-
-
-# 获取具体地图节点
-static func get_map_node(map_id: int, layer: int, node_index: int) -> MapNodeData:
-	var layer_dict: Dictionary = get_map_nodes_by_layer(map_id, layer)
-	return layer_dict.get(node_index)

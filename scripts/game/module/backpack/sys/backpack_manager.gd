@@ -16,8 +16,11 @@ const BACKPACK_COLS: int = 8
 const BACKPACK_ROWS: int = 8
 const STAGE_COLS: int = 8
 const STAGE_ROWS: int = 4
+const FORGE_COLS: int = 8
+const FORGE_ROWS: int = 4
 
 signal equip_changed()
+signal add_equipment_card(card: EquipmentCard)
 
 ## 背包内的网格占用状态 0为未占用 1为占用
 var backpack_grid: Array[Array] = []
@@ -27,6 +30,10 @@ var backpack_equip: Dictionary[Vector2i, Equipment] = {}
 var stage_grid: Array[Array] = []
 ## 闲置区内的装备数据 Vector2i 该装备左上角网格坐标 : Equipment 装备数据
 var stage_equip: Dictionary[Vector2i, Equipment] = {}
+## 锻造台内的网格占用状态 
+var forge_grid: Array[Array] = []
+## 锻造台区内的装备数据 Vector2i 该装备左上角网格坐标 : Equipment 装备数据
+var forge_equip: Dictionary[Vector2i, Equipment] = {}
 
 ## 所有装备（背包）的合并视图，供外部遍历
 var equipments: Dictionary:
@@ -73,6 +80,14 @@ func init_backpack(character_id: int) -> void:
 		row.fill(0)
 		stage_grid.append(row)
 
+	# 锻造网格初始化
+	forge_grid = []
+	for y in FORGE_ROWS:
+		var row: Array = []
+		row.resize(FORGE_COLS)
+		row.fill(0)
+		forge_grid.append(row)
+
 	# 清空装备数据
 	backpack_equip.clear()
 	stage_equip.clear()
@@ -81,7 +96,7 @@ func init_backpack(character_id: int) -> void:
 	var init_equip_ids: PackedInt32Array = char_config.init_equipments
 	for eid in init_equip_ids:
 		var equip: Equipment = Equipment.new(eid)
-		var pos: Vector2i = _find_position(equip.shape, backpack_grid)
+		var pos: Vector2i = find_position(equip.shape, backpack_grid)
 		equip.state = GridType.PACKAGE
 		equip.grid_pos = pos
 		if pos.x >= 0:
@@ -101,14 +116,43 @@ func add_to_equip_grid(equipment: Equipment, pos: Vector2i) -> bool:
 		GridType.STAGE:
 			grid_array = stage_grid
 			equip_dict = stage_equip
+		GridType.FORGE_TABLE:
+			grid_array = forge_grid
+			equip_dict = forge_equip
+		_:
+			return false
 
-	if not _can_place(equipment.shape, pos, grid_array):
+	if not can_place(equipment.shape, pos, grid_array):
 		return false
 	
-	_add_to_grid(equipment.shape, pos, grid_array)
+	add_to_grid(equipment.shape, pos, grid_array)
 	equip_dict[pos] = equipment
 	equip_changed.emit()
 	return true
+
+
+## 从对应装备字典中移除指定装备并清理网格占用
+func remove_equipment(equipment: Equipment) -> void:
+	var grid_array: Array[Array]
+	var equip_dict: Dictionary
+	match equipment.state:
+		GridType.PACKAGE:
+			grid_array = backpack_grid
+			equip_dict = backpack_equip
+		GridType.STAGE:
+			grid_array = stage_grid
+			equip_dict = stage_equip
+		GridType.FORGE_TABLE:
+			grid_array = forge_grid
+			equip_dict = forge_equip
+		_:
+			return
+
+	if not equip_dict.has(equipment.grid_pos):
+		return
+	remove_from_grid(equipment.shape, equipment.grid_pos, grid_array)
+	equip_dict.erase(equipment.grid_pos)
+	equip_changed.emit()
 
 
 ## 在同一个网格中移动装备
@@ -128,6 +172,9 @@ func move_to_grid(equipment: Equipment, origin_equipment: Equipment) -> bool:
 		GridType.STAGE:
 			origin_grid = stage_grid
 			origin_equip = stage_equip
+		GridType.FORGE_TABLE:
+			origin_grid = forge_grid
+			origin_equip = forge_equip
 		_:
 			return false
 	
@@ -140,6 +187,9 @@ func move_to_grid(equipment: Equipment, origin_equipment: Equipment) -> bool:
 		GridType.STAGE:
 			target_grid = stage_grid
 			target_equip = stage_equip
+		GridType.FORGE_TABLE:
+			target_grid = forge_grid
+			target_equip = forge_equip
 		_:
 			return false
 
@@ -148,16 +198,16 @@ func move_to_grid(equipment: Equipment, origin_equipment: Equipment) -> bool:
 	var new_shape = equipment.shape
 	var new_pos = equipment.grid_pos
 
-	_remove_from_grid(old_shape, old_pos, origin_grid)
+	remove_from_grid(old_shape, old_pos, origin_grid)
 
-	if _can_place(new_shape, new_pos, target_grid):
-		_add_to_grid(new_shape, new_pos, target_grid)
+	if can_place(new_shape, new_pos, target_grid):
+		add_to_grid(new_shape, new_pos, target_grid)
 		origin_equip.erase(old_pos)
 		target_equip[new_pos] = equipment
 		equip_changed.emit()
 		return true
 	else:
-		_add_to_grid(old_shape, old_pos, origin_grid)
+		add_to_grid(old_shape, old_pos, origin_grid)
 		return false
 
 
@@ -167,8 +217,15 @@ func screen_to_grid(equipment_screen_pos: Vector2, grid_container_pos: Vector2) 
 	return Vector2i(int(local_pos.x / CELL_SIZE), int(local_pos.y / CELL_SIZE))
 
 
+## 将网格坐标通过全局坐标转换为CardContainer下的像素坐标
+func grid_to_pixel(grid_pos: Vector2i, grid_container: Control, card_container: Control) -> Vector2:
+	var cell_local: Vector2 = Vector2(grid_pos.x * BackpackManager.CELL_SIZE, grid_pos.y * BackpackManager.CELL_SIZE)
+	var cell_global: Vector2 = grid_container.global_position + cell_local
+	return cell_global - card_container.global_position
+
+
 ## 检查形状在网格指定位置是否可放置（边界、占用检查）
-func _can_place(shape: Array[Array], pos: Vector2i, grid: Array[Array]) -> bool:
+func can_place(shape: Array[Array], pos: Vector2i, grid: Array[Array]) -> bool:
 	if shape.is_empty() or grid.is_empty():
 		return false
 
@@ -196,7 +253,7 @@ func _can_place(shape: Array[Array], pos: Vector2i, grid: Array[Array]) -> bool:
 
 
 ## 在网格中标记装备占用
-func _add_to_grid(shape: Array[Array], pos: Vector2i, grid: Array[Array]) -> void:
+func add_to_grid(shape: Array[Array], pos: Vector2i, grid: Array[Array]) -> void:
 	for y in shape.size():
 		for x in shape[y].size():
 			if shape[y][x] == 1 and grid[pos.y + y][pos.x + x] == 0:
@@ -204,7 +261,7 @@ func _add_to_grid(shape: Array[Array], pos: Vector2i, grid: Array[Array]) -> voi
 
 
 ## 在网格中清除装备占用的格子
-func _remove_from_grid(shape: Array[Array], pos: Vector2i, grid: Array[Array]) -> void:
+func remove_from_grid(shape: Array[Array], pos: Vector2i, grid: Array[Array]) -> void:
 	for y in shape.size():
 		for x in shape[y].size():
 			if shape[y][x] == 1 and grid[pos.y + y][pos.x + x] == 1:
@@ -212,7 +269,7 @@ func _remove_from_grid(shape: Array[Array], pos: Vector2i, grid: Array[Array]) -
 
 
 ## 在网格中查找第一个可放置指定形状的位置，找不到返回(-1, -1)
-func _find_position(shape: Array[Array], grid: Array[Array]) -> Vector2i:
+func find_position(shape: Array[Array], grid: Array[Array]) -> Vector2i:
 	if shape.is_empty() or grid.is_empty():
 		return Vector2i(-1, -1)
 
@@ -220,7 +277,7 @@ func _find_position(shape: Array[Array], grid: Array[Array]) -> Vector2i:
 		for x in grid[y].size():
 			if grid[y][x] != -1:
 				var pos: Vector2i = Vector2i(x, y)
-				if _can_place(shape, pos, grid):
+				if can_place(shape, pos, grid):
 					return pos
 
 	return Vector2i(-1, -1)
