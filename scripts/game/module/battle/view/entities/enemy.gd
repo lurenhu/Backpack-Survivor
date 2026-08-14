@@ -44,6 +44,8 @@ func _physics_process(_delta: float) -> void:
 
 	if _state == EnemyState.CHASE:
 		_chase_player()
+	
+	_update_z_index()
 
 #region 内部方法
 
@@ -77,6 +79,16 @@ func _die() -> void:
 	_is_dead = true
 	CombatManager.enemy_killed.emit(self, gold_reward)
 	call_deferred("queue_free")
+
+## 更新z_index
+func _update_z_index():
+	if _player == null:
+		return
+
+	if _player.global_position.y > global_position.y:
+		z_index = _player.z_index - 1
+	else:
+		z_index = _player.z_index + 1
 
 #endregion
 

@@ -1,0 +1,311 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://pvcvu0ph4im0"]
+
+[ext_resource type="Texture2D" uid="uid://dwjttcevrasg2" path="res://assets/res/entity/character/游侠/idle/001.png" id="1_ouk7j"]
+[ext_resource type="Texture2D" uid="uid://dcrpjkn0j02sn" path="res://assets/res/entity/character/游侠/idle/002.png" id="2_h1gn0"]
+[ext_resource type="Texture2D" uid="uid://dt5p32jrajo1w" path="res://assets/res/entity/character/游侠/idle/003.png" id="3_moytc"]
+[ext_resource type="Texture2D" uid="uid://b3obiu83c7vbr" path="res://assets/res/entity/character/游侠/idle/004.png" id="4_x54yc"]
+[ext_resource type="Texture2D" uid="uid://84c6kgveq5r1" path="res://assets/res/entity/character/游侠/idle/005.png" id="5_8tl6l"]
+[ext_resource type="Texture2D" uid="uid://boq37l8wu8r2j" path="res://assets/res/entity/character/游侠/idle/006.png" id="6_rhjcn"]
+[ext_resource type="Texture2D" uid="uid://bi84xhtbxfsh2" path="res://assets/res/entity/character/游侠/idle/007.png" id="7_u86ma"]
+[ext_resource type="Texture2D" uid="uid://cwdnom85ls5f7" path="res://assets/res/entity/character/游侠/idle/008.png" id="8_0qbsj"]
+[ext_resource type="Texture2D" uid="uid://ca8p4gbjncy5d" path="res://assets/res/entity/character/游侠/idle/009.png" id="9_3i5va"]
+[ext_resource type="Texture2D" uid="uid://dhv20okrwd3rg" path="res://assets/res/entity/character/游侠/idle/010.png" id="10_ioef0"]
+[ext_resource type="Texture2D" uid="uid://3eop35ak774l" path="res://assets/res/entity/character/游侠/idle/011.png" id="11_i0lms"]
+[ext_resource type="Texture2D" uid="uid://cm6q6okjpru4t" path="res://assets/res/entity/character/游侠/idle/012.png" id="12_rgwlw"]
+[ext_resource type="Texture2D" uid="uid://b55mrrxidjy7n" path="res://assets/res/entity/character/游侠/idle/013.png" id="13_onyec"]
+[ext_resource type="Texture2D" uid="uid://5chhf08ocmag" path="res://assets/res/entity/character/游侠/idle/014.png" id="14_87u6t"]
+[ext_resource type="Texture2D" uid="uid://1iwv8oxuyd5g" path="res://assets/res/entity/character/游侠/idle/015.png" id="15_3wxwh"]
+[ext_resource type="Texture2D" uid="uid://c5gaa7jcx6sdt" path="res://assets/res/entity/character/游侠/idle/016.png" id="16_lt1vx"]
+[ext_resource type="Texture2D" uid="uid://5bpd7p0es87" path="res://assets/res/entity/character/游侠/idle/017.png" id="17_p3i5v"]
+[ext_resource type="Texture2D" uid="uid://d4fnpfcccm517" path="res://assets/res/entity/character/游侠/idle/018.png" id="18_51nfr"]
+[ext_resource type="Texture2D" uid="uid://blep6yggtqukg" path="res://assets/res/entity/character/游侠/idle/019.png" id="19_7w7dj"]
+[ext_resource type="Texture2D" uid="uid://bwy03sbwrd6pg" path="res://assets/res/entity/character/游侠/idle/020.png" id="20_qqngb"]
+[ext_resource type="Texture2D" uid="uid://dmuufkk0x7vye" path="res://assets/res/entity/character/游侠/idle/021.png" id="21_ft4vs"]
+[ext_resource type="Texture2D" uid="uid://betkvi1hjgnvn" path="res://assets/res/entity/character/游侠/idle/022.png" id="22_iwobl"]
+[ext_resource type="Texture2D" uid="uid://kpai1bno5tvo" path="res://assets/res/entity/character/游侠/idle/023.png" id="23_8onbm"]
+[ext_resource type="Texture2D" uid="uid://rumwo8aohvi5" path="res://assets/res/entity/character/游侠/idle/024.png" id="24_4itbf"]
+[ext_resource type="Texture2D" uid="uid://cdfdnp85xygqb" path="res://assets/res/entity/character/游侠/idle/025.png" id="25_qxkf3"]
+[ext_resource type="Texture2D" uid="uid://btcwt48v6ckcr" path="res://assets/res/entity/character/游侠/idle/026.png" id="26_qnmwk"]
+[ext_resource type="Texture2D" uid="uid://rvvnslnb0nry" path="res://assets/res/entity/character/游侠/idle/027.png" id="27_y0qm2"]
+[ext_resource type="Texture2D" uid="uid://d2u0y4ns5bsex" path="res://assets/res/entity/character/游侠/idle/028.png" id="28_3sjdi"]
+[ext_resource type="Texture2D" uid="uid://dlq4yvcq1xng5" path="res://assets/res/entity/character/游侠/idle/029.png" id="29_g7vp5"]
+[ext_resource type="Texture2D" uid="uid://cxw8nmtkxfr7s" path="res://assets/res/entity/character/游侠/idle/030.png" id="30_8f7do"]
+[ext_resource type="Texture2D" uid="uid://bvy7x4x1n3c7c" path="res://assets/res/entity/character/游侠/idle/031.png" id="31_ix8no"]
+[ext_resource type="Texture2D" uid="uid://7l6ju67ifwfo" path="res://assets/res/entity/character/游侠/idle/032.png" id="32_5c1sw"]
+[ext_resource type="Texture2D" uid="uid://cai5sd523p8el" path="res://assets/res/entity/character/游侠/idle/033.png" id="33_icemr"]
+[ext_resource type="Texture2D" uid="uid://dat0pjyx6ctti" path="res://assets/res/entity/character/游侠/run/001.png" id="34_bmt03"]
+[ext_resource type="Texture2D" uid="uid://dqx8toe13j5h5" path="res://assets/res/entity/character/游侠/run/002.png" id="35_vu4vv"]
+[ext_resource type="Texture2D" uid="uid://b1g53eh1n2nqe" path="res://assets/res/entity/character/游侠/run/003.png" id="36_ft2np"]
+[ext_resource type="Texture2D" uid="uid://datkh581a7nm8" path="res://assets/res/entity/character/游侠/run/004.png" id="37_3st5w"]
+[ext_resource type="Texture2D" uid="uid://jui76vwa4fqd" path="res://assets/res/entity/character/游侠/run/005.png" id="38_nx8lp"]
+[ext_resource type="Texture2D" uid="uid://86l4q0uux64a" path="res://assets/res/entity/character/游侠/run/006.png" id="39_bnipk"]
+[ext_resource type="Texture2D" uid="uid://c8gwtpwbtmyt2" path="res://assets/res/entity/character/游侠/run/007.png" id="40_y1i14"]
+[ext_resource type="Texture2D" uid="uid://cyhj2ur1wvyh6" path="res://assets/res/entity/character/游侠/run/008.png" id="41_0f6jw"]
+[ext_resource type="Texture2D" uid="uid://ct1es1hf8kd2s" path="res://assets/res/entity/character/游侠/run/009.png" id="42_gjkak"]
+[ext_resource type="Texture2D" uid="uid://dm2vwb2a8uat2" path="res://assets/res/entity/character/游侠/run/010.png" id="43_vlxo4"]
+[ext_resource type="Texture2D" uid="uid://c02n51kjnh4bv" path="res://assets/res/entity/character/游侠/run/011.png" id="44_i6usy"]
+[ext_resource type="Texture2D" uid="uid://80uhgqhsnt3a" path="res://assets/res/entity/character/游侠/run/012.png" id="45_chkvt"]
+[ext_resource type="Texture2D" uid="uid://b7ebltndyy56h" path="res://assets/res/entity/character/游侠/run/013.png" id="46_ipfip"]
+[ext_resource type="Texture2D" uid="uid://db6p4nbc1ktxt" path="res://assets/res/entity/character/游侠/run/014.png" id="47_naalo"]
+[ext_resource type="Texture2D" uid="uid://d0yh24mla8ul4" path="res://assets/res/entity/character/游侠/run/015.png" id="48_81ox6"]
+[ext_resource type="Texture2D" uid="uid://wpyb7uojfk4o" path="res://assets/res/entity/character/游侠/run/016.png" id="49_04vr0"]
+[ext_resource type="Texture2D" uid="uid://dq2nj6jgrqptu" path="res://assets/res/entity/character/游侠/run/017.png" id="50_2tlnf"]
+[ext_resource type="Texture2D" uid="uid://csoug0t2dm7re" path="res://assets/res/entity/character/游侠/run/018.png" id="51_ks4km"]
+[ext_resource type="Texture2D" uid="uid://dcn8ef8xf2m8g" path="res://assets/res/entity/character/游侠/run/019.png" id="52_2lf3l"]
+[ext_resource type="Texture2D" uid="uid://sfmdnb6aypq" path="res://assets/res/entity/character/游侠/run/020.png" id="53_nje0v"]
+[ext_resource type="Texture2D" uid="uid://cc50332j0tty5" path="res://assets/res/entity/character/游侠/run/021.png" id="54_ymdix"]
+[ext_resource type="Texture2D" uid="uid://bbibm52iv7eqh" path="res://assets/res/entity/character/游侠/run/022.png" id="55_e0pfh"]
+[ext_resource type="Texture2D" uid="uid://tl8xhvmbe54h" path="res://assets/res/entity/character/游侠/run/023.png" id="56_q3jxn"]
+[ext_resource type="Texture2D" uid="uid://dn5x7iavow0wk" path="res://assets/res/entity/character/游侠/run/024.png" id="57_r4t61"]
+[ext_resource type="Texture2D" uid="uid://b7uewwu10dsbr" path="res://assets/res/entity/character/游侠/run/025.png" id="58_ds4do"]
+[ext_resource type="Texture2D" uid="uid://cvee7e6pbuyj4" path="res://assets/res/entity/character/游侠/run/026.png" id="59_fc64i"]
+[ext_resource type="Texture2D" uid="uid://dwrchvksulcj0" path="res://assets/res/entity/character/游侠/run/027.png" id="60_32qsd"]
+[ext_resource type="Texture2D" uid="uid://dibju3fgote8p" path="res://assets/res/entity/character/游侠/run/028.png" id="61_q43ws"]
+[ext_resource type="Texture2D" uid="uid://b7l7738g53ytb" path="res://assets/res/entity/character/游侠/run/029.png" id="62_uuqbd"]
+[ext_resource type="Texture2D" uid="uid://dhb85omb4fug6" path="res://assets/res/entity/character/游侠/run/030.png" id="63_5kuta"]
+[ext_resource type="Texture2D" uid="uid://bwwf8ofufs3q3" path="res://assets/res/entity/character/游侠/run/031.png" id="64_8u0hb"]
+[ext_resource type="Texture2D" uid="uid://db2afgm73fc8y" path="res://assets/res/entity/character/游侠/run/032.png" id="65_nmrfu"]
+[ext_resource type="Texture2D" uid="uid://c1xcv3ptcdkqg" path="res://assets/res/entity/character/游侠/run/033.png" id="66_dstsn"]
+[ext_resource type="Texture2D" uid="uid://c8mbtc3thdtde" path="res://assets/res/entity/character/游侠/run/034.png" id="67_p0ilr"]
+[ext_resource type="Texture2D" uid="uid://d1ipojv8nai33" path="res://assets/res/entity/character/游侠/run/035.png" id="68_b5uuj"]
+[ext_resource type="Texture2D" uid="uid://b5n7eut8nhvr4" path="res://assets/res/entity/character/游侠/run/036.png" id="69_oopqa"]
+[ext_resource type="Texture2D" uid="uid://cw3mtufwlbkx4" path="res://assets/res/entity/character/游侠/run/037.png" id="70_cihfn"]
+[ext_resource type="Texture2D" uid="uid://gh3ly0ifg4yc" path="res://assets/res/entity/character/游侠/run/038.png" id="71_xmuq6"]
+[ext_resource type="Texture2D" uid="uid://gpg145521cnk" path="res://assets/res/entity/character/游侠/run/039.png" id="72_es2it"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ouk7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_h1gn0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_moytc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_x54yc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8tl6l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_rhjcn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_u86ma")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_0qbsj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_3i5va")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_ioef0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_i0lms")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_rgwlw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_onyec")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_87u6t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_3wxwh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_lt1vx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_p3i5v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_51nfr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_7w7dj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_qqngb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_ft4vs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_iwobl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_8onbm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_4itbf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_qxkf3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_qnmwk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_y0qm2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_3sjdi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_g7vp5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_8f7do")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_ix8no")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_5c1sw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_icemr")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("34_bmt03")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_vu4vv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_ft2np")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_3st5w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_nx8lp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_bnipk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_y1i14")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_0f6jw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_gjkak")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_vlxo4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_i6usy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_chkvt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_ipfip")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_naalo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_81ox6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_04vr0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_2tlnf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_ks4km")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_2lf3l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_nje0v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_ymdix")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_e0pfh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_q3jxn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_r4t61")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_ds4do")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_fc64i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_32qsd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_q43ws")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_uuqbd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_5kuta")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_8u0hb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_nmrfu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_dstsn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_p0ilr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_b5uuj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_oopqa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_cihfn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("71_xmuq6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("72_es2it")
+}],
+"loop": true,
+"name": &"run",
+"speed": 19.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ouk7j")
+}],
+"loop": true,
+"name": &"sprite",
+"speed": 5.0
+}]

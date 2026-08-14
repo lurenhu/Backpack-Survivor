@@ -274,4 +274,14 @@ func get_rotate_offset() -> Vector2:
 	# DebugUtility.info("rotate_offset", "%s, %s" % [rotate_offset])
 	return rotate_offset
 
+
+## 将当前装备卡片设置为预览模式
+func set_preview_modulate(is_preview: bool):
+	if is_preview:
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+		equipment_sprite.material.set_shader_parameter("modulate", Color(0.4, 0.4, 0.4, 1.0))
+	else:
+		mouse_filter = Control.MOUSE_FILTER_PASS
+		equipment_sprite.material.set_shader_parameter("modulate", Color.WHITE)
+		
 #endregion

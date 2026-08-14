@@ -78,7 +78,10 @@ func _update_animation():
 	if body_ani.animation != animation_name or not body_ani.is_playing():
 		body_ani.play(animation_name)
 
-	animation_player.speed_scale = 2.0 if _animate_perfix == &"run" else 0.0
+	if _animate_perfix == &"run":
+		animation_player.speed_scale = 2.0
+	else:
+		animation_player.seek(0.0)
 
 #endregion
 

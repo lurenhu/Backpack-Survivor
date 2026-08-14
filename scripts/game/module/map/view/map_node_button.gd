@@ -53,11 +53,7 @@ func update_map_node():
 
 ## 初始化
 func _setup():
-	var map_config = GameConfig.map_nodes[map_id][layer][index]
-	if map_config == null:
-		DebugUtility.error("map_node_button", "id:%s,layer:%s,index:%s no config" % [map_id, layer, index])
-		return
-	node = MapNode.init_from_dict(map_config)
+	node = MapManager.find_map_node(map_id, layer, index)
 
 	match node.node_type:
 		"shop": icon_texture.texture = MapManager.SHOP_TEXTURE

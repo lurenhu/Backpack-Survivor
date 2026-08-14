@@ -80,3 +80,10 @@ func check_and_init_next_map() -> bool:
 
 	init_map(map_id)
 	return true
+
+
+func find_map_node(map_id: int, layer: int, index: int) -> MapNode:
+	for map: MapNode in current_map_nodes:
+		if map.map_id == map_id and map.layer_index == layer and map.node_index == index:
+			return map
+	return null

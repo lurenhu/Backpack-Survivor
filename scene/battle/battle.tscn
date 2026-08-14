@@ -34,11 +34,11 @@ script = ExtResource("2_gk444")
 texture = ExtResource("3_lpir7")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Map" unique_id=1039566087]
-collision_mask = 6
+collision_mask = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Map/StaticBody2D" unique_id=563277774]
 build_mode = 1
-polygon = PackedVector2Array(-711, -309, -974, -134, -858, -28, -987, 139, -750, 309, -825, 395, -827, 554, -718, 687, -517, 691, -392, 565, -275, 611, -183, 526, 137, 523, 225, 606, 363, 556, 492, 683, 673, 682, 809, 553, 808, 407, 751, 333, 1008, 133, 860, 9, 984, -131, 720, -359, 813, -433, 805, -585, 673, -732, 489, -729, 373, -589, 209, -647, 145, -518, -184, -525, -271, -654, -383, -596, -514, -729, -695, -720, -813, -603, -816, -433)
+polygon = PackedVector2Array(-721, -251, -501, -251, -362, -385, -358, -587, 331, -584, 315, -394, 472, -258, 698, -252, 697, 240, 474, 238, 324, 381, 322, 557, -344, 564, -344, 388, -507, 219, -721, 215)
 
 [node name="PickUpContainer" type="Node2D" parent="." unique_id=1657001260]
 

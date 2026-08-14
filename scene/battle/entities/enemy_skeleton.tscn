@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bisrua6pdd680"]
 
-[ext_resource type="PackedScene" uid="uid://kxv4uklaedpl" path="res://scenes/entities/enemy_shooter.tscn" id="1_ix3vq"]
+[ext_resource type="PackedScene" uid="uid://kxv4uklaedpl" path="res://scene/battle/entities/enemy_shooter.tscn" id="1_ix3vq"]
 [ext_resource type="SpriteFrames" uid="uid://178dassf1d2n" path="res://assets/preset/sprite_frame/skeleton.tres" id="2_vbh4y"]
 
 [sub_resource type="Animation" id="Animation_ix3vq"]
@@ -26,6 +26,7 @@ _data = {
 }
 
 [node name="EnemyShooter" unique_id=319728877 instance=ExtResource("1_ix3vq")]
+z_index = 2
 
 [node name="BodySprite" parent="." index="0" unique_id=445990586]
 sprite_frames = ExtResource("2_vbh4y")

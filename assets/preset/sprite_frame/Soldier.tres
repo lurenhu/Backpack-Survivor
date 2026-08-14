@@ -1,37 +1,358 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://cgixbb5od17fp"]
 
-[ext_resource type="Texture2D" uid="uid://dqjbqvdwrns1e" path="res://assets/res/entity/战士（小人.png" id="1_7ervi"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ekppp"]
-atlas = ExtResource("1_7ervi")
-region = Rect2(0, 0, 127, 143)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7icct"]
-atlas = ExtResource("1_7ervi")
-region = Rect2(0, 0, 127, 143)
+[ext_resource type="Texture2D" uid="uid://bjd2yijgc804m" path="res://assets/res/entity/character/战士/idle/001.png" id="1_wfyjb"]
+[ext_resource type="Texture2D" uid="uid://diol5yxkyyn8s" path="res://assets/res/entity/character/战士/idle/002.png" id="2_h1vgm"]
+[ext_resource type="Texture2D" uid="uid://diigpephlvhom" path="res://assets/res/entity/character/战士/idle/003.png" id="3_mlxbe"]
+[ext_resource type="Texture2D" uid="uid://cu5y580qfup01" path="res://assets/res/entity/character/战士/idle/004.png" id="4_ngnc0"]
+[ext_resource type="Texture2D" uid="uid://flqgp17qpw8c" path="res://assets/res/entity/character/战士/idle/005.png" id="5_iorat"]
+[ext_resource type="Texture2D" uid="uid://d36ujy2761yn1" path="res://assets/res/entity/character/战士/idle/006.png" id="6_dwgcl"]
+[ext_resource type="Texture2D" uid="uid://0scvail7ajvk" path="res://assets/res/entity/character/战士/idle/007.png" id="7_lvonh"]
+[ext_resource type="Texture2D" uid="uid://bdt3ch2roaein" path="res://assets/res/entity/character/战士/idle/008.png" id="8_ppvs4"]
+[ext_resource type="Texture2D" uid="uid://dk8grdfdwss0r" path="res://assets/res/entity/character/战士/idle/009.png" id="9_w8h7b"]
+[ext_resource type="Texture2D" uid="uid://csw68iswhtl2g" path="res://assets/res/entity/character/战士/idle/010.png" id="10_etef6"]
+[ext_resource type="Texture2D" uid="uid://kmoopofdus82" path="res://assets/res/entity/character/战士/idle/011.png" id="11_uso38"]
+[ext_resource type="Texture2D" uid="uid://cttucqene22dd" path="res://assets/res/entity/character/战士/idle/012.png" id="12_vbukd"]
+[ext_resource type="Texture2D" uid="uid://fhmvik14cih7" path="res://assets/res/entity/character/战士/idle/013.png" id="13_1usus"]
+[ext_resource type="Texture2D" uid="uid://bcdg16tfbrpx" path="res://assets/res/entity/character/战士/idle/014.png" id="14_tkxix"]
+[ext_resource type="Texture2D" uid="uid://c20s0201m6fqq" path="res://assets/res/entity/character/战士/idle/015.png" id="15_h2xw6"]
+[ext_resource type="Texture2D" uid="uid://dn0punbhprmjh" path="res://assets/res/entity/character/战士/idle/016.png" id="16_w7beh"]
+[ext_resource type="Texture2D" uid="uid://bh6etmroh3r2s" path="res://assets/res/entity/character/战士/idle/017.png" id="17_cm50s"]
+[ext_resource type="Texture2D" uid="uid://bgth8grsk85ym" path="res://assets/res/entity/character/战士/idle/018.png" id="18_qs2bm"]
+[ext_resource type="Texture2D" uid="uid://chgdqg4s60ftc" path="res://assets/res/entity/character/战士/idle/019.png" id="19_80u8f"]
+[ext_resource type="Texture2D" uid="uid://bwpx3bbf8ghml" path="res://assets/res/entity/character/战士/idle/020.png" id="20_dhba8"]
+[ext_resource type="Texture2D" uid="uid://b17v03jqgcdn6" path="res://assets/res/entity/character/战士/idle/021.png" id="21_0bauf"]
+[ext_resource type="Texture2D" uid="uid://0aybit13gdii" path="res://assets/res/entity/character/战士/idle/022.png" id="22_a41b7"]
+[ext_resource type="Texture2D" uid="uid://by2odx6vj7mya" path="res://assets/res/entity/character/战士/idle/023.png" id="23_c5o11"]
+[ext_resource type="Texture2D" uid="uid://c1i2gkiptwk2l" path="res://assets/res/entity/character/战士/idle/024.png" id="24_q4mww"]
+[ext_resource type="Texture2D" uid="uid://s5yoenaotmgo" path="res://assets/res/entity/character/战士/idle/025.png" id="25_1dmyc"]
+[ext_resource type="Texture2D" uid="uid://c6yonabjso4ee" path="res://assets/res/entity/character/战士/idle/026.png" id="26_y23hi"]
+[ext_resource type="Texture2D" uid="uid://cpl7b2r0dgmyy" path="res://assets/res/entity/character/战士/idle/027.png" id="27_0ljh7"]
+[ext_resource type="Texture2D" uid="uid://bbdjeu4pollt3" path="res://assets/res/entity/character/战士/idle/028.png" id="28_xqu2x"]
+[ext_resource type="Texture2D" uid="uid://d38fokm226gqp" path="res://assets/res/entity/character/战士/idle/029.png" id="29_e4okt"]
+[ext_resource type="Texture2D" uid="uid://6pxorkw2bix8" path="res://assets/res/entity/character/战士/idle/030.png" id="30_s6jfh"]
+[ext_resource type="Texture2D" uid="uid://dks1gr2u1g1pv" path="res://assets/res/entity/character/战士/idle/031.png" id="31_4mop8"]
+[ext_resource type="Texture2D" uid="uid://b6ekt8ac25vhr" path="res://assets/res/entity/character/战士/idle/032.png" id="32_mgqmk"]
+[ext_resource type="Texture2D" uid="uid://s3feuvx7myy6" path="res://assets/res/entity/character/战士/idle/033.png" id="33_kn4kk"]
+[ext_resource type="Texture2D" uid="uid://c8wv0teyberb" path="res://assets/res/entity/character/战士/idle/034.png" id="34_q60li"]
+[ext_resource type="Texture2D" uid="uid://cfl3xgon1501c" path="res://assets/res/entity/character/战士/idle/035.png" id="35_y4jic"]
+[ext_resource type="Texture2D" uid="uid://c8gig7p6w84ya" path="res://assets/res/entity/character/战士/idle/036.png" id="36_24etp"]
+[ext_resource type="Texture2D" uid="uid://bvvxd25k4d30n" path="res://assets/res/entity/character/战士/idle/037.png" id="37_c6rwn"]
+[ext_resource type="Texture2D" uid="uid://cyfvaslhec1ii" path="res://assets/res/entity/character/战士/idle/038.png" id="38_jpfpl"]
+[ext_resource type="Texture2D" uid="uid://cfecwpi5xvim6" path="res://assets/res/entity/character/战士/idle/039.png" id="39_3h8nu"]
+[ext_resource type="Texture2D" uid="uid://dc3q7j4ny8wef" path="res://assets/res/entity/character/战士/idle/040.png" id="40_fw2mw"]
+[ext_resource type="Texture2D" uid="uid://itr7wut77pw8" path="res://assets/res/entity/character/战士/idle/041.png" id="41_m4th2"]
+[ext_resource type="Texture2D" uid="uid://c5oww8djbd2ol" path="res://assets/res/entity/character/战士/idle/042.png" id="42_h7ol1"]
+[ext_resource type="Texture2D" uid="uid://dj5g86d47ma2h" path="res://assets/res/entity/character/战士/idle/043.png" id="43_jhxgx"]
+[ext_resource type="Texture2D" uid="uid://dukqla2tx11pv" path="res://assets/res/entity/character/战士/idle/044.png" id="44_7klpe"]
+[ext_resource type="Texture2D" uid="uid://dpqsewjtl103p" path="res://assets/res/entity/character/战士/idle/045.png" id="45_04x7x"]
+[ext_resource type="Texture2D" uid="uid://byi8gfqbf6h3y" path="res://assets/res/entity/character/战士/idle/046.png" id="46_vlgql"]
+[ext_resource type="Texture2D" uid="uid://dlwxb8meuo30b" path="res://assets/res/entity/character/战士/idle/047.png" id="47_kxiss"]
+[ext_resource type="Texture2D" uid="uid://biaqlvu8n4gyb" path="res://assets/res/entity/character/战士/run/001.png" id="48_ynxda"]
+[ext_resource type="Texture2D" uid="uid://cb4ku3m0lnmnu" path="res://assets/res/entity/character/战士/run/002.png" id="49_7y0hc"]
+[ext_resource type="Texture2D" uid="uid://mgscv6xdu61t" path="res://assets/res/entity/character/战士/run/003.png" id="50_vs8ri"]
+[ext_resource type="Texture2D" uid="uid://dgwsdopkpjsh7" path="res://assets/res/entity/character/战士/run/004.png" id="51_dp4cb"]
+[ext_resource type="Texture2D" uid="uid://bxb376ajxx13d" path="res://assets/res/entity/character/战士/run/005.png" id="52_p1ppg"]
+[ext_resource type="Texture2D" uid="uid://lly78efl1fs0" path="res://assets/res/entity/character/战士/run/006.png" id="53_jmyoq"]
+[ext_resource type="Texture2D" uid="uid://b2jgc3fgotbsf" path="res://assets/res/entity/character/战士/run/007.png" id="54_gak0o"]
+[ext_resource type="Texture2D" uid="uid://cwo7jf83isvcs" path="res://assets/res/entity/character/战士/run/008.png" id="55_e0oml"]
+[ext_resource type="Texture2D" uid="uid://ppg5k7w77rhs" path="res://assets/res/entity/character/战士/run/009.png" id="56_lgbun"]
+[ext_resource type="Texture2D" uid="uid://dygpqt0hl2nhn" path="res://assets/res/entity/character/战士/run/010.png" id="57_fxf0f"]
+[ext_resource type="Texture2D" uid="uid://dl61w1wisa4u2" path="res://assets/res/entity/character/战士/run/011.png" id="58_h1w8h"]
+[ext_resource type="Texture2D" uid="uid://n3urlq10ye6n" path="res://assets/res/entity/character/战士/run/012.png" id="59_ggsma"]
+[ext_resource type="Texture2D" uid="uid://cyst1nw0bofxf" path="res://assets/res/entity/character/战士/run/013.png" id="60_5rrxb"]
+[ext_resource type="Texture2D" uid="uid://bfwrtsc1rlg8r" path="res://assets/res/entity/character/战士/run/014.png" id="61_qhuq1"]
+[ext_resource type="Texture2D" uid="uid://pnqpicie6f2q" path="res://assets/res/entity/character/战士/run/015.png" id="62_lq08y"]
+[ext_resource type="Texture2D" uid="uid://clux3sm01id3i" path="res://assets/res/entity/character/战士/run/016.png" id="63_p4nmt"]
+[ext_resource type="Texture2D" uid="uid://cf4703d3451a3" path="res://assets/res/entity/character/战士/run/017.png" id="64_rwgai"]
+[ext_resource type="Texture2D" uid="uid://gsgyniainvdm" path="res://assets/res/entity/character/战士/run/018.png" id="65_eyuxe"]
+[ext_resource type="Texture2D" uid="uid://deajk7awffey2" path="res://assets/res/entity/character/战士/run/019.png" id="66_wl48v"]
+[ext_resource type="Texture2D" uid="uid://dr3epdna1lw1t" path="res://assets/res/entity/character/战士/run/020.png" id="67_fwrym"]
+[ext_resource type="Texture2D" uid="uid://bnsp1t50pw8gy" path="res://assets/res/entity/character/战士/run/021.png" id="68_qrtdh"]
+[ext_resource type="Texture2D" uid="uid://ccgkg7t8q5nv7" path="res://assets/res/entity/character/战士/run/022.png" id="69_6lcnd"]
+[ext_resource type="Texture2D" uid="uid://dlfcjx4qr25bf" path="res://assets/res/entity/character/战士/run/023.png" id="70_4rcfo"]
+[ext_resource type="Texture2D" uid="uid://dk3hswpvse8bw" path="res://assets/res/entity/character/战士/run/024.png" id="71_axac4"]
+[ext_resource type="Texture2D" uid="uid://diu3l5kf8jthd" path="res://assets/res/entity/character/战士/run/025.png" id="72_ruqnd"]
+[ext_resource type="Texture2D" uid="uid://dm8horqk8bife" path="res://assets/res/entity/character/战士/run/026.png" id="73_jc4ah"]
+[ext_resource type="Texture2D" uid="uid://cutav0vxekycb" path="res://assets/res/entity/character/战士/run/027.png" id="74_dkqbb"]
+[ext_resource type="Texture2D" uid="uid://nhxh0ctyebnu" path="res://assets/res/entity/character/战士/run/028.png" id="75_ufxeg"]
+[ext_resource type="Texture2D" uid="uid://q5b4lwu1qen8" path="res://assets/res/entity/character/战士/run/029.png" id="76_sptwm"]
+[ext_resource type="Texture2D" uid="uid://bvv8jcsalq6dt" path="res://assets/res/entity/character/战士/run/030.png" id="77_jcobe"]
+[ext_resource type="Texture2D" uid="uid://dt4g6vvh14aol" path="res://assets/res/entity/character/战士/run/031.png" id="78_hpy0n"]
+[ext_resource type="Texture2D" uid="uid://dulk6aeujqjuu" path="res://assets/res/entity/character/战士/run/032.png" id="79_iu50b"]
+[ext_resource type="Texture2D" uid="uid://c502q31plys6v" path="res://assets/res/entity/character/战士/run/033.png" id="80_nimo7"]
+[ext_resource type="Texture2D" uid="uid://bnhuqvo00u5gl" path="res://assets/res/entity/character/战士/run/034.png" id="81_ij6ev"]
+[ext_resource type="Texture2D" uid="uid://y6cj354ttaba" path="res://assets/res/entity/character/战士/run/035.png" id="82_5d8rr"]
+[ext_resource type="Texture2D" uid="uid://4wf5our7eqx5" path="res://assets/res/entity/character/战士/run/036.png" id="83_sfgwg"]
+[ext_resource type="Texture2D" uid="uid://c1poxa67vw0p6" path="res://assets/res/entity/character/战士/run/037.png" id="84_j7t5v"]
 
 [resource]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ekppp")
+"texture": ExtResource("1_wfyjb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_h1vgm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_mlxbe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ngnc0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_iorat")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_dwgcl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_lvonh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_ppvs4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_w8h7b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_etef6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_uso38")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_vbukd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_1usus")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_tkxix")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_h2xw6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_w7beh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_cm50s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_qs2bm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_80u8f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_dhba8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_0bauf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_a41b7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_c5o11")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_q4mww")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_1dmyc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_y23hi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_0ljh7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_xqu2x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_e4okt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_s6jfh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_4mop8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_mgqmk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_kn4kk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_q60li")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_y4jic")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_24etp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_c6rwn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_jpfpl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_3h8nu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_fw2mw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_m4th2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_h7ol1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_jhxgx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_7klpe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_04x7x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_vlgql")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_kxiss")
 }],
 "loop": true,
 "name": &"idle",
-"speed": 16.0
+"speed": 23.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7icct")
+"texture": ExtResource("48_ynxda")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_7y0hc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_vs8ri")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_dp4cb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_p1ppg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_jmyoq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_gak0o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_e0oml")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_lgbun")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_fxf0f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_h1w8h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_ggsma")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_5rrxb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_qhuq1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_lq08y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_p4nmt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_rwgai")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_eyuxe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_wl48v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_fwrym")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_qrtdh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_6lcnd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_4rcfo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("71_axac4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("72_ruqnd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("73_jc4ah")
+}, {
+"duration": 1.0,
+"texture": ExtResource("74_dkqbb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("75_ufxeg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("76_sptwm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("77_jcobe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("78_hpy0n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("79_iu50b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("80_nimo7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("81_ij6ev")
+}, {
+"duration": 1.0,
+"texture": ExtResource("82_5d8rr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("83_sfgwg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("84_j7t5v")
 }],
 "loop": true,
 "name": &"run",
-"speed": 12.0
+"speed": 18.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_7ervi")
+"texture": ExtResource("1_wfyjb")
 }],
 "loop": true,
 "name": &"sprite",

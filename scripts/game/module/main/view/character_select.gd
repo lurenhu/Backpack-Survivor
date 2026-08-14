@@ -51,13 +51,16 @@ func _update_nav_buttons() -> void:
 func _update_character_info() -> void:
 	var char_data: CharacterData = GameConfig.characters[_selected_character_id]
 	var char_name: String = char_data.name
-	_name_label.text = char_name
+	if char_name != "":
+		_name_label.text = char_name
 
 	var char_descript: String = char_data.descript
-	_descript_label.text = char_descript
+	if char_descript != "":
+		_descript_label.text = char_descript
 
 	var char_illustration: String = char_data.illustration
-	_illustration_texture.texture = load(char_illustration) as Texture2D
+	if char_illustration != "":
+		_illustration_texture.texture = load(char_illustration) as Texture2D
 
 #endregion
 

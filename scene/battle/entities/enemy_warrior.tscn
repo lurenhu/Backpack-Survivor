@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dywttnbac7p75"]
 
-[ext_resource type="PackedScene" uid="uid://b2epmjjeendfk" path="res://scenes/entities/enemy.tscn" id="1_rdek2"]
+[ext_resource type="PackedScene" uid="uid://b2epmjjeendfk" path="res://scene/battle/entities/enemy.tscn" id="1_rdek2"]
 [ext_resource type="Texture2D" uid="uid://cnijqyw434hn3" path="res://assets/res/monsters/Black Units/Warrior/Warrior_Attack1.png" id="2_7x1pj"]
 [ext_resource type="Texture2D" uid="uid://q8x7yi80n3bl" path="res://assets/res/monsters/Black Units/Warrior/Warrior_Attack2.png" id="3_ckxxs"]
 [ext_resource type="Texture2D" uid="uid://u3l1mkl7pb84" path="res://assets/res/monsters/Black Units/Warrior/Warrior_Idle.png" id="4_x3f04"]
@@ -94,7 +94,7 @@ region = Rect2(768, 0, 192, 192)
 atlas = ExtResource("5_ac6xr")
 region = Rect2(960, 0, 192, 192)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ctr6r"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_h4ox4"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -251,35 +251,36 @@ _data = {
 &"attack": SubResource("Animation_3xsi5")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r17r5"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x7vai"]
 resource_local_to_scene = true
 radius = 22.0
 height = 64.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_owq5u"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_psmhf"]
 resource_local_to_scene = true
 radius = 64.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_v5fnw"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_bhm8h"]
 resource_local_to_scene = true
 radius = 55.0
 
 [node name="Enemy" unique_id=319728877 instance=ExtResource("1_rdek2")]
+z_index = 2
 
 [node name="BodySprite" parent="." index="0" unique_id=445990586]
-sprite_frames = SubResource("SpriteFrames_ctr6r")
+sprite_frames = SubResource("SpriteFrames_h4ox4")
 animation = &"attack"
 
 [node name="AnimationPlayer" parent="." index="1" unique_id=86462427]
 libraries/ = SubResource("AnimationLibrary_jssbw")
 
 [node name="BodyShape" parent="." index="2" unique_id=212944282]
-shape = SubResource("CapsuleShape2D_r17r5")
+shape = SubResource("CapsuleShape2D_x7vai")
 
 [node name="CollisionShape2D" parent="DamageArea" parent_id_path=PackedInt32Array(1341994768) index="0" unique_id=64009046]
-shape = SubResource("CircleShape2D_owq5u")
+shape = SubResource("CircleShape2D_psmhf")
 debug_color = Color(0.99514896, 0, 0.21801919, 0.41960785)
 
 [node name="CollisionShape2D" parent="DetectArea" parent_id_path=PackedInt32Array(1718658454) index="0" unique_id=1304389768]
-shape = SubResource("CircleShape2D_v5fnw")
+shape = SubResource("CircleShape2D_bhm8h")
 debug_color = Color(0, 0.645325, 0.26911694, 0.41960785)

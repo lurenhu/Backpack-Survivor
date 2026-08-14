@@ -21,6 +21,8 @@ var type: EQUIPMENT_TYPE = EQUIPMENT_TYPE.ROTATE
 var rotate_times: int = 0
 ## 在背包或者暂存区的网格坐标
 var grid_pos: Vector2i = Vector2i.ZERO
+## 预览装备数据
+var preview_equipment: Equipment = null
 ## 当前装备位于哪个状态
 var state: BackpackManager.GridType = BackpackManager.GridType.NONE
 
@@ -39,6 +41,7 @@ func _init(equipment_id: int) -> void:
 	shape = config.shape.duplicate(true)
 	type = config.type
 
+	preview_equipment = null
 	state = BackpackManager.GridType.NONE
 
 
@@ -71,6 +74,7 @@ func copy() -> Equipment:
 	new_equip.state = state
 	new_equip.shape = shape.duplicate(true)
 	new_equip.attr = attr.duplicate(true)
+	new_equip.preview_equipment = preview_equipment
 	return new_equip
 
 
@@ -87,6 +91,7 @@ func copy_equipment(equipment: Equipment):
 	rotate_times = equipment.rotate_times
 	grid_pos = equipment.grid_pos
 	state = equipment.state
+	preview_equipment = equipment.preview_equipment
 
 
 ## 将形状矩阵顺时针旋转90度

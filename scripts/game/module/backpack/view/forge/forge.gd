@@ -36,6 +36,7 @@ func _ready() -> void:
 func _update_view():
 	_update_table_grid()
 	_sync_cards(BackpackManager.forge_equip, table_cards, forge_table_grid)
+	_show_merge_result_card()
 
 
 ## 刷新结果网格显示
@@ -94,6 +95,26 @@ func _remove_equipment_card(equip: Equipment):
 			DebugUtility.info("remove_equip_card", "Equipment:%s, pos:%s" % [equip, pos])
 
 
+func _show_merge_result_card():
+	var result_id = _check_can_merge()
+	if result_id != 0:
+		result_equipment_card.visible = true
+		result_equipment_card.setup(result_id, BackpackManager.GridType.FORGE_REWARD)
+		result_equipment_card.set_preview_modulate(true)
+		result_name.text = result_equipment_card.equipment.name
+	else:
+		result_equipment_card.visible = false
+		result_equipment_card.set_preview_modulate(false)
+		result_name.text = ""
+
+
+## 检查当前table区域内的装备是否可合成，返回可合成的装备id
+func _check_can_merge() -> int:
+	var equipment_ids = _get_material_ids()
+	var result_id = _find_keys_by_value(GameConfig.forges, equipment_ids)
+	return result_id
+
+
 ## 判断该卡片字典内是否有equip
 func _get_dict_card(equip: Equipment, card_dict: Dictionary[Vector2i, EquipmentCard]) -> EquipmentCard:
 	for card in card_dict.values():
@@ -126,14 +147,15 @@ func _find_keys_by_value(dict: Dictionary, target: Array[int]) -> int:
 
 ## 点按锻造按钮
 func _on_forge_button_pressed():
-	var equipment_ids = _get_material_ids()
-	var result_id = _find_keys_by_value(GameConfig.forges, equipment_ids)
+	var result_id = _check_can_merge()
 	if result_id == 0:
 		return
 
 	for card in table_cards.values():
+		BackpackManager.remove_equipment(card.equipment.preview_equipment)
 		BackpackManager.remove_equipment(card.equipment)
 
+	result_equipment_card.set_preview_modulate(false)
 	result_equipment_card.visible = true
 	result_equipment_card.setup(result_id, BackpackManager.GridType.FORGE_REWARD)
 	result_name.text = result_equipment_card.equipment.name

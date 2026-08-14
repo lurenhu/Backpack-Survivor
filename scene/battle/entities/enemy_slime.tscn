@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://06q71hfcj77q"]
 
-[ext_resource type="PackedScene" uid="uid://b2epmjjeendfk" path="res://scenes/entities/enemy.tscn" id="1_6r5uy"]
+[ext_resource type="PackedScene" uid="uid://b2epmjjeendfk" path="res://scene/battle/entities/enemy.tscn" id="1_6r5uy"]
 [ext_resource type="SpriteFrames" uid="uid://lffv7g3g06ks" path="res://assets/preset/sprite_frame/slime.tres" id="2_etyer"]
 
 [sub_resource type="Animation" id="Animation_6r5uy"]
@@ -49,6 +49,7 @@ radius = 53.338543
 radius = 62.1289
 
 [node name="Enemy" unique_id=319728877 instance=ExtResource("1_6r5uy")]
+z_index = 2
 
 [node name="BodySprite" parent="." index="0" unique_id=445990586]
 sprite_frames = ExtResource("2_etyer")

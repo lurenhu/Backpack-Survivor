@@ -1,234 +1,201 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://dvlnybxrwusq5"]
 
-[ext_resource type="Texture2D" uid="uid://dfmyrlwmtac24" path="res://assets/res/entity/character/法师/idle/女主-animation_00.png" id="1_orvm1"]
-[ext_resource type="Texture2D" uid="uid://d3cimbw7co47" path="res://assets/res/entity/character/法师/法师（小人.png" id="1_r5lbn"]
-[ext_resource type="Texture2D" uid="uid://co3dkhcvd2r5f" path="res://assets/res/entity/character/法师/idle/女主-animation_01.png" id="2_hjaum"]
-[ext_resource type="Texture2D" uid="uid://fcts6lvx3r8e" path="res://assets/res/entity/character/法师/idle/女主-animation_02.png" id="3_nll7d"]
-[ext_resource type="Texture2D" uid="uid://b6mef2u55dbur" path="res://assets/res/entity/character/法师/idle/女主-animation_03.png" id="4_ibev3"]
-[ext_resource type="Texture2D" uid="uid://dqeopftdjtiq2" path="res://assets/res/entity/character/法师/idle/女主-animation_04.png" id="5_e0jix"]
-[ext_resource type="Texture2D" uid="uid://crgcb0bhucmp6" path="res://assets/res/entity/character/法师/idle/女主-animation_05.png" id="6_ukytl"]
-[ext_resource type="Texture2D" uid="uid://c3empm6btjajn" path="res://assets/res/entity/character/法师/idle/女主-animation_06.png" id="7_2ronk"]
-[ext_resource type="Texture2D" uid="uid://bmagkxrg20p34" path="res://assets/res/entity/character/法师/idle/女主-animation_07.png" id="8_xgaym"]
-[ext_resource type="Texture2D" uid="uid://bbdq0qur41yri" path="res://assets/res/entity/character/法师/idle/女主-animation_08.png" id="9_ud8au"]
-[ext_resource type="Texture2D" uid="uid://cy0ylokgwd2sv" path="res://assets/res/entity/character/法师/idle/女主-animation_09.png" id="10_xc4ls"]
-[ext_resource type="Texture2D" uid="uid://dxselhsrrwsg2" path="res://assets/res/entity/character/法师/idle/女主-animation_10.png" id="11_0p3sl"]
-[ext_resource type="Texture2D" uid="uid://brtb1l0d6okui" path="res://assets/res/entity/character/法师/idle/女主-animation_11.png" id="12_h8m7r"]
-[ext_resource type="Texture2D" uid="uid://k0icprdp34nx" path="res://assets/res/entity/character/法师/idle/女主-animation_12.png" id="13_wn80n"]
-[ext_resource type="Texture2D" uid="uid://0dlwelj8tqpl" path="res://assets/res/entity/character/法师/idle/女主-animation_13.png" id="14_6vxbt"]
-[ext_resource type="Texture2D" uid="uid://d87glnhbv7u5" path="res://assets/res/entity/character/法师/idle/女主-animation_14.png" id="15_f1vln"]
-[ext_resource type="Texture2D" uid="uid://7xv6xn5bcxjb" path="res://assets/res/entity/character/法师/idle/女主-animation_15.png" id="16_4tcrf"]
-[ext_resource type="Texture2D" uid="uid://cnjy8f82oqlr2" path="res://assets/res/entity/character/法师/idle/女主-animation_16.png" id="17_sf8lj"]
-[ext_resource type="Texture2D" uid="uid://de00stl0pf5ee" path="res://assets/res/entity/character/法师/idle/女主-animation_17.png" id="18_i30wm"]
-[ext_resource type="Texture2D" uid="uid://dkp8p37amwu3g" path="res://assets/res/entity/character/法师/idle/女主-animation_18.png" id="19_1trdl"]
-[ext_resource type="Texture2D" uid="uid://pv1dnjbdrug7" path="res://assets/res/entity/character/法师/idle/女主-animation_19.png" id="20_aiv42"]
-[ext_resource type="Texture2D" uid="uid://1wueumh7c3jm" path="res://assets/res/entity/character/法师/idle/女主-animation_20.png" id="21_e4tkk"]
-[ext_resource type="Texture2D" uid="uid://k58n8gotd0ip" path="res://assets/res/entity/character/法师/idle/女主-animation_21.png" id="22_v1aqh"]
-[ext_resource type="Texture2D" uid="uid://cpkjftbhg6t2b" path="res://assets/res/entity/character/法师/idle/女主-animation_22.png" id="23_2g77o"]
-[ext_resource type="Texture2D" uid="uid://k3kw0v3wu550" path="res://assets/res/entity/character/法师/idle/女主-animation_23.png" id="24_7kugk"]
-[ext_resource type="Texture2D" uid="uid://bqu2inuycobkj" path="res://assets/res/entity/character/法师/idle/女主-animation_24.png" id="25_bn6v4"]
-[ext_resource type="Texture2D" uid="uid://bjxr5i1hfvtjy" path="res://assets/res/entity/character/法师/idle/女主-animation_25.png" id="26_yd04d"]
-[ext_resource type="Texture2D" uid="uid://b6gokc0xp86xr" path="res://assets/res/entity/character/法师/idle/女主-animation_26.png" id="27_xy6lq"]
-[ext_resource type="Texture2D" uid="uid://divnhiid4ibbq" path="res://assets/res/entity/character/法师/idle/女主-animation_27.png" id="28_l12w2"]
-[ext_resource type="Texture2D" uid="uid://ddp3hs3i74pjs" path="res://assets/res/entity/character/法师/idle/女主-animation_28.png" id="29_m7f30"]
-[ext_resource type="Texture2D" uid="uid://b2b23gn222yvj" path="res://assets/res/entity/character/法师/idle/女主-animation_29.png" id="30_rv861"]
-[ext_resource type="Texture2D" uid="uid://kxtjcqdgh064" path="res://assets/res/entity/character/法师/idle/女主-animation_30.png" id="31_m7e7v"]
-[ext_resource type="Texture2D" uid="uid://du73jhnrnibj7" path="res://assets/res/entity/character/法师/idle/女主-animation_31.png" id="32_wranx"]
-[ext_resource type="Texture2D" uid="uid://b8icdw42vwey4" path="res://assets/res/entity/character/法师/idle/女主-animation_32.png" id="33_mqsfq"]
-[ext_resource type="Texture2D" uid="uid://b183eti7lkkjd" path="res://assets/res/entity/character/法师/idle/女主-animation_33.png" id="34_yxo6k"]
-[ext_resource type="Texture2D" uid="uid://bpbobwjaqn3m6" path="res://assets/res/entity/character/法师/idle/女主-animation_34.png" id="35_jssi7"]
-[ext_resource type="Texture2D" uid="uid://c5snnfetda5v0" path="res://assets/res/entity/character/法师/idle/女主-animation_35.png" id="36_egxmc"]
-[ext_resource type="Texture2D" uid="uid://5tg8fuw21w1c" path="res://assets/res/entity/character/法师/idle/女主-animation_36.png" id="37_km6ot"]
-[ext_resource type="Texture2D" uid="uid://cjcjbfvdqn2y7" path="res://assets/res/entity/character/法师/idle/女主-animation_37.png" id="38_sxfhl"]
-[ext_resource type="Texture2D" uid="uid://c6ds1mncrg7qt" path="res://assets/res/entity/character/法师/idle/女主-animation_38.png" id="39_mh0ff"]
-[ext_resource type="Texture2D" uid="uid://nvtyy1n5crwy" path="res://assets/res/entity/character/法师/idle/女主-animation_39.png" id="40_c56yt"]
-[ext_resource type="Texture2D" uid="uid://dtl7o0ft4spjm" path="res://assets/res/entity/character/法师/idle/女主-animation_40.png" id="41_fdrgc"]
-[ext_resource type="Texture2D" uid="uid://cnoes7x11k30g" path="res://assets/res/entity/character/法师/idle/女主-animation_41.png" id="42_spv58"]
-[ext_resource type="Texture2D" uid="uid://m66h1d1re5xf" path="res://assets/res/entity/character/法师/idle/女主-animation_42.png" id="43_oofjr"]
-[ext_resource type="Texture2D" uid="uid://f3t0xn7qwyh" path="res://assets/res/entity/character/法师/idle/女主-animation_43.png" id="44_ija2v"]
-[ext_resource type="Texture2D" uid="uid://kdr636v3rfq1" path="res://assets/res/entity/character/法师/idle/女主-animation_44.png" id="45_4wsby"]
-[ext_resource type="Texture2D" uid="uid://1qa8i1f68vk3" path="res://assets/res/entity/character/法师/idle/女主-animation_45.png" id="46_verdp"]
-[ext_resource type="Texture2D" uid="uid://dq87o5dqdx1fp" path="res://assets/res/entity/character/法师/idle/女主-animation_46.png" id="47_qpjif"]
-[ext_resource type="Texture2D" uid="uid://chyxd05eh1g3y" path="res://assets/res/entity/character/法师/idle/女主-animation_47.png" id="48_0xjyo"]
-[ext_resource type="Texture2D" uid="uid://dm3c410ier8x2" path="res://assets/res/entity/character/法师/run/001.png" id="49_rv861"]
-[ext_resource type="Texture2D" uid="uid://d14oo6nv68igh" path="res://assets/res/entity/character/法师/run/002.png" id="50_m7e7v"]
-[ext_resource type="Texture2D" uid="uid://b45ag7kr8ddd" path="res://assets/res/entity/character/法师/run/003.png" id="51_wranx"]
-[ext_resource type="Texture2D" uid="uid://cstuqn7qscre" path="res://assets/res/entity/character/法师/run/004.png" id="52_mqsfq"]
-[ext_resource type="Texture2D" uid="uid://ds1kg3vvni3sw" path="res://assets/res/entity/character/法师/run/005.png" id="53_yxo6k"]
-[ext_resource type="Texture2D" uid="uid://do7hjp1q0x8yw" path="res://assets/res/entity/character/法师/run/006.png" id="54_jssi7"]
-[ext_resource type="Texture2D" uid="uid://33bkwlq0t84u" path="res://assets/res/entity/character/法师/run/007.png" id="55_egxmc"]
-[ext_resource type="Texture2D" uid="uid://dt27cfj62u8ch" path="res://assets/res/entity/character/法师/run/008.png" id="56_km6ot"]
-[ext_resource type="Texture2D" uid="uid://mjbpj7y5l318" path="res://assets/res/entity/character/法师/run/009.png" id="57_sxfhl"]
-[ext_resource type="Texture2D" uid="uid://iv2kcvul8a03" path="res://assets/res/entity/character/法师/run/010.png" id="58_mh0ff"]
-[ext_resource type="Texture2D" uid="uid://cof3fsfbxp5ki" path="res://assets/res/entity/character/法师/run/011.png" id="59_c56yt"]
-[ext_resource type="Texture2D" uid="uid://co470j0pqso8m" path="res://assets/res/entity/character/法师/run/012.png" id="60_fdrgc"]
-[ext_resource type="Texture2D" uid="uid://mv61cg51nqng" path="res://assets/res/entity/character/法师/run/013.png" id="61_spv58"]
-[ext_resource type="Texture2D" uid="uid://cl56yj8ff2utf" path="res://assets/res/entity/character/法师/run/014.png" id="62_oofjr"]
-[ext_resource type="Texture2D" uid="uid://cyo0wvhde6v6p" path="res://assets/res/entity/character/法师/run/015.png" id="63_ija2v"]
-[ext_resource type="Texture2D" uid="uid://bjilbchlef31t" path="res://assets/res/entity/character/法师/run/016.png" id="64_4wsby"]
-[ext_resource type="Texture2D" uid="uid://bjc04of6pqwkr" path="res://assets/res/entity/character/法师/run/017.png" id="65_verdp"]
-[ext_resource type="Texture2D" uid="uid://cx5gc7fm1w5ht" path="res://assets/res/entity/character/法师/run/018.png" id="66_qpjif"]
-[ext_resource type="Texture2D" uid="uid://bjlb5mkpytjmv" path="res://assets/res/entity/character/法师/run/019.png" id="67_0xjyo"]
-[ext_resource type="Texture2D" uid="uid://c4gf5c8hd66ap" path="res://assets/res/entity/character/法师/run/020.png" id="68_43gmk"]
-[ext_resource type="Texture2D" uid="uid://cj3mt2lf2l1fc" path="res://assets/res/entity/character/法师/run/021.png" id="69_d2rvk"]
-[ext_resource type="Texture2D" uid="uid://c6psvpbl0p1d0" path="res://assets/res/entity/character/法师/run/022.png" id="70_6ols3"]
-[ext_resource type="Texture2D" uid="uid://dudpei81nr23f" path="res://assets/res/entity/character/法师/run/023.png" id="71_j2ll4"]
-[ext_resource type="Texture2D" uid="uid://bvr8635o1q8yj" path="res://assets/res/entity/character/法师/run/024.png" id="72_0wi3h"]
-[ext_resource type="Texture2D" uid="uid://dipryfc86akpp" path="res://assets/res/entity/character/法师/run/025.png" id="73_wmwtc"]
-[ext_resource type="Texture2D" uid="uid://crqpqm70cnkla" path="res://assets/res/entity/character/法师/run/026.png" id="74_aghej"]
-[ext_resource type="Texture2D" uid="uid://cu4n5tutx26nx" path="res://assets/res/entity/character/法师/run/027.png" id="75_lf5ta"]
-[ext_resource type="Texture2D" uid="uid://qdaabdpllpba" path="res://assets/res/entity/character/法师/run/028.png" id="76_lpp0b"]
-[ext_resource type="Texture2D" uid="uid://dbfd3hh1dr5vc" path="res://assets/res/entity/character/法师/run/029.png" id="77_lbtln"]
+[ext_resource type="Texture2D" uid="uid://8qol2asueh5n" path="res://assets/res/entity/character/法师/idle/001.png" id="1_7kugk"]
+[ext_resource type="Texture2D" uid="uid://d2ugq528224bi" path="res://assets/res/entity/character/法师/idle/002.png" id="2_bn6v4"]
+[ext_resource type="Texture2D" uid="uid://d0lxsqej3t48i" path="res://assets/res/entity/character/法师/idle/003.png" id="3_yd04d"]
+[ext_resource type="Texture2D" uid="uid://xrdbt83j5dbi" path="res://assets/res/entity/character/法师/idle/004.png" id="4_xy6lq"]
+[ext_resource type="Texture2D" uid="uid://b2a5i8065sd74" path="res://assets/res/entity/character/法师/idle/005.png" id="5_l12w2"]
+[ext_resource type="Texture2D" uid="uid://di75l1o3v12j2" path="res://assets/res/entity/character/法师/idle/006.png" id="6_m7f30"]
+[ext_resource type="Texture2D" uid="uid://dm02ft03l1xme" path="res://assets/res/entity/character/法师/idle/007.png" id="7_rv861"]
+[ext_resource type="Texture2D" uid="uid://dxav2p7sg2jnp" path="res://assets/res/entity/character/法师/idle/008.png" id="8_m7e7v"]
+[ext_resource type="Texture2D" uid="uid://cnecuuff3ibjw" path="res://assets/res/entity/character/法师/idle/009.png" id="9_wranx"]
+[ext_resource type="Texture2D" uid="uid://0pnxr8kglqe1" path="res://assets/res/entity/character/法师/idle/010.png" id="10_mqsfq"]
+[ext_resource type="Texture2D" uid="uid://bav0ewjivc8uh" path="res://assets/res/entity/character/法师/idle/011.png" id="11_yxo6k"]
+[ext_resource type="Texture2D" uid="uid://ccin4qtxm0wsr" path="res://assets/res/entity/character/法师/idle/012.png" id="12_jssi7"]
+[ext_resource type="Texture2D" uid="uid://bgous2p7l16d3" path="res://assets/res/entity/character/法师/idle/013.png" id="13_egxmc"]
+[ext_resource type="Texture2D" uid="uid://duhlypvoqc0vi" path="res://assets/res/entity/character/法师/idle/014.png" id="14_km6ot"]
+[ext_resource type="Texture2D" uid="uid://b666h57kwjmmg" path="res://assets/res/entity/character/法师/idle/015.png" id="15_sxfhl"]
+[ext_resource type="Texture2D" uid="uid://bvgw17lpns3o0" path="res://assets/res/entity/character/法师/idle/016.png" id="16_mh0ff"]
+[ext_resource type="Texture2D" uid="uid://djlc6x1gtagie" path="res://assets/res/entity/character/法师/idle/017.png" id="17_c56yt"]
+[ext_resource type="Texture2D" uid="uid://bx05bpd4a5dvt" path="res://assets/res/entity/character/法师/idle/018.png" id="18_fdrgc"]
+[ext_resource type="Texture2D" uid="uid://bl4jlj67mwm21" path="res://assets/res/entity/character/法师/idle/019.png" id="19_spv58"]
+[ext_resource type="Texture2D" uid="uid://cm27fv0vgubow" path="res://assets/res/entity/character/法师/idle/020.png" id="20_oofjr"]
+[ext_resource type="Texture2D" uid="uid://bk877u10l5ubg" path="res://assets/res/entity/character/法师/idle/021.png" id="21_ija2v"]
+[ext_resource type="Texture2D" uid="uid://baulm31lbuxi3" path="res://assets/res/entity/character/法师/idle/022.png" id="22_4wsby"]
+[ext_resource type="Texture2D" uid="uid://yb3y4dhtrtkm" path="res://assets/res/entity/character/法师/idle/023.png" id="23_verdp"]
+[ext_resource type="Texture2D" uid="uid://b08bsp2pvu53p" path="res://assets/res/entity/character/法师/idle/024.png" id="24_qpjif"]
+[ext_resource type="Texture2D" uid="uid://cu2rgb61fwipv" path="res://assets/res/entity/character/法师/idle/025.png" id="25_0xjyo"]
+[ext_resource type="Texture2D" uid="uid://d4gb5f2e18w7i" path="res://assets/res/entity/character/法师/idle/026.png" id="26_43gmk"]
+[ext_resource type="Texture2D" uid="uid://pq603f8svh2o" path="res://assets/res/entity/character/法师/idle/027.png" id="27_d2rvk"]
+[ext_resource type="Texture2D" uid="uid://24f0r4mflkxt" path="res://assets/res/entity/character/法师/idle/028.png" id="28_6ols3"]
+[ext_resource type="Texture2D" uid="uid://dwgyjeyvwdr5j" path="res://assets/res/entity/character/法师/idle/029.png" id="29_j2ll4"]
+[ext_resource type="Texture2D" uid="uid://i4etqbtppry5" path="res://assets/res/entity/character/法师/idle/030.png" id="30_0wi3h"]
+[ext_resource type="Texture2D" uid="uid://cdl5kaw0pefem" path="res://assets/res/entity/character/法师/idle/031.png" id="31_wmwtc"]
+[ext_resource type="Texture2D" uid="uid://djphe4oi33kxc" path="res://assets/res/entity/character/法师/idle/032.png" id="32_aghej"]
+[ext_resource type="Texture2D" uid="uid://dbrxgif6l8nym" path="res://assets/res/entity/character/法师/idle/033.png" id="33_lf5ta"]
+[ext_resource type="Texture2D" uid="uid://o6crhmorjnf6" path="res://assets/res/entity/character/法师/idle/034.png" id="34_lpp0b"]
+[ext_resource type="Texture2D" uid="uid://btjna5pxwheb" path="res://assets/res/entity/character/法师/idle/035.png" id="35_lbtln"]
+[ext_resource type="Texture2D" uid="uid://c7sf2sp5a1fs8" path="res://assets/res/entity/character/法师/idle/036.png" id="36_8swbf"]
+[ext_resource type="Texture2D" uid="uid://wprfiytbh6gs" path="res://assets/res/entity/character/法师/idle/037.png" id="37_04lyb"]
+[ext_resource type="Texture2D" uid="uid://cm0b7abpvod6q" path="res://assets/res/entity/character/法师/idle/038.png" id="38_j5jml"]
+[ext_resource type="Texture2D" uid="uid://c85anwibni51" path="res://assets/res/entity/character/法师/idle/039.png" id="39_kpxej"]
+[ext_resource type="Texture2D" uid="uid://27ixeuj8rvw6" path="res://assets/res/entity/character/法师/run/001.png" id="49_rv861"]
+[ext_resource type="Texture2D" uid="uid://b63307py37uje" path="res://assets/res/entity/character/法师/run/002.png" id="50_m7e7v"]
+[ext_resource type="Texture2D" uid="uid://c627itgindxr" path="res://assets/res/entity/character/法师/run/003.png" id="51_wranx"]
+[ext_resource type="Texture2D" uid="uid://dn73efc2npxi" path="res://assets/res/entity/character/法师/run/004.png" id="52_mqsfq"]
+[ext_resource type="Texture2D" uid="uid://dhivfb8i2gwbw" path="res://assets/res/entity/character/法师/run/005.png" id="53_yxo6k"]
+[ext_resource type="Texture2D" uid="uid://dyds2uhc4jkd8" path="res://assets/res/entity/character/法师/run/006.png" id="54_jssi7"]
+[ext_resource type="Texture2D" uid="uid://ducw4c7yswoti" path="res://assets/res/entity/character/法师/run/007.png" id="55_egxmc"]
+[ext_resource type="Texture2D" uid="uid://u7xb07rmypkm" path="res://assets/res/entity/character/法师/run/008.png" id="56_km6ot"]
+[ext_resource type="Texture2D" uid="uid://7dcb0qwwp7" path="res://assets/res/entity/character/法师/run/009.png" id="57_sxfhl"]
+[ext_resource type="Texture2D" uid="uid://b7cf7hu6xr86k" path="res://assets/res/entity/character/法师/run/010.png" id="58_mh0ff"]
+[ext_resource type="Texture2D" uid="uid://c52dd1p6crfit" path="res://assets/res/entity/character/法师/run/011.png" id="59_c56yt"]
+[ext_resource type="Texture2D" uid="uid://f4f2tdrb5743" path="res://assets/res/entity/character/法师/run/012.png" id="60_fdrgc"]
+[ext_resource type="Texture2D" uid="uid://dm1o7s6qf06dc" path="res://assets/res/entity/character/法师/run/013.png" id="61_spv58"]
+[ext_resource type="Texture2D" uid="uid://b8etxby0ewwuu" path="res://assets/res/entity/character/法师/run/014.png" id="62_oofjr"]
+[ext_resource type="Texture2D" uid="uid://cnrhn1g1r6qnv" path="res://assets/res/entity/character/法师/run/015.png" id="63_ija2v"]
+[ext_resource type="Texture2D" uid="uid://it612up0x5c2" path="res://assets/res/entity/character/法师/run/016.png" id="64_4wsby"]
+[ext_resource type="Texture2D" uid="uid://0u4stlo4aoq0" path="res://assets/res/entity/character/法师/run/017.png" id="65_verdp"]
+[ext_resource type="Texture2D" uid="uid://b3i6y2yewdl66" path="res://assets/res/entity/character/法师/run/018.png" id="66_qpjif"]
+[ext_resource type="Texture2D" uid="uid://citrr6eune1h" path="res://assets/res/entity/character/法师/run/019.png" id="67_0xjyo"]
+[ext_resource type="Texture2D" uid="uid://dfjdi3t3ff1wm" path="res://assets/res/entity/character/法师/run/020.png" id="68_43gmk"]
+[ext_resource type="Texture2D" uid="uid://dreqhwg5m0lum" path="res://assets/res/entity/character/法师/run/021.png" id="69_d2rvk"]
+[ext_resource type="Texture2D" uid="uid://cg7d4avuo8npn" path="res://assets/res/entity/character/法师/run/030.png" id="69_mr0q7"]
+[ext_resource type="Texture2D" uid="uid://co3alv2o2vwna" path="res://assets/res/entity/character/法师/run/022.png" id="70_6ols3"]
+[ext_resource type="Texture2D" uid="uid://c6uwbp37eceh6" path="res://assets/res/entity/character/法师/run/031.png" id="70_jbx1h"]
+[ext_resource type="Texture2D" uid="uid://bp3ippf0lh11c" path="res://assets/res/entity/character/法师/run/032.png" id="71_d3a3g"]
+[ext_resource type="Texture2D" uid="uid://dgx5s3neercmj" path="res://assets/res/entity/character/法师/run/023.png" id="71_j2ll4"]
+[ext_resource type="Texture2D" uid="uid://0oyj45ai7ovs" path="res://assets/res/entity/character/法师/run/024.png" id="72_0wi3h"]
+[ext_resource type="Texture2D" uid="uid://bf2t33maua6rx" path="res://assets/res/entity/character/法师/run/033.png" id="72_n0tnt"]
+[ext_resource type="Texture2D" uid="uid://djd7w7yg381d7" path="res://assets/res/entity/character/法师/run/025.png" id="73_wmwtc"]
+[ext_resource type="Texture2D" uid="uid://l2b7my831r27" path="res://assets/res/entity/character/法师/run/026.png" id="74_aghej"]
+[ext_resource type="Texture2D" uid="uid://cgh4rs2dswgv2" path="res://assets/res/entity/character/法师/run/027.png" id="75_lf5ta"]
+[ext_resource type="Texture2D" uid="uid://bcfbvajg0vi0w" path="res://assets/res/entity/character/法师/run/028.png" id="76_lpp0b"]
+[ext_resource type="Texture2D" uid="uid://d2k5x36twv5l3" path="res://assets/res/entity/character/法师/run/029.png" id="77_lbtln"]
 
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_orvm1")
+"texture": ExtResource("1_7kugk")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_hjaum")
+"texture": ExtResource("2_bn6v4")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_nll7d")
+"texture": ExtResource("3_yd04d")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_ibev3")
+"texture": ExtResource("4_xy6lq")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_e0jix")
+"texture": ExtResource("5_l12w2")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_ukytl")
+"texture": ExtResource("6_m7f30")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_2ronk")
+"texture": ExtResource("7_rv861")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_xgaym")
+"texture": ExtResource("8_m7e7v")
 }, {
 "duration": 1.0,
-"texture": ExtResource("9_ud8au")
+"texture": ExtResource("9_wranx")
 }, {
 "duration": 1.0,
-"texture": ExtResource("10_xc4ls")
+"texture": ExtResource("10_mqsfq")
 }, {
 "duration": 1.0,
-"texture": ExtResource("11_0p3sl")
+"texture": ExtResource("11_yxo6k")
 }, {
 "duration": 1.0,
-"texture": ExtResource("12_h8m7r")
+"texture": ExtResource("12_jssi7")
 }, {
 "duration": 1.0,
-"texture": ExtResource("13_wn80n")
+"texture": ExtResource("13_egxmc")
 }, {
 "duration": 1.0,
-"texture": ExtResource("14_6vxbt")
+"texture": ExtResource("14_km6ot")
 }, {
 "duration": 1.0,
-"texture": ExtResource("15_f1vln")
+"texture": ExtResource("15_sxfhl")
 }, {
 "duration": 1.0,
-"texture": ExtResource("16_4tcrf")
+"texture": ExtResource("16_mh0ff")
 }, {
 "duration": 1.0,
-"texture": ExtResource("17_sf8lj")
+"texture": ExtResource("17_c56yt")
 }, {
 "duration": 1.0,
-"texture": ExtResource("18_i30wm")
+"texture": ExtResource("18_fdrgc")
 }, {
 "duration": 1.0,
-"texture": ExtResource("19_1trdl")
+"texture": ExtResource("19_spv58")
 }, {
 "duration": 1.0,
-"texture": ExtResource("20_aiv42")
+"texture": ExtResource("20_oofjr")
 }, {
 "duration": 1.0,
-"texture": ExtResource("21_e4tkk")
+"texture": ExtResource("21_ija2v")
 }, {
 "duration": 1.0,
-"texture": ExtResource("22_v1aqh")
+"texture": ExtResource("22_4wsby")
 }, {
 "duration": 1.0,
-"texture": ExtResource("23_2g77o")
+"texture": ExtResource("23_verdp")
 }, {
 "duration": 1.0,
-"texture": ExtResource("24_7kugk")
+"texture": ExtResource("24_qpjif")
 }, {
 "duration": 1.0,
-"texture": ExtResource("25_bn6v4")
+"texture": ExtResource("25_0xjyo")
 }, {
 "duration": 1.0,
-"texture": ExtResource("26_yd04d")
+"texture": ExtResource("26_43gmk")
 }, {
 "duration": 1.0,
-"texture": ExtResource("27_xy6lq")
+"texture": ExtResource("27_d2rvk")
 }, {
 "duration": 1.0,
-"texture": ExtResource("28_l12w2")
+"texture": ExtResource("28_6ols3")
 }, {
 "duration": 1.0,
-"texture": ExtResource("29_m7f30")
+"texture": ExtResource("29_j2ll4")
 }, {
 "duration": 1.0,
-"texture": ExtResource("30_rv861")
+"texture": ExtResource("30_0wi3h")
 }, {
 "duration": 1.0,
-"texture": ExtResource("31_m7e7v")
+"texture": ExtResource("31_wmwtc")
 }, {
 "duration": 1.0,
-"texture": ExtResource("32_wranx")
+"texture": ExtResource("32_aghej")
 }, {
 "duration": 1.0,
-"texture": ExtResource("33_mqsfq")
+"texture": ExtResource("33_lf5ta")
 }, {
 "duration": 1.0,
-"texture": ExtResource("34_yxo6k")
+"texture": ExtResource("34_lpp0b")
 }, {
 "duration": 1.0,
-"texture": ExtResource("35_jssi7")
+"texture": ExtResource("35_lbtln")
 }, {
 "duration": 1.0,
-"texture": ExtResource("36_egxmc")
+"texture": ExtResource("36_8swbf")
 }, {
 "duration": 1.0,
-"texture": ExtResource("37_km6ot")
+"texture": ExtResource("37_04lyb")
 }, {
 "duration": 1.0,
-"texture": ExtResource("38_sxfhl")
+"texture": ExtResource("38_j5jml")
 }, {
 "duration": 1.0,
-"texture": ExtResource("39_mh0ff")
-}, {
-"duration": 1.0,
-"texture": ExtResource("40_c56yt")
-}, {
-"duration": 1.0,
-"texture": ExtResource("41_fdrgc")
-}, {
-"duration": 1.0,
-"texture": ExtResource("42_spv58")
-}, {
-"duration": 1.0,
-"texture": ExtResource("43_oofjr")
-}, {
-"duration": 1.0,
-"texture": ExtResource("44_ija2v")
-}, {
-"duration": 1.0,
-"texture": ExtResource("45_4wsby")
-}, {
-"duration": 1.0,
-"texture": ExtResource("46_verdp")
-}, {
-"duration": 1.0,
-"texture": ExtResource("47_qpjif")
-}, {
-"duration": 1.0,
-"texture": ExtResource("48_0xjyo")
+"texture": ExtResource("39_kpxej")
 }],
 "loop": true,
 "name": &"idle",
-"speed": 36.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -317,14 +284,26 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("77_lbtln")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_mr0q7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_jbx1h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("71_d3a3g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("72_n0tnt")
 }],
 "loop": true,
 "name": &"run",
-"speed": 21.0
+"speed": 16.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_r5lbn")
+"texture": ExtResource("1_7kugk")
 }],
 "loop": true,
 "name": &"sprite",

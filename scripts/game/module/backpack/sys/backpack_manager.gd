@@ -132,7 +132,7 @@ func add_to_equip_grid(equipment: Equipment, pos: Vector2i) -> bool:
 
 
 ## 从对应装备字典中移除指定装备并清理网格占用
-func remove_equipment(equipment: Equipment) -> void:
+func remove_equipment(equipment: Equipment) -> bool:
 	var grid_array: Array[Array]
 	var equip_dict: Dictionary
 	match equipment.state:
@@ -146,13 +146,14 @@ func remove_equipment(equipment: Equipment) -> void:
 			grid_array = forge_grid
 			equip_dict = forge_equip
 		_:
-			return
+			return false
 
 	if not equip_dict.has(equipment.grid_pos):
-		return
+		return false
 	remove_from_grid(equipment.shape, equipment.grid_pos, grid_array)
 	equip_dict.erase(equipment.grid_pos)
 	equip_changed.emit()
+	return true
 
 
 ## 在同一个网格中移动装备
