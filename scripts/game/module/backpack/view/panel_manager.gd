@@ -249,6 +249,7 @@ func _on_equipment_dropped(screen_position: Vector2, equipment_card: EquipmentCa
 		if target_grid_type == BackpackManager.GridType.FORGE_TABLE:
 			var new_equipment = equipment_card.equipment.copy()
 			new_equipment.preview_equipment = equipment_card.origin_equipment
+			equipment_card.equipment.copy_equipment(equipment_card.origin_equipment)
 			can_place = BackpackManager.add_to_equip_grid(new_equipment, new_pos)
 			if can_place:
 				equipment_card.set_preview_modulate(true)
@@ -306,6 +307,16 @@ func _on_shop_exit_button_pressed():
 
 ## 关闭隐藏锻造界面
 func _on_forge_exit_button_pressed():
+	for card: EquipmentCard in forge.table_cards.values():
+		var preview_card: EquipmentCard = null
+		var preview_equipment: Equipment = card.equipment.preview_equipment
+		if preview_equipment.state == BackpackManager.GridType.PACKAGE:
+			preview_card = package.backpack_cards[preview_equipment.grid_pos]
+		elif preview_equipment.state == BackpackManager.GridType.STAGE:
+			preview_card = package.stage_cards[preview_equipment.grid_pos]
+		preview_card.set_preview_modulate(false)
+		BackpackManager.remove_equipment(card.equipment)
+	forge.show_merge_result_card()
 	hide_forge()
 	show_map()
 
