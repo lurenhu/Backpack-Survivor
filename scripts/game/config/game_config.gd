@@ -41,7 +41,7 @@ static func _load_all() -> void:
 
 
 static func _load_csv(path: String) -> Array:
-	if not FileAccess.file_exists(path):
+	if not ResourceLoader.exists(path):
 		printerr("GameConfig: file not found: ", path)
 		return []
 	var res := load(path)

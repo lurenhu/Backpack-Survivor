@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://hiroam8ttu4n"]
 
 [ext_resource type="Script" uid="uid://cdpu7m1inuf4p" path="res://scripts/game/module/map/view/map.gd" id="1_yyonm"]
-[ext_resource type="Texture2D" uid="uid://c52ou6daw6f2n" path="res://assets/res/ui/底框.png" id="2_paxxb"]
+[ext_resource type="Texture2D" uid="uid://cvlldpfre1mqx" path="res://assets/res/maps/UI/选关.jpg" id="2_yyonm"]
 
 [node name="Map" type="Control" unique_id=83536416]
 custom_minimum_size = Vector2(800, 720)
@@ -12,28 +12,31 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+clip_contents = true
 script = ExtResource("1_yyonm")
 
-[node name="Bg" type="NinePatchRect" parent="." unique_id=2076011949]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_paxxb")
-region_rect = Rect2(0, 0, 130, 128)
-patch_margin_left = 38
-patch_margin_top = 40
-patch_margin_right = 39
-patch_margin_bottom = 31
-
-[node name="LineContainer" type="Control" parent="." unique_id=154324622]
+[node name="Content" type="Control" parent="." unique_id=1987412956]
+layout_mode = 0
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
-[node name="MapNodeContainer" type="Control" parent="." unique_id=951894821]
+[node name="Bg" type="TextureRect" parent="Content" unique_id=1047347281]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("2_yyonm")
+
+[node name="LineContainer" type="Control" parent="Content" unique_id=154324622]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="MapNodeContainer" type="Control" parent="Content" unique_id=951894821]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2

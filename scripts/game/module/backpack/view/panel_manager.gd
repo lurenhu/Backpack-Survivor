@@ -16,7 +16,7 @@ func _ready() -> void:
 	package.hide()
 	forge.hide()
 	map.show()
-	
+
 	_update_map()
 	_regist_card_signal()
 
@@ -56,9 +56,16 @@ func show_map() -> void:
 	if panel_animation.is_playing():
 		await panel_animation.animation_finished
 	panel_animation.play("show_map")
+	
+	map_scene.scroll_to_current_map_node_button()
 
 ## 关闭地图
 func hide_map() -> void:
+	var map_scene: Map = map.get_child(0) as Map
+	if map_scene == null:
+		return
+	map_scene.scroll_to_top()
+
 	if panel_animation.is_playing():
 		await panel_animation.animation_finished
 	panel_animation.play("hide_map")
@@ -105,8 +112,10 @@ func _update_map():
 		child_map.queue_free()
 
 	var map_scene: PackedScene = load("res://scene/map/map_%s.tscn" % MapManager.current_map_id)
-	map.add_child(map_scene.instantiate())
-
+	var cur_map: Map = map_scene.instantiate() as Map
+	map.add_child(cur_map)
+	cur_map.scroll_to_current_map_node_button()
+	
 
 ## 给所有卡片注册对应拖拽与放下事件
 func _regist_card_signal():

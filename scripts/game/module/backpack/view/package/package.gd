@@ -39,6 +39,8 @@ func _update_backpack_grid() -> void:
 		for x in grid[y].size():
 			if grid[y][x] != -1:
 				backpack_grid_tile.set_cell(Vector2i(x, y), 1, Vector2i.ZERO)
+			else:
+				backpack_grid_tile.set_cell(Vector2i(x, y), 0, Vector2i.ZERO)
 
 ## 根据stage_grid数据刷新闲置区网格瓦片
 func _update_stage_grid() -> void:
@@ -48,6 +50,9 @@ func _update_stage_grid() -> void:
 		for x in grid[y].size():
 			if grid[y][x] != -1:
 				stage_grid_tile.set_cell(Vector2i(x, y), 1, Vector2i.ZERO)
+			else:
+				backpack_grid_tile.set_cell(Vector2i(x, y), 0, Vector2i.ZERO)
+
 
 ## 同步背包装备卡片：创建新卡片、移除已删除装备的卡片、更新位置
 func _sync_backpack_cards() -> void:

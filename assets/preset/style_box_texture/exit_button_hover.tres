@@ -1,0 +1,11 @@
+[gd_resource type="StyleBoxTexture" format=3 uid="uid://yxwj3sxvwmej"]
+
+[ext_resource type="Texture2D" uid="uid://cmwn3xenycxty" path="res://assets/res/ui/backpack/返回.png" id="1_ordsw"]
+
+[resource]
+texture = ExtResource("1_ordsw")
+texture_margin_left = 11.609063
+texture_margin_top = 10.791524
+texture_margin_right = 11.036786
+texture_margin_bottom = 10.055738
+modulate_color = Color(1.236, 1.236, 1.236, 1)

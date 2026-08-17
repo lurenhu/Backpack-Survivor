@@ -11,9 +11,9 @@ enum GridType {
 }
 
 
-const CELL_SIZE: int = 32
+const CELL_SIZE: int = 48
 const BACKPACK_COLS: int = 8
-const BACKPACK_ROWS: int = 8
+const BACKPACK_ROWS: int = 6
 const STAGE_COLS: int = 8
 const STAGE_ROWS: int = 4
 const FORGE_COLS: int = 8

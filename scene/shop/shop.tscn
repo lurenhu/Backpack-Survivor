@@ -1,14 +1,17 @@
 [gd_scene format=3 uid="uid://d3tmcfp4sg3ru"]
 
 [ext_resource type="Script" uid="uid://cf0ya74gjypop" path="res://scripts/game/module/backpack/view/shop/shop.gd" id="1_rwv1s"]
-[ext_resource type="Texture2D" uid="uid://c52ou6daw6f2n" path="res://assets/res/ui/底框.png" id="2_mf44u"]
-[ext_resource type="Texture2D" uid="uid://bpgpvi364llbf" path="res://assets/res/ui/标题底.png" id="3_qvagu"]
+[ext_resource type="Texture2D" uid="uid://dflmufi77oren" path="res://assets/res/ui/backpack/商店.png" id="2_rwv1s"]
+[ext_resource type="Texture2D" uid="uid://e5rciip6xy0g" path="res://assets/res/ui/backpack/商人.png" id="3_mf44u"]
+[ext_resource type="Texture2D" uid="uid://cjkbe31qio8x3" path="res://assets/res/ui/backpack/标题1.png" id="3_rwv1s"]
 [ext_resource type="StyleBox" uid="uid://brgbn8u1fmjkl" path="res://assets/preset/style_box_texture/button_normal.tres" id="4_8r1wq"]
-[ext_resource type="Texture2D" uid="uid://dd7efphe1r355" path="res://assets/res/ui/商品底.png" id="4_xv67d"]
 [ext_resource type="StyleBox" uid="uid://cofb03f4qoc5d" path="res://assets/preset/style_box_texture/button_pressed.tres" id="5_ajxib"]
-[ext_resource type="Texture2D" uid="uid://d3ps6iwoxvd6i" path="res://assets/res/ui/道具底1.png" id="5_grq32"]
+[ext_resource type="Texture2D" uid="uid://1f1p27n5x6on" path="res://assets/res/ui/backpack/道具底.png" id="5_xv67d"]
 [ext_resource type="PackedScene" uid="uid://02k27p5jqln6" path="res://scene/shop/equipment_card.tscn" id="6_xnav0"]
 [ext_resource type="StyleBox" uid="uid://bt0lljh8r713" path="res://assets/preset/style_box_texture/button_hover.tres" id="6_y6sft"]
+[ext_resource type="StyleBox" uid="uid://gugbrikylgdn" path="res://assets/preset/style_box_texture/exit_button_normal.tres" id="11_grq32"]
+[ext_resource type="StyleBox" uid="uid://ds6ki23h8c0ri" path="res://assets/preset/style_box_texture/exit_button_pressed.tres" id="12_xnav0"]
+[ext_resource type="StyleBox" uid="uid://yxwj3sxvwmej" path="res://assets/preset/style_box_texture/exit_button_hover.tres" id="13_22mpj"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1nnao"]
 resource_local_to_scene = true
@@ -24,28 +27,33 @@ shadow_size = 5
 shadow_color = Color(0, 0, 0, 0.4627451)
 
 [node name="Shop" type="Control" unique_id=988208482]
-custom_minimum_size = Vector2(400, 720)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 400.0
+offset_right = 560.0
 offset_bottom = 720.0
 script = ExtResource("1_rwv1s")
 
-[node name="Bg" type="NinePatchRect" parent="." unique_id=67021373]
-custom_minimum_size = Vector2(400, 640)
+[node name="Bg" type="TextureRect" parent="." unique_id=657625015]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.9444444
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -246.0
+offset_right = 246.0
+offset_bottom = 680.0
 grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_mf44u")
-region_rect = Rect2(0, 0, 130, 128)
-patch_margin_left = 36
-patch_margin_top = 35
-patch_margin_right = 37
-patch_margin_bottom = 39
-metadata/_edit_use_anchors_ = true
+texture = ExtResource("2_rwv1s")
+
+[node name="Logo" type="TextureRect" parent="." unique_id=1231121438]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -72.0
+offset_top = -216.0
+offset_right = 141.0
+grow_vertical = 0
+texture = ExtResource("3_mf44u")
 
 [node name="Title" type="Control" parent="." unique_id=2073215003]
 layout_mode = 1
@@ -63,7 +71,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_qvagu")
+texture = ExtResource("3_rwv1s")
 expand_mode = 1
 
 [node name="Label" type="Label" parent="Title" unique_id=794497169]
@@ -87,67 +95,60 @@ vertical_alignment = 1
 
 [node name="Market" type="GridContainer" parent="." unique_id=1510254007]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.1875
-anchor_top = 0.1388889
-anchor_right = 0.8125
-anchor_bottom = 0.7916669
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -190.0
+offset_top = -250.0
+offset_right = 190.0
+offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/h_separation = 50
 theme_override_constants/v_separation = 10
 columns = 2
-metadata/_edit_use_anchors_ = true
 
 [node name="Commodity_1" type="Control" parent="Market" unique_id=229931179]
-custom_minimum_size = Vector2(100, 150)
+custom_minimum_size = Vector2(150, 240)
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Bg" type="NinePatchRect" parent="Market/Commodity_1" unique_id=1328960900]
+[node name="EquipName" type="Control" parent="Market/Commodity_1" unique_id=1641081865]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -40.0
+offset_right = 50.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Bg" type="NinePatchRect" parent="Market/Commodity_1/EquipName" unique_id=1328960900]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("4_xv67d")
-region_rect = Rect2(0, 0, 118, 178)
-patch_margin_left = 38
-patch_margin_top = 46
-patch_margin_right = 38
-patch_margin_bottom = 50
+texture = ExtResource("5_xv67d")
+region_rect = Rect2(0, 0, 115, 167)
+patch_margin_left = 29
+patch_margin_top = 28
+patch_margin_right = 29
+patch_margin_bottom = 31
 
-[node name="QualityBg" type="NinePatchRect" parent="Market/Commodity_1" unique_id=353581717]
+[node name="Name" type="Label" parent="Market/Commodity_1/EquipName" unique_id=1329744457]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -65.0
-offset_right = 40.0
-offset_bottom = 65.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("5_grq32")
-region_rect = Rect2(0, 0, 104, 124)
-patch_margin_left = 32
-patch_margin_top = 41
-patch_margin_right = 33
-patch_margin_bottom = 32
-
-[node name="Name" type="Label" parent="Market/Commodity_1" unique_id=1329744457]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -50.0
-offset_top = 8.0
-offset_right = 50.0
-offset_bottom = 32.0
-grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "商品名称"
 label_settings = SubResource("LabelSettings_phhfx")
@@ -157,335 +158,228 @@ vertical_alignment = 1
 [node name="CenterContainer" type="CenterContainer" parent="Market/Commodity_1" unique_id=638946170]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.1
-anchor_top = 0.22666667
-anchor_right = 0.9
-anchor_bottom = 0.9266667
+anchor_left = -0.14
+anchor_right = 1.14
+anchor_bottom = 0.8
 grow_horizontal = 2
-grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="EquipmentCard" parent="Market/Commodity_1/CenterContainer" unique_id=63713 instance=ExtResource("6_xnav0")]
 layout_mode = 2
 
-[node name="Commodity_2" type="Control" parent="Market" unique_id=538205746]
-custom_minimum_size = Vector2(100, 150)
+[node name="Commodity_2" type="Control" parent="Market" unique_id=1970611104]
+custom_minimum_size = Vector2(150, 240)
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Bg" type="NinePatchRect" parent="Market/Commodity_2" unique_id=2042583620]
+[node name="EquipName" type="Control" parent="Market/Commodity_2" unique_id=853147299]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -40.0
+offset_right = 50.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Bg" type="NinePatchRect" parent="Market/Commodity_2/EquipName" unique_id=1698246428]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("4_xv67d")
-region_rect = Rect2(0, 0, 118, 178)
-patch_margin_left = 38
-patch_margin_top = 46
-patch_margin_right = 38
-patch_margin_bottom = 50
+texture = ExtResource("5_xv67d")
+region_rect = Rect2(0, 0, 115, 167)
+patch_margin_left = 29
+patch_margin_top = 28
+patch_margin_right = 29
+patch_margin_bottom = 31
 
-[node name="QualityBg" type="NinePatchRect" parent="Market/Commodity_2" unique_id=707460328]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -65.0
-offset_right = 40.0
-offset_bottom = 65.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_grq32")
-region_rect = Rect2(0, 0, 104, 124)
-patch_margin_left = 32
-patch_margin_top = 41
-patch_margin_right = 33
-patch_margin_bottom = 32
-
-[node name="Name" type="Label" parent="Market/Commodity_2" unique_id=753957135]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -50.0
-offset_top = 8.0
-offset_right = 50.0
-offset_bottom = 32.0
-grow_horizontal = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "商品名称"
-label_settings = SubResource("LabelSettings_phhfx")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="CenterContainer" type="CenterContainer" parent="Market/Commodity_2" unique_id=1928198467]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.1
-anchor_top = 0.22666667
-anchor_right = 0.9
-anchor_bottom = 0.9266667
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="EquipmentCard" parent="Market/Commodity_2/CenterContainer" unique_id=1387641001 instance=ExtResource("6_xnav0")]
-layout_mode = 2
-
-[node name="Commodity_3" type="Control" parent="Market" unique_id=2140284759]
-custom_minimum_size = Vector2(100, 150)
-layout_mode = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="Bg" type="NinePatchRect" parent="Market/Commodity_3" unique_id=1973555433]
+[node name="Name" type="Label" parent="Market/Commodity_2/EquipName" unique_id=297052418]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("4_xv67d")
-region_rect = Rect2(0, 0, 118, 178)
-patch_margin_left = 38
-patch_margin_top = 46
-patch_margin_right = 38
-patch_margin_bottom = 50
-
-[node name="QualityBg" type="NinePatchRect" parent="Market/Commodity_3" unique_id=624393996]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -65.0
-offset_right = 40.0
-offset_bottom = 65.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_grq32")
-region_rect = Rect2(0, 0, 104, 124)
-patch_margin_left = 32
-patch_margin_top = 41
-patch_margin_right = 33
-patch_margin_bottom = 32
-
-[node name="Name" type="Label" parent="Market/Commodity_3" unique_id=552150003]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -50.0
-offset_top = 8.0
-offset_right = 50.0
-offset_bottom = 32.0
-grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "商品名称"
 label_settings = SubResource("LabelSettings_phhfx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="Market/Commodity_3" unique_id=697784085]
+[node name="CenterContainer" type="CenterContainer" parent="Market/Commodity_2" unique_id=340118812]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.1
-anchor_top = 0.22666667
-anchor_right = 0.9
-anchor_bottom = 0.9266667
+anchor_left = -0.14
+anchor_right = 1.14
+anchor_bottom = 0.8
 grow_horizontal = 2
-grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="EquipmentCard" parent="Market/Commodity_3/CenterContainer" unique_id=1627085069 instance=ExtResource("6_xnav0")]
+[node name="EquipmentCard" parent="Market/Commodity_2/CenterContainer" unique_id=761647550 instance=ExtResource("6_xnav0")]
 layout_mode = 2
 
-[node name="Commodity_4" type="Control" parent="Market" unique_id=307900092]
-custom_minimum_size = Vector2(100, 150)
+[node name="Commodity_3" type="Control" parent="Market" unique_id=715965749]
+custom_minimum_size = Vector2(150, 240)
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Bg" type="NinePatchRect" parent="Market/Commodity_4" unique_id=695825963]
+[node name="EquipName" type="Control" parent="Market/Commodity_3" unique_id=1251760250]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -40.0
+offset_right = 50.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Bg" type="NinePatchRect" parent="Market/Commodity_3/EquipName" unique_id=1088342538]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("4_xv67d")
-region_rect = Rect2(0, 0, 118, 178)
-patch_margin_left = 38
-patch_margin_top = 46
-patch_margin_right = 38
-patch_margin_bottom = 50
+texture = ExtResource("5_xv67d")
+region_rect = Rect2(0, 0, 115, 167)
+patch_margin_left = 29
+patch_margin_top = 28
+patch_margin_right = 29
+patch_margin_bottom = 31
 
-[node name="QualityBg" type="NinePatchRect" parent="Market/Commodity_4" unique_id=2055967970]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -65.0
-offset_right = 40.0
-offset_bottom = 65.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_grq32")
-region_rect = Rect2(0, 0, 104, 124)
-patch_margin_left = 32
-patch_margin_top = 41
-patch_margin_right = 33
-patch_margin_bottom = 32
-
-[node name="Name" type="Label" parent="Market/Commodity_4" unique_id=1245884267]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -50.0
-offset_top = 8.0
-offset_right = 50.0
-offset_bottom = 32.0
-grow_horizontal = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "商品名称"
-label_settings = SubResource("LabelSettings_phhfx")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="CenterContainer" type="CenterContainer" parent="Market/Commodity_4" unique_id=1895674745]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.1
-anchor_top = 0.22666667
-anchor_right = 0.9
-anchor_bottom = 0.9266667
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="EquipmentCard" parent="Market/Commodity_4/CenterContainer" unique_id=1243449663 instance=ExtResource("6_xnav0")]
-layout_mode = 2
-
-[node name="Commodity_5" type="Control" parent="Market" unique_id=2069519813]
-custom_minimum_size = Vector2(100, 150)
-layout_mode = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="Bg" type="NinePatchRect" parent="Market/Commodity_5" unique_id=1764728227]
+[node name="Name" type="Label" parent="Market/Commodity_3/EquipName" unique_id=360409182]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("4_xv67d")
-region_rect = Rect2(0, 0, 118, 178)
-patch_margin_left = 38
-patch_margin_top = 46
-patch_margin_right = 38
-patch_margin_bottom = 50
-
-[node name="QualityBg" type="NinePatchRect" parent="Market/Commodity_5" unique_id=732521817]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -65.0
-offset_right = 40.0
-offset_bottom = 65.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_grq32")
-region_rect = Rect2(0, 0, 104, 124)
-patch_margin_left = 32
-patch_margin_top = 41
-patch_margin_right = 33
-patch_margin_bottom = 32
-
-[node name="Name" type="Label" parent="Market/Commodity_5" unique_id=1015859266]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -50.0
-offset_top = 8.0
-offset_right = 50.0
-offset_bottom = 32.0
-grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "商品名称"
 label_settings = SubResource("LabelSettings_phhfx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="Market/Commodity_5" unique_id=641055125]
+[node name="CenterContainer" type="CenterContainer" parent="Market/Commodity_3" unique_id=1637844442]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.1
-anchor_top = 0.22666667
-anchor_right = 0.9
-anchor_bottom = 0.9266667
+anchor_left = -0.14
+anchor_right = 1.14
+anchor_bottom = 0.8
 grow_horizontal = 2
-grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="EquipmentCard" parent="Market/Commodity_5/CenterContainer" unique_id=674400875 instance=ExtResource("6_xnav0")]
+[node name="EquipmentCard" parent="Market/Commodity_3/CenterContainer" unique_id=360001270 instance=ExtResource("6_xnav0")]
+layout_mode = 2
+
+[node name="Commodity_4" type="Control" parent="Market" unique_id=445125180]
+custom_minimum_size = Vector2(150, 240)
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="EquipName" type="Control" parent="Market/Commodity_4" unique_id=1913556629]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -40.0
+offset_right = 50.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Bg" type="NinePatchRect" parent="Market/Commodity_4/EquipName" unique_id=188130585]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_xv67d")
+region_rect = Rect2(0, 0, 115, 167)
+patch_margin_left = 29
+patch_margin_top = 28
+patch_margin_right = 29
+patch_margin_bottom = 31
+
+[node name="Name" type="Label" parent="Market/Commodity_4/EquipName" unique_id=1427792232]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "商品名称"
+label_settings = SubResource("LabelSettings_phhfx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="Market/Commodity_4" unique_id=923888339]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.14
+anchor_right = 1.14
+anchor_bottom = 0.8
+grow_horizontal = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="EquipmentCard" parent="Market/Commodity_4/CenterContainer" unique_id=672774885 instance=ExtResource("6_xnav0")]
 layout_mode = 2
 
 [node name="RefreshButton" type="Button" parent="." unique_id=1188206376]
-custom_minimum_size = Vector2(120, 40)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.125
-anchor_top = 0.8333333
-anchor_right = 0.425
-anchor_bottom = 0.89911485
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -61.0
+offset_top = -88.0
+offset_right = 59.0
+offset_bottom = -28.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0.06100855, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0.0627451, 1)
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = ExtResource("4_8r1wq")
 theme_override_styles/pressed = ExtResource("5_ajxib")
 theme_override_styles/hover = ExtResource("6_y6sft")
 text = "刷新商店"
-metadata/_edit_use_anchors_ = true
 
 [node name="ExitButton" type="Button" parent="." unique_id=1820081843]
-custom_minimum_size = Vector2(120, 40)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.59
-anchor_top = 0.8361111
-anchor_right = 0.89
-anchor_bottom = 0.9027778
-offset_left = 4.0000153
-offset_top = -2.0
-offset_right = 4.0
-offset_bottom = -2.0
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -80.0
 grow_horizontal = 0
 grow_vertical = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("4_8r1wq")
-theme_override_styles/pressed = ExtResource("5_ajxib")
-theme_override_styles/hover = ExtResource("6_y6sft")
+theme_override_colors/font_pressed_color = Color(0, 0, 0.06100855, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0.0627451, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = ExtResource("11_grq32")
+theme_override_styles/pressed = ExtResource("12_xnav0")
+theme_override_styles/hover = ExtResource("13_22mpj")
 text = "退出"
-metadata/_edit_use_anchors_ = true

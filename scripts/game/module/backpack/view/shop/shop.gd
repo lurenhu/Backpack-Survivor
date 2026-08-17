@@ -5,7 +5,7 @@ extends Control
 @onready var refresh_button: Button = $RefreshButton
 @onready var exit_button: Button = $ExitButton
 
-const CARD_COUNT: int = 5
+const CARD_COUNT: int = 4
 
 var _cards: Array[EquipmentCard] = []
 var _name_labels: Array[Label] = []
@@ -15,7 +15,7 @@ var _equipment_pool: PackedInt32Array = []
 func _ready() -> void:
 	for i in range(1, CARD_COUNT + 1):
 		var card: EquipmentCard = get_node("Market/Commodity_%d/CenterContainer/EquipmentCard" % i)
-		var name_label: Label = get_node("Market/Commodity_%d/Name" % i)
+		var name_label: Label = get_node("Market/Commodity_%d/EquipName/Name" % i)
 		_cards.append(card)
 		_name_labels.append(name_label)
 

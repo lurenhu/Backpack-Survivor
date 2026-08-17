@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bwj3dedthwwrx"]
 
-[ext_resource type="Texture2D" uid="uid://dou4n7p8ev7fj" path="res://assets/res/ui/icons/Icon_04.png" id="1_2v4pg"]
 [ext_resource type="Script" uid="uid://tqjmfn566h3h" path="res://scripts/game/module/battle/view/entities/shooter.gd" id="1_7y3p4"]
+[ext_resource type="Texture2D" uid="uid://lmf1622h3shh" path="res://assets/icon/progress_empty.png" id="2_7y3p4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ssunt"]
 resource_local_to_scene = true
@@ -11,7 +11,7 @@ radius = 200.0
 script = ExtResource("1_7y3p4")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1897529777]
-texture = ExtResource("1_2v4pg")
+texture = ExtResource("2_7y3p4")
 
 [node name="DetectArea" type="Area2D" parent="." unique_id=897849843]
 collision_layer = 2

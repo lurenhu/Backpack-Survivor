@@ -1,8 +1,8 @@
 extends Node
 
-const BATTLE_TEXTURE: Texture = preload("res://assets/icon/tool_sword_b.png")
-const SHOP_TEXTURE: Texture = preload("res://assets/icon/tool_wrench.png")
-const FORGE_TEXTURE: Texture = preload("res://assets/icon/tool_hammer.png")
+const BATTLE_TEXTURE: Texture = preload("res://assets/res/maps/UI/战斗.png")
+const SHOP_TEXTURE: Texture = preload("res://assets/res/maps/UI/商店.png")
+const FORGE_TEXTURE: Texture = preload("res://assets/icon/tool_wrench.png")
 
 const MAP_LINE: PackedScene = preload("res://scene/map/map_line.tscn")
 

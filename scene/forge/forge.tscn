@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://c52ou6daw6f2n" path="res://assets/res/ui/底框.png" id="1_afni4"]
 [ext_resource type="Script" uid="uid://qkq3gq6tu8yk" path="res://scripts/game/module/backpack/view/forge/forge.gd" id="1_uypxx"]
-[ext_resource type="Texture2D" uid="uid://bpgpvi364llbf" path="res://assets/res/ui/标题底.png" id="2_frgk7"]
 [ext_resource type="TileSet" uid="uid://dbgfs1lakql7e" path="res://assets/preset/tile_set/UI_Grid.tres" id="3_k0j38"]
+[ext_resource type="Texture2D" uid="uid://cjkbe31qio8x3" path="res://assets/res/ui/backpack/标题1.png" id="3_nscoo"]
 [ext_resource type="Texture2D" uid="uid://d3ps6iwoxvd6i" path="res://assets/res/ui/道具底1.png" id="4_2jb37"]
 [ext_resource type="StyleBox" uid="uid://brgbn8u1fmjkl" path="res://assets/preset/style_box_texture/button_normal.tres" id="4_3pu5r"]
 [ext_resource type="LabelSettings" uid="uid://bec8lxyndk5je" path="res://assets/preset/label_set/label_type_1.tres" id="4_cfrmi"]
@@ -11,22 +11,23 @@
 [ext_resource type="StyleBox" uid="uid://cofb03f4qoc5d" path="res://assets/preset/style_box_texture/button_pressed.tres" id="5_uypxx"]
 [ext_resource type="PackedScene" uid="uid://02k27p5jqln6" path="res://scene/shop/equipment_card.tscn" id="6_jcdo0"]
 [ext_resource type="StyleBox" uid="uid://bt0lljh8r713" path="res://assets/preset/style_box_texture/button_hover.tres" id="6_sqf4m"]
+[ext_resource type="StyleBox" uid="uid://gugbrikylgdn" path="res://assets/preset/style_box_texture/exit_button_normal.tres" id="12_hwv24"]
+[ext_resource type="StyleBox" uid="uid://yxwj3sxvwmej" path="res://assets/preset/style_box_texture/exit_button_hover.tres" id="13_iiaxv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cfrmi"]
 resource_local_to_scene = true
+font_size = 24
 font_color = Color(1.1294625, 0.83751404, 0.5196019, 1)
 shadow_size = 5
 shadow_color = Color(0, 0, 0, 0.4627451)
 
 [node name="Forge" type="Control" unique_id=1209823036]
-custom_minimum_size = Vector2(400, 720)
+custom_minimum_size = Vector2(560, 720)
 layout_mode = 3
-anchor_right = 0.3125
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_right = 560.0
+offset_bottom = 720.0
 script = ExtResource("1_uypxx")
-metadata/_edit_use_anchors_ = true
 
 [node name="Bg" type="NinePatchRect" parent="." unique_id=1682528008]
 custom_minimum_size = Vector2(400, 640)
@@ -59,7 +60,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_frgk7")
+texture = ExtResource("3_nscoo")
 expand_mode = 1
 
 [node name="Label" type="Label" parent="Title" unique_id=2024420304]
@@ -82,14 +83,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ForgeResultCard" type="Control" parent="." unique_id=1646659754]
-custom_minimum_size = Vector2(128, 176)
+custom_minimum_size = Vector2(192, 240)
 layout_mode = 1
-anchor_left = 0.34
-anchor_top = 0.19444445
-anchor_right = 0.66
-anchor_bottom = 0.43888888
-offset_top = 24.0
-offset_bottom = -24.0
+anchor_left = 0.32857144
+anchor_top = 0.16388889
+anchor_right = 0.67142856
+anchor_bottom = 0.46944445
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
@@ -118,25 +117,37 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="CenterContainer" type="CenterContainer" parent="ForgeResultCard" unique_id=939173187]
-layout_mode = 0
-anchor_top = 0.13636364
-anchor_right = 1.0
-anchor_bottom = 1.0
-metadata/_edit_use_anchors_ = true
+custom_minimum_size = Vector2(192, 192)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -77.0
+offset_right = 96.0
+offset_bottom = 115.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="EquipmentCard" parent="ForgeResultCard/CenterContainer" unique_id=63713 instance=ExtResource("6_jcdo0")]
 layout_mode = 2
 
 [node name="ForgeTableGrid" type="Control" parent="." unique_id=1159768498]
-custom_minimum_size = Vector2(256, 128)
+custom_minimum_size = Vector2(384, 192)
 layout_mode = 1
-anchor_left = 0.18
-anchor_top = 0.5
-anchor_right = 0.82
-anchor_bottom = 0.67777777
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -192.0
+offset_top = -320.0
+offset_right = 192.0
+offset_bottom = -128.0
 grow_horizontal = 2
 grow_vertical = 0
-metadata/_edit_use_anchors_ = true
 
 [node name="Bg" type="NinePatchRect" parent="ForgeTableGrid" unique_id=1449509851]
 custom_minimum_size = Vector2(288, 160)
@@ -160,13 +171,17 @@ tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAA
 tile_set = ExtResource("3_k0j38")
 
 [node name="ForgeButton" type="Button" parent="." unique_id=844115295]
-custom_minimum_size = Vector2(120, 40)
+custom_minimum_size = Vector2(120, 60)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.125
-anchor_top = 0.75
-anchor_right = 0.425
-anchor_bottom = 0.8157815
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -100.0
+offset_right = 60.0
+offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 4
@@ -174,24 +189,21 @@ size_flags_vertical = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = ExtResource("4_3pu5r")
 theme_override_styles/pressed = ExtResource("5_uypxx")
 theme_override_styles/hover = ExtResource("6_sqf4m")
 text = "锻造"
-metadata/_edit_use_anchors_ = true
 
 [node name="ExitButton" type="Button" parent="." unique_id=1013676375]
-custom_minimum_size = Vector2(120, 40)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.59
-anchor_top = 0.75277776
-anchor_right = 0.89
-anchor_bottom = 0.8194444
-offset_left = 4.0000153
-offset_top = -2.0
-offset_right = 4.0
-offset_bottom = -2.0
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -80.0
 grow_horizontal = 0
 grow_vertical = 0
 size_flags_horizontal = 4
@@ -199,11 +211,11 @@ size_flags_vertical = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("4_3pu5r")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = ExtResource("12_hwv24")
 theme_override_styles/pressed = ExtResource("5_uypxx")
-theme_override_styles/hover = ExtResource("6_sqf4m")
+theme_override_styles/hover = ExtResource("13_iiaxv")
 text = "退出"
-metadata/_edit_use_anchors_ = true
 
 [node name="CardContainer" type="Control" parent="." unique_id=761208904]
 anchors_preset = 0

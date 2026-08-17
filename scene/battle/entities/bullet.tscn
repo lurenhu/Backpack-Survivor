@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://1r7lohlt6h4a"]
 
 [ext_resource type="Script" uid="uid://16twf34us6fc" path="res://scripts/game/module/battle/view/entities/bullet.gd" id="1_f1gy2"]
-[ext_resource type="Texture2D" uid="uid://bpwrtga8m6q31" path="res://assets/res/entity/弹幕2.png" id="1_ma0cl"]
+[ext_resource type="Texture2D" uid="uid://bpwrtga8m6q31" path="res://assets/res/entity/bullet/弹幕2.png" id="1_ma0cl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ma0cl"]
 radius = 30.0
