@@ -18,4 +18,8 @@ func fire_bullet() -> void:
 	if _player == null:
 		return
 
+	var direction: Vector2 = (_player.global_position - global_position).normalized()
+	if direction.x != 0:
+		var offset = abs(shooter.position.x)
+		shooter.position.x = offset if direction.x >= 0 else -offset
 	shooter.shoot(_player, self)

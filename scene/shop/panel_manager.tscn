@@ -30,7 +30,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [670.0]
+"values": [1500.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -54,7 +54,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [50.0]
+"values": [-620.0]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -90,7 +90,7 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [670.0]
+"values": [1500.0]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -102,7 +102,7 @@ tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_lcx21"]
@@ -446,6 +446,7 @@ grow_vertical = 2
 script = ExtResource("1_2x2ty")
 
 [node name="Map" type="Control" parent="." unique_id=559196319]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -458,16 +459,16 @@ layout_mode = 1
 
 [node name="Package" parent="." unique_id=81504182 instance=ExtResource("1_5m514")]
 layout_mode = 1
-offset_left = 50.0
-offset_right = 610.0
+offset_left = -620.0
+offset_right = -60.0
 
 [node name="Shop" parent="." unique_id=988208482 instance=ExtResource("2_4k27i")]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -610.0
-offset_right = -49.99951
+offset_left = 220.0
+offset_right = 780.0005
 grow_horizontal = 0
 
 [node name="Forge" parent="." unique_id=1209823036 instance=ExtResource("5_prnev")]
@@ -475,8 +476,8 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -610.0
-offset_right = -50.0
+offset_left = 220.0
+offset_right = 780.0
 grow_horizontal = 0
 
 [node name="PanelAnimation" type="AnimationPlayer" parent="." unique_id=1534209524]

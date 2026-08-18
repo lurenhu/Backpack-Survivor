@@ -51,7 +51,7 @@ func _update_stage_grid() -> void:
 			if grid[y][x] != -1:
 				stage_grid_tile.set_cell(Vector2i(x, y), 1, Vector2i.ZERO)
 			else:
-				backpack_grid_tile.set_cell(Vector2i(x, y), 0, Vector2i.ZERO)
+				stage_grid_tile.set_cell(Vector2i(x, y), 0, Vector2i.ZERO)
 
 
 ## 同步背包装备卡片：创建新卡片、移除已删除装备的卡片、更新位置

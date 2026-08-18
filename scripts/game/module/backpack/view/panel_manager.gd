@@ -12,13 +12,9 @@ var _dragging_cards: Array[EquipmentCard] = []
 var _drag_origin_grid_cells: Dictionary = {}
 
 func _ready() -> void:
-	shop.hide()
-	package.hide()
-	forge.hide()
-	map.show()
-
 	_update_map()
 	_regist_card_signal()
+	show_map()
 
 	BackpackManager.add_equipment_card.connect(_on_add_equipment_card)
 
@@ -114,7 +110,6 @@ func _update_map():
 	var map_scene: PackedScene = load("res://scene/map/map_%s.tscn" % MapManager.current_map_id)
 	var cur_map: Map = map_scene.instantiate() as Map
 	map.add_child(cur_map)
-	cur_map.scroll_to_current_map_node_button()
 	
 
 ## 给所有卡片注册对应拖拽与放下事件

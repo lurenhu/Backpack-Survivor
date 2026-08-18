@@ -3,8 +3,36 @@
 [ext_resource type="PackedScene" uid="uid://kxv4uklaedpl" path="res://scene/battle/entities/enemy_shooter.tscn" id="1_ix3vq"]
 [ext_resource type="SpriteFrames" uid="uid://178dassf1d2n" path="res://assets/preset/sprite_frame/skeleton.tres" id="2_vbh4y"]
 
+[sub_resource type="Animation" id="Animation_o005k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"attack"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BodySprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_ix3vq"]
 resource_name = "attack"
+length = 1.2
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -12,16 +40,41 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.5),
+"times": PackedFloat32Array(0.8),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"fire_bullet"
 }]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BodySprite:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"attack", &"attack"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BodySprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 10]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vbh4y"]
 _data = {
+&"RESET": SubResource("Animation_o005k"),
 &"attack": SubResource("Animation_ix3vq")
 }
 
@@ -37,3 +90,6 @@ libraries/ = SubResource("AnimationLibrary_vbh4y")
 
 [node name="CollisionShape2D" parent="DamageArea" parent_id_path=PackedInt32Array(1341994768) index="0" unique_id=64009046]
 disabled = true
+
+[node name="Shooter" parent="." index="6" unique_id=840961110]
+position = Vector2(72, 0)
