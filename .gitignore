@@ -3,7 +3,7 @@
 /android/
 
 # ai skill 及相关配置文件
-.agent/
+.agents/
 .claude/
 skills-lock.json
 
