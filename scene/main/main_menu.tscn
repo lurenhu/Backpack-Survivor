@@ -56,7 +56,7 @@ theme_override_constants/separation = 30
 alignment = 1
 
 [node name="StartButton" type="Button" parent="NinePatchRect/VBoxContainer" unique_id=1975709255]
-custom_minimum_size = Vector2(200, 60)
+custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -71,7 +71,7 @@ text = "开始游戏"
 metadata/_edit_use_anchors_ = true
 
 [node name="SettingButton" type="Button" parent="NinePatchRect/VBoxContainer" unique_id=67630272]
-custom_minimum_size = Vector2(200, 60)
+custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -86,7 +86,7 @@ text = "设置"
 metadata/_edit_use_anchors_ = true
 
 [node name="ExitButton" type="Button" parent="NinePatchRect/VBoxContainer" unique_id=476313489]
-custom_minimum_size = Vector2(200, 60)
+custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4

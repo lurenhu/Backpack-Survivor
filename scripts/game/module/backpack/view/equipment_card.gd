@@ -88,6 +88,8 @@ func _on_drag_start(mouse_global: Vector2) -> void:
 	var parent_ofs: Vector2 = get_parent().global_position
 	position = mouse_global - parent_ofs - pivot_offset
 	
+	z_index = 1
+
 	grid_preview.visible = false
 
 
@@ -107,6 +109,8 @@ func _on_drag_end() -> void:
 
 	var first_pos: Vector2 = get_occupied_global_centers()[0]
 	drag_dropped.emit(first_pos)
+
+	z_index = 0
 
 	grid_preview.visible = equipment.state == BackpackManager.GridType.SHOP
 
