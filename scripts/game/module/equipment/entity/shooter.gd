@@ -42,7 +42,11 @@ func setup(shoot_interval: float,
 	if _attribute_container != null:
 		_attribute_container.attribute_changed.connect(_on_attribute_changed)
 	_recalculate_bullet_damage()
-	shoot_timer.wait_time = _shoot_interval
+	if _shoot_interval > 0.0:
+		shoot_timer.wait_time = _shoot_interval
+		shoot_timer.start()
+	else:
+		shoot_timer.stop()
 
 
 func shoot(target: Node2D, from: Node2D):

@@ -1,6 +1,7 @@
 extends Node
 
 const PLAYER_SCENE := preload("res://scene/battle/entities/player.tscn")
+const ENEMY_SHOOTER_SCENE := preload("res://scene/battle/entities/enemy_skeleton.tscn")
 
 
 func _ready() -> void:
@@ -14,6 +15,8 @@ func _run() -> void:
 	if not _test_equipment_type_parsing():
 		return
 	if not _test_passive_equipment_registration():
+		return
+	if not await _test_enemy_shooter_timer():
 		return
 	if not await _test_rotate_equipment():
 		return
@@ -88,6 +91,17 @@ func _test_passive_equipment_registration() -> bool:
 	):
 		return false
 	equipment_host.queue_free()
+	return true
+
+
+func _test_enemy_shooter_timer() -> bool:
+	var enemy := ENEMY_SHOOTER_SCENE.instantiate() as EnemyShooter
+	enemy.setup(3)
+	add_child(enemy)
+	if not _assert(enemy.shooter.shoot_timer.is_stopped(), "enemy shooter setup should stop its automatic timer"):
+		return false
+	enemy.queue_free()
+	await get_tree().process_frame
 	return true
 
 
@@ -184,6 +198,11 @@ func _test_shooter_equipment() -> bool:
 	if not _assert(shooter._shoot_num == 2, "duplicate shooter equipment should produce two projectiles"):
 		return false
 	if not _assert(is_equal_approx(shooter.shoot_timer.wait_time, 0.5), "shooter timer should use the configured interval"):
+		return false
+	if not _assert(
+		shooter.shoot_timer.time_left > 0.0 and shooter.shoot_timer.time_left <= 0.5,
+		"equipment shooter should restart its active countdown with the configured interval"
+	):
 		return false
 
 	var equipment_host := player.get_node("Components/EquipmentHost") as EquipmentHost
