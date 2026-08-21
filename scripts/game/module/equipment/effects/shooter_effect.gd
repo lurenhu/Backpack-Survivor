@@ -22,6 +22,6 @@ func activate() -> void:
 		DebugUtility.error("ShooterEffect", "无法创建发射装备场景")
 		return
 	context.shooter_anchor.add_child(shooter)
-	shooter.setup(shoot_interval, bullet_speed, damage, shoot_radius, equipment_count, context.player, context.attribute_container)
+	shooter.setup(shoot_interval, bullet_speed, damage, shoot_radius, equipment_count, context.player, true)
 	shooter.pos_shooter(-PI / 2.0)
 	_track_entity(shooter)

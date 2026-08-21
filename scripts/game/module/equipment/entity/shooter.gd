@@ -15,7 +15,7 @@ var _base_bullet_damage: float = 0
 var _bullet_speed: float = 0
 var _shoot_interval: float = 0.0
 var _from: Node2D = null
-var _attribute_container: AttributeContainer
+var _uses_equipment_attrs: bool = false
 
 func _ready() -> void:
 	shoot_timer.timeout.connect(_on_shoot)
@@ -31,16 +31,16 @@ func setup(shoot_interval: float,
 	radius: float,
 	count: int,
 	from: Node2D,
-	attributes: AttributeContainer = null) -> void:
+	use_equipment_attrs: bool = false) -> void:
 	_shoot_interval = shoot_interval
 	_bullet_speed = bullet_speed
 	_base_bullet_damage = base_damage
 	collision_shape_2d.shape.radius = radius
 	_shoot_num = count
 	_from = from
-	_attribute_container = attributes
-	if _attribute_container != null:
-		_attribute_container.attribute_changed.connect(_on_attribute_changed)
+	_uses_equipment_attrs = use_equipment_attrs
+	if _uses_equipment_attrs and not BackpackManager.equip_changed.is_connected(_recalculate_bullet_damage):
+		BackpackManager.equip_changed.connect(_recalculate_bullet_damage)
 	_recalculate_bullet_damage()
 	if _shoot_interval > 0.0:
 		shoot_timer.wait_time = _shoot_interval
@@ -59,19 +59,16 @@ func pos_shooter(angle: float) -> void:
 
 ## ----信号回调----
 
-func _on_attribute_changed(type: AttrType.Type) -> void:
-	if type == AttrType.Type.ATK or type == AttrType.Type.ATK_PER:
-		_recalculate_bullet_damage()
+func _equipment_attr(type: AttrType.Type) -> float:
+	var attrs := BackpackManager.equipment_attrs
+	return attrs.get_value(type) if attrs.has(type) else 0.0
 
 
 func _recalculate_bullet_damage() -> void:
 	_bullet_damage = _base_bullet_damage
-	if _attribute_container != null:
-		_bullet_damage = _attribute_container.calculate(
-			_base_bullet_damage,
-			AttrType.Type.ATK,
-			AttrType.Type.ATK_PER
-		)
+	if _uses_equipment_attrs:
+		_bullet_damage = (_base_bullet_damage + _equipment_attr(AttrType.Type.ATK)) \
+			* (1.0 + _equipment_attr(AttrType.Type.ATK_PER))
 
 ## 射击计时器归零时：检测最近敌人，发射子弹
 func _on_shoot() -> void:

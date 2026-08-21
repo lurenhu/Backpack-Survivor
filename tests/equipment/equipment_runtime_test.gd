@@ -10,13 +10,9 @@ func _ready() -> void:
 
 func _run() -> void:
 	GameConfig._init()
-	if not _test_attribute_container():
-		return
 	if not _test_backpack_equipment_attributes():
 		return
 	if not _test_equipment_type_parsing():
-		return
-	if not _test_passive_equipment_registration():
 		return
 	if not await _test_enemy_shooter_timer():
 		return
@@ -25,19 +21,6 @@ func _run() -> void:
 	if not await _test_shooter_equipment():
 		return
 	get_tree().quit(0)
-
-
-func _test_attribute_container() -> bool:
-	var glove_a := Equipment.new(23)
-	var glove_b := Equipment.new(23)
-	var container := AttributeContainer.new()
-	container.add_modifier(AttributeModifier.new(glove_a, AttrType.Type.ROTATE_SPEED, 0.5))
-	container.add_modifier(AttributeModifier.new(glove_a, AttrType.Type.ROTATE_SPEED_PER, 0.1))
-	container.add_modifier(AttributeModifier.new(glove_b, AttrType.Type.ROTATE_SPEED_PER, 0.1))
-	if not _assert(is_equal_approx(container.calculate(3.0, AttrType.Type.ROTATE_SPEED, AttrType.Type.ROTATE_SPEED_PER), 4.2), "fixed and percent modifiers should use the agreed formula"):
-		return false
-	container.remove_by_source(glove_a)
-	return _assert(is_equal_approx(container.calculate(3.0, AttrType.Type.ROTATE_SPEED, AttrType.Type.ROTATE_SPEED_PER), 3.3), "same-ID equipment references should be independent")
 
 
 func _test_backpack_equipment_attributes() -> bool:
@@ -125,43 +108,6 @@ func _test_equipment_type_parsing() -> bool:
 	return true
 
 
-func _test_passive_equipment_registration() -> bool:
-	var equipment_host := EquipmentHost.new()
-	add_child(equipment_host)
-	var container := equipment_host.attribute_container
-	if not _assert(container != null, "EquipmentHost should expose its attribute container"):
-		return false
-
-	var context := EquipmentContext.new().setup(null, null, null, container)
-	var glove_a := Equipment.new(23)
-	var glove_b := Equipment.new(23)
-	equipment_host.initialize([glove_a, glove_b], context)
-	if not _assert(
-		is_equal_approx(container.get_total(AttrType.Type.ATK), 20.0),
-		"two glove references should each register their attack modifier"
-	):
-		return false
-	if not _assert(
-		is_equal_approx(container.get_total(AttrType.Type.ROTATE_SPEED_PER), 0.4),
-		"two glove references should each register their rotate speed percentage"
-	):
-		return false
-
-	equipment_host.cleanup()
-	if not _assert(
-		is_zero_approx(container.get_total(AttrType.Type.ATK)),
-		"cleanup should remove passive attack modifiers"
-	):
-		return false
-	if not _assert(
-		is_zero_approx(container.get_total(AttrType.Type.ROTATE_SPEED_PER)),
-		"cleanup should remove passive rotate speed modifiers"
-	):
-		return false
-	equipment_host.queue_free()
-	return true
-
-
 func _test_enemy_shooter_timer() -> bool:
 	var enemy := ENEMY_SHOOTER_SCENE.instantiate() as EnemyShooter
 	enemy.setup(3)
@@ -178,6 +124,11 @@ func _test_rotate_equipment() -> bool:
 	BackpackManager.init_backpack(1)
 	if not _assert(BackpackManager.equipments.size() == 2, "warrior should start with two equipment items"):
 		return false
+	var glove_a := Equipment.new(23)
+	var glove_b := Equipment.new(23)
+	BackpackManager.backpack_equip[Vector2i(10, 0)] = glove_a
+	BackpackManager.backpack_equip[Vector2i(11, 0)] = glove_b
+	BackpackManager.recalculate_equipment_attrs()
 
 	var player := PLAYER_SCENE.instantiate() as Player
 	add_child(player)
@@ -198,24 +149,15 @@ func _test_rotate_equipment() -> bool:
 	var weapon_anchor := player.get_node("EquipmentEntities/WeaponAnchor")
 	var first_weapon := weapon_anchor.get_child(0) as RotateWeapon
 	var second_weapon := weapon_anchor.get_child(1) as RotateWeapon
-	var glove_a := Equipment.new(23)
-	var glove_b := Equipment.new(23)
-
-	equipment_host.attribute_container.add_modifier(AttributeModifier.new(glove_a, AttrType.Type.ATK, 10.0))
-	equipment_host.attribute_container.add_modifier(AttributeModifier.new(glove_b, AttrType.Type.ATK, 10.0))
 	for weapon in [first_weapon, second_weapon]:
-		if not _assert(is_equal_approx(weapon._attack_power, 25.0), "global attack modifiers should refresh every existing rotate weapon"):
+		if not _assert(is_equal_approx(weapon._attack_power, 25.0), "global attack should apply when rotate weapons are created"):
 			return false
-		if not _assert(is_equal_approx(weapon._rotation_speed, 10.0), "attack modifiers should not change rotate speed"):
-			return false
-
-	equipment_host.attribute_container.add_modifier(AttributeModifier.new(glove_a, AttrType.Type.ROTATE_SPEED_PER, 0.2))
-	equipment_host.attribute_container.add_modifier(AttributeModifier.new(glove_b, AttrType.Type.ROTATE_SPEED_PER, 0.2))
-	for weapon in [first_weapon, second_weapon]:
-		if not _assert(is_equal_approx(weapon._rotation_speed, 14.0), "rotation modifiers should refresh every existing rotate weapon"):
+		if not _assert(is_equal_approx(weapon._rotation_speed, 14.0), "all rotate weapons should read the backpack speed bonus"):
 			return false
 
-	equipment_host.attribute_container.remove_by_source(glove_a)
+	BackpackManager.backpack_equip.erase(Vector2i(10, 0))
+	BackpackManager.recalculate_equipment_attrs()
+	BackpackManager.equip_changed.emit()
 	if not _assert(weapon_anchor.get_child(0) == first_weapon and weapon_anchor.get_child(1) == second_weapon, "modifier removal should not recreate rotate weapons"):
 		return false
 	for weapon in [first_weapon, second_weapon]:
@@ -254,6 +196,9 @@ func _test_shooter_equipment() -> bool:
 	BackpackManager.init_backpack(2)
 	if not _assert(BackpackManager.equipments.size() == 2, "mage should start with two equipment items"):
 		return false
+	BackpackManager.backpack_equip[Vector2i(10, 0)] = Equipment.new(23)
+	BackpackManager.backpack_equip[Vector2i(11, 0)] = Equipment.new(23)
+	BackpackManager.recalculate_equipment_attrs()
 
 	var player := PLAYER_SCENE.instantiate() as Player
 	add_child(player)
@@ -273,17 +218,7 @@ func _test_shooter_equipment() -> bool:
 	):
 		return false
 
-	var equipment_host := player.get_node("Components/EquipmentHost") as EquipmentHost
-	var glove_a := Equipment.new(23)
-	var glove_b := Equipment.new(23)
-	equipment_host.attribute_container.add_modifier(AttributeModifier.new(glove_a, AttrType.Type.ATK, 10.0))
-	equipment_host.attribute_container.add_modifier(AttributeModifier.new(glove_b, AttrType.Type.ATK, 10.0))
-	if not _assert(is_equal_approx(shooter._bullet_damage, 40.0), "global attack modifiers should refresh the existing shooter"):
-		return false
-
-	equipment_host.attribute_container.add_modifier(AttributeModifier.new(glove_a, AttrType.Type.ROTATE_SPEED_PER, 0.2))
-	equipment_host.attribute_container.add_modifier(AttributeModifier.new(glove_b, AttrType.Type.ROTATE_SPEED_PER, 0.2))
-	if not _assert(is_equal_approx(shooter._bullet_damage, 40.0), "rotation modifiers should not change shooter damage"):
+	if not _assert(is_equal_approx(shooter._bullet_damage, 40.0), "global attack should apply when equipment shooter is created"):
 		return false
 	if not _assert(is_equal_approx(shooter.shoot_timer.wait_time, 0.5), "rotation modifiers should not change shooter timing"):
 		return false
