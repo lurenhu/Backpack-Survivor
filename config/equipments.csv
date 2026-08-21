@@ -21,7 +21,7 @@ ID,Name,Shape,Rarity,Attr,Price,Source,Type
 20,魔法宝石,"1",4,"ATK:40",40,"res://assets/res/entity/equipment/魔法宝石.png",JEWELRY
 21,魔法帽,"1,1;1,1",4,"ATK:50",40,"res://assets/res/entity/equipment/魔法帽.png",JEWELRY
 22,魔法长袍,"1,1;1,1;1,1",4,"ATK:50",40,"res://assets/res/entity/equipment/魔法长袍.png",JEWELRY
-23,铁片手套,"1;1;1",3,"ATK10",20,"res://assets/res/entity/equipment/铁片手套.png",JEWELRY
+23,铁片手套,"1;1;1",3,"ATK:10,ROTATE_SPEED_PER:0.2",20,"res://assets/res/entity/equipment/铁片手套.png",JEWELRY
 24,石中剑,"1;1;1;1",4,"ATK:10,ROTATE_RADIUS:120,ROTATE_SPEED:12",20,"res://assets/res/entity/equipment/石中剑.png",ROTATE
 25,皮革帽子,"1,1;1,1",2,"HP:20",10,"res://assets/res/entity/equipment/皮革帽子.png",JEWELRY
 26,皮革手套,"1;1",2,"HP:20",10,"res://assets/res/entity/equipment/皮革手套.png",JEWELRY

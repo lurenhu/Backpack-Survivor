@@ -13,6 +13,8 @@ func _run() -> void:
 		return
 	if not _test_equipment_type_parsing():
 		return
+	if not _test_passive_equipment_registration():
+		return
 	if not await _test_rotate_equipment():
 		return
 	if not await _test_shooter_equipment():
@@ -35,8 +37,8 @@ func _test_attribute_container() -> bool:
 
 func _test_equipment_type_parsing() -> bool:
 	if not _assert(
-		EquipmentEffectType.from_string("JEWELRY") == EquipmentEffectType.Type.ROTATE,
-		"legacy jewelry behavior should remain rotate"
+		EquipmentEffectType.from_string("JEWELRY") == EquipmentEffectType.Type.PASSIVE_ATTRIBUTE,
+		"legacy jewelry should map to passive attributes"
 	):
 		return false
 	if not _assert(
@@ -49,6 +51,43 @@ func _test_equipment_type_parsing() -> bool:
 		"factory should reject unknown equipment types"
 	):
 		return false
+	return true
+
+
+func _test_passive_equipment_registration() -> bool:
+	var equipment_host := EquipmentHost.new()
+	add_child(equipment_host)
+	var container := equipment_host.attribute_container
+	if not _assert(container != null, "EquipmentHost should expose its attribute container"):
+		return false
+
+	var context := EquipmentContext.new().setup(null, null, null, container)
+	var glove_a := Equipment.new(23)
+	var glove_b := Equipment.new(23)
+	equipment_host.initialize([glove_a, glove_b], context)
+	if not _assert(
+		is_equal_approx(container.get_total(AttrType.Type.ATK), 20.0),
+		"two glove references should each register their attack modifier"
+	):
+		return false
+	if not _assert(
+		is_equal_approx(container.get_total(AttrType.Type.ROTATE_SPEED_PER), 0.4),
+		"two glove references should each register their rotate speed percentage"
+	):
+		return false
+
+	equipment_host.cleanup()
+	if not _assert(
+		is_zero_approx(container.get_total(AttrType.Type.ATK)),
+		"cleanup should remove passive attack modifiers"
+	):
+		return false
+	if not _assert(
+		is_zero_approx(container.get_total(AttrType.Type.ROTATE_SPEED_PER)),
+		"cleanup should remove passive rotate speed modifiers"
+	):
+		return false
+	equipment_host.queue_free()
 	return true
 
 

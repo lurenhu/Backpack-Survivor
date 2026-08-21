@@ -8,5 +8,7 @@ static func create_effect(type: EquipmentEffectType.Type) -> EquipmentEffect:
 			return RotateWeaponEffect.new()
 		EquipmentEffectType.Type.SHOOTER:
 			return ShooterEffect.new()
+		EquipmentEffectType.Type.PASSIVE_ATTRIBUTE:
+			return PassiveAttributeEffect.new()
 		_:
 			return null

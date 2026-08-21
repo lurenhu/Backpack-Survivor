@@ -8,7 +8,8 @@ func activate() -> void:
 	if context == null or context.weapon_anchor == null:
 		DebugUtility.error("RotateWeaponEffect", "缺少 WeaponAnchor")
 		return
-	if equipment_data == null or count <= 0:
+	var equipment_count := get_count()
+	if equipment_data == null or equipment_count <= 0:
 		return
 
 	var damage := float(equipment_data.attr.get(AttrType.get_key(AttrType.Type.ATK), 0.0))
@@ -19,12 +20,12 @@ func activate() -> void:
 		DebugUtility.error("RotateWeaponEffect", "无法加载装备贴图: %s" % equipment_data.source)
 		return
 
-	for index in count:
+	for index in equipment_count:
 		var weapon := ROTATE_WEAPON_SCENE.instantiate() as RotateWeapon
 		if weapon == null:
 			DebugUtility.error("RotateWeaponEffect", "无法创建旋转武器场景")
 			continue
 		context.weapon_anchor.add_child(weapon)
 		weapon.setup(damage, rotate_radius, rotate_speed, equipment_data.shape, texture)
-		weapon._angle = index * TAU / count
+		weapon._angle = index * TAU / equipment_count
 		_track_entity(weapon)

@@ -8,7 +8,8 @@ func activate() -> void:
 	if context == null or context.shooter_anchor == null:
 		DebugUtility.error("ShooterEffect", "缺少 ShooterAnchor")
 		return
-	if equipment_data == null or count <= 0:
+	var equipment_count := get_count()
+	if equipment_data == null or equipment_count <= 0:
 		return
 
 	var damage := float(equipment_data.attr.get(AttrType.get_key(AttrType.Type.ATK), 0.0))
@@ -21,6 +22,6 @@ func activate() -> void:
 		DebugUtility.error("ShooterEffect", "无法创建发射装备场景")
 		return
 	context.shooter_anchor.add_child(shooter)
-	shooter.setup(shoot_interval, bullet_speed, damage, shoot_radius, count, context.player)
+	shooter.setup(shoot_interval, bullet_speed, damage, shoot_radius, equipment_count, context.player)
 	shooter.pos_shooter(-PI / 2.0)
 	_track_entity(shooter)

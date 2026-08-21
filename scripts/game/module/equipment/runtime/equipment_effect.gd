@@ -3,15 +3,19 @@ extends RefCounted
 
 var context: EquipmentContext
 var equipment_data: EquipmentData
-var count: int = 0
+var source_equipments: Array[Equipment] = []
 
 var _created_entities: Array[Node] = []
 
 
-func setup(new_context: EquipmentContext, data: EquipmentData, equipment_count: int) -> void:
+func setup(new_context: EquipmentContext, data: EquipmentData, sources: Array[Equipment]) -> void:
 	context = new_context
 	equipment_data = data
-	count = equipment_count
+	source_equipments = sources
+
+
+func get_count() -> int:
+	return source_equipments.size()
 
 
 func activate() -> void:
