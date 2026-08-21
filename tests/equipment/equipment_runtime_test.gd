@@ -113,6 +113,35 @@ func _test_rotate_equipment() -> bool:
 	):
 		return false
 	var equipment_host := player.get_node("Components/EquipmentHost") as EquipmentHost
+	var weapon_anchor := player.get_node("EquipmentEntities/WeaponAnchor")
+	var first_weapon := weapon_anchor.get_child(0) as RotateWeapon
+	var second_weapon := weapon_anchor.get_child(1) as RotateWeapon
+	var glove_a := Equipment.new(23)
+	var glove_b := Equipment.new(23)
+
+	equipment_host.attribute_container.add_modifier(AttributeModifier.new(glove_a, AttrType.Type.ATK, 10.0))
+	equipment_host.attribute_container.add_modifier(AttributeModifier.new(glove_b, AttrType.Type.ATK, 10.0))
+	for weapon in [first_weapon, second_weapon]:
+		if not _assert(is_equal_approx(weapon._attack_power, 25.0), "global attack modifiers should refresh every existing rotate weapon"):
+			return false
+		if not _assert(is_equal_approx(weapon._rotation_speed, 10.0), "attack modifiers should not change rotate speed"):
+			return false
+
+	equipment_host.attribute_container.add_modifier(AttributeModifier.new(glove_a, AttrType.Type.ROTATE_SPEED_PER, 0.2))
+	equipment_host.attribute_container.add_modifier(AttributeModifier.new(glove_b, AttrType.Type.ROTATE_SPEED_PER, 0.2))
+	for weapon in [first_weapon, second_weapon]:
+		if not _assert(is_equal_approx(weapon._rotation_speed, 14.0), "rotation modifiers should refresh every existing rotate weapon"):
+			return false
+
+	equipment_host.attribute_container.remove_by_source(glove_a)
+	if not _assert(weapon_anchor.get_child(0) == first_weapon and weapon_anchor.get_child(1) == second_weapon, "modifier removal should not recreate rotate weapons"):
+		return false
+	for weapon in [first_weapon, second_weapon]:
+		if not _assert(is_equal_approx(weapon._attack_power, 15.0), "removing one glove should refresh rotate weapon attack"):
+			return false
+		if not _assert(is_equal_approx(weapon._rotation_speed, 12.0), "removing one glove should refresh rotate weapon speed"):
+			return false
+
 	equipment_host.cleanup()
 	await get_tree().process_frame
 	if not _assert(
@@ -153,6 +182,23 @@ func _test_shooter_equipment() -> bool:
 
 	var shooter := shooter_anchor.get_child(0) as Shooter
 	if not _assert(shooter._shoot_num == 2, "duplicate shooter equipment should produce two projectiles"):
+		return false
+	if not _assert(is_equal_approx(shooter.shoot_timer.wait_time, 0.5), "shooter timer should use the configured interval"):
+		return false
+
+	var equipment_host := player.get_node("Components/EquipmentHost") as EquipmentHost
+	var glove_a := Equipment.new(23)
+	var glove_b := Equipment.new(23)
+	equipment_host.attribute_container.add_modifier(AttributeModifier.new(glove_a, AttrType.Type.ATK, 10.0))
+	equipment_host.attribute_container.add_modifier(AttributeModifier.new(glove_b, AttrType.Type.ATK, 10.0))
+	if not _assert(is_equal_approx(shooter._bullet_damage, 40.0), "global attack modifiers should refresh the existing shooter"):
+		return false
+
+	equipment_host.attribute_container.add_modifier(AttributeModifier.new(glove_a, AttrType.Type.ROTATE_SPEED_PER, 0.2))
+	equipment_host.attribute_container.add_modifier(AttributeModifier.new(glove_b, AttrType.Type.ROTATE_SPEED_PER, 0.2))
+	if not _assert(is_equal_approx(shooter._bullet_damage, 40.0), "rotation modifiers should not change shooter damage"):
+		return false
+	if not _assert(is_equal_approx(shooter.shoot_timer.wait_time, 0.5), "rotation modifiers should not change shooter timing"):
 		return false
 
 	player.queue_free()

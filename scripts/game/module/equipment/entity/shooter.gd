@@ -11,9 +11,11 @@ const DISTANCE: float = 100
 
 var _shoot_num: int = 0
 var _bullet_damage: float = 0
+var _base_bullet_damage: float = 0
 var _bullet_speed: float = 0
 var _shoot_interval: float = 0.0
 var _from: Node2D = null
+var _attribute_container: AttributeContainer
 
 func _ready() -> void:
 	shoot_timer.timeout.connect(_on_shoot)
@@ -25,16 +27,22 @@ func _ready() -> void:
 
 func setup(shoot_interval: float,
 	bullet_speed: float,
-	bullet_damage: float,
+	base_damage: float,
 	radius: float,
 	count: int,
-	from: Node2D):
+	from: Node2D,
+	attributes: AttributeContainer = null) -> void:
 	_shoot_interval = shoot_interval
 	_bullet_speed = bullet_speed
-	_bullet_damage = bullet_damage
+	_base_bullet_damage = base_damage
 	collision_shape_2d.shape.radius = radius
 	_shoot_num = count
 	_from = from
+	_attribute_container = attributes
+	if _attribute_container != null:
+		_attribute_container.attribute_changed.connect(_on_attribute_changed)
+	_recalculate_bullet_damage()
+	shoot_timer.wait_time = _shoot_interval
 
 
 func shoot(target: Node2D, from: Node2D):
@@ -46,6 +54,20 @@ func pos_shooter(angle: float) -> void:
 	position = Vector2(cos(angle), sin(angle)) * DISTANCE
 
 ## ----信号回调----
+
+func _on_attribute_changed(type: AttrType.Type) -> void:
+	if type == AttrType.Type.ATK or type == AttrType.Type.ATK_PER:
+		_recalculate_bullet_damage()
+
+
+func _recalculate_bullet_damage() -> void:
+	_bullet_damage = _base_bullet_damage
+	if _attribute_container != null:
+		_bullet_damage = _attribute_container.calculate(
+			_base_bullet_damage,
+			AttrType.Type.ATK,
+			AttrType.Type.ATK_PER
+		)
 
 ## 射击计时器归零时：检测最近敌人，发射子弹
 func _on_shoot() -> void:

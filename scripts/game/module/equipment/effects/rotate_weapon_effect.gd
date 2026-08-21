@@ -26,6 +26,6 @@ func activate() -> void:
 			DebugUtility.error("RotateWeaponEffect", "无法创建旋转武器场景")
 			continue
 		context.weapon_anchor.add_child(weapon)
-		weapon.setup(damage, rotate_radius, rotate_speed, equipment_data.shape, texture)
+		weapon.setup(damage, rotate_radius, rotate_speed, equipment_data.shape, texture, context.attribute_container)
 		weapon._angle = index * TAU / equipment_count
 		_track_entity(weapon)
