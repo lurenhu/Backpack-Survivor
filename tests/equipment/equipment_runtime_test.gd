@@ -9,6 +9,8 @@ func _ready() -> void:
 
 func _run() -> void:
 	GameConfig._init()
+	if not _test_attribute_container():
+		return
 	if not _test_equipment_type_parsing():
 		return
 	if not await _test_rotate_equipment():
@@ -16,6 +18,19 @@ func _run() -> void:
 	if not await _test_shooter_equipment():
 		return
 	get_tree().quit(0)
+
+
+func _test_attribute_container() -> bool:
+	var glove_a := Equipment.new(23)
+	var glove_b := Equipment.new(23)
+	var container := AttributeContainer.new()
+	container.add_modifier(AttributeModifier.new(glove_a, AttrType.Type.ROTATE_SPEED, 0.5))
+	container.add_modifier(AttributeModifier.new(glove_a, AttrType.Type.ROTATE_SPEED_PER, 0.1))
+	container.add_modifier(AttributeModifier.new(glove_b, AttrType.Type.ROTATE_SPEED_PER, 0.1))
+	if not _assert(is_equal_approx(container.calculate(3.0, AttrType.Type.ROTATE_SPEED, AttrType.Type.ROTATE_SPEED_PER), 4.2), "fixed and percent modifiers should use the agreed formula"):
+		return false
+	container.remove_by_source(glove_a)
+	return _assert(is_equal_approx(container.calculate(3.0, AttrType.Type.ROTATE_SPEED, AttrType.Type.ROTATE_SPEED_PER), 3.3), "same-ID equipment references should be independent")
 
 
 func _test_equipment_type_parsing() -> bool:

@@ -6,6 +6,7 @@ extends RefCounted
 # 属性类型枚举——新增属性只需在此添加一项
 enum Type {
 	ATK, # 攻击力
+	ATK_PER, # 攻击力百分比
 	HP, # 生命值上限
 	SPD, # 移动速度
 	CRIT_RATE, # 暴击率 (0~1)
@@ -16,6 +17,7 @@ enum Type {
 	COOLDOWN, # 冷却缩减 (0~1)
 	LIFE_STEAL, # 吸血比例 (0~1)
 	ROTATE_SPEED, # 旋转速度
+	ROTATE_SPEED_PER, # 旋转速度百分比
 	ROTATE_RADIUS, # 旋转半径
 	SHOOT_NUM, # 发射数量
 	SHOOT_INTERVAL, # 发射间隔
@@ -26,6 +28,7 @@ enum Type {
 # 属性类型 → CSV键名映射（新增属性时同步添加）
 const TYPE_TO_KEY: Dictionary = {
 	Type.ATK: "ATK",
+	Type.ATK_PER: "ATK_PER",
 	Type.HP: "HP",
 	Type.SPD: "SPD",
 	Type.CRIT_RATE: "CRIT_RATE",
@@ -36,6 +39,7 @@ const TYPE_TO_KEY: Dictionary = {
 	Type.COOLDOWN: "COOLDOWN",
 	Type.LIFE_STEAL: "LIFE_STEAL",
 	Type.ROTATE_SPEED: "ROTATE_SPEED",
+	Type.ROTATE_SPEED_PER: "ROTATE_SPEED_PER",
 	Type.ROTATE_RADIUS: "ROTATE_RADIUS",
 	Type.SHOOT_NUM: "SHOOT_NUM",
 	Type.SHOOT_INTERVAL: "SHOOT_INTERVAL",
@@ -46,6 +50,7 @@ const TYPE_TO_KEY: Dictionary = {
 # 各属性类型的默认值（新增属性时同步添加）
 const DEFAULTS: Dictionary = {
 	Type.ATK: 0.0,
+	Type.ATK_PER: 0.0,
 	Type.HP: 0.0,
 	Type.SPD: 0.0,
 	Type.CRIT_RATE: 0.0,
@@ -56,6 +61,7 @@ const DEFAULTS: Dictionary = {
 	Type.COOLDOWN: 0.0,
 	Type.LIFE_STEAL: 0.0,
 	Type.ROTATE_SPEED: 1.0,
+	Type.ROTATE_SPEED_PER: 0.0,
 	Type.ROTATE_RADIUS: 1.0,
 	Type.SHOOT_NUM: 1.0,
 	Type.SHOOT_INTERVAL: 1.0,
