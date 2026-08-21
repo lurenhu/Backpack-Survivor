@@ -1,96 +1,106 @@
-# Attribute Modifier System Design
+# Equipment Attribute Aggregation Design
 
 ## Goal
 
-Introduce an independent attribute subsystem that lets equipment affect other equipment without direct references between concrete effect types. The first interaction is gloves increasing the rotation speed of every rotating weapon. Global attack modifiers affect every equipment-created damage source.
+Reuse the existing `AttrContainer` to maintain the current total of passive equipment attributes. Keep the system small: no modifier objects, source tracking, second attribute container type, or dedicated attribute-change signal.
 
-## Scope
+## Ownership
 
-The first version supports fixed and percentage modifiers, attribute-name-based scope, runtime add/remove, and repeated `EquipmentHost` initialization. It does not support adjacency, conditional modifiers, persistent equipment instance IDs, or additional arithmetic operations.
+`BackpackManager` is already an autoload and owns the backpack equipment collection. It therefore owns one public aggregate container:
 
-## Module Layout
-
-```text
-scripts/game/module/attribute/
-├── data/
-│   └── attribute_modifier.gd
-└── runtime/
-    ├── attribute_container.gd
-    └── attribute_calculator.gd
+```gdscript
+var equipment_attrs: AttrContainer = AttrContainer.new()
 ```
 
-`AttrType` remains the shared attribute-key definition. Attribute names encode their scope: rotating weapons read rotation attributes, shooters read shooting attributes, and all equipment damage sources read global attack attributes. This removes the need for separate provider, consumer, and target abstractions.
+No additional autoload is introduced. `AttrContainer` continues to provide its existing dictionary-based `set_value()`, `get_value()`, `has()`, and `reset()` APIs.
 
-`EquipmentHost` owns one shared `AttributeContainer`. Passive effects register modifiers in that container, while entity effects pass the same container to the runtime entities they create.
+## Recalculation
 
-## Attribute Representation
+Every successful backpack equipment change rebuilds the aggregate from the current `backpack_equip` collection:
 
-Arithmetic behavior is encoded in paired attribute keys rather than a separate operation enum:
+1. Reset `equipment_attrs`.
+2. Iterate all equipment currently in the backpack.
+3. Load each `EquipmentData` configuration.
+4. Skip equipment whose effect type is not `PASSIVE_ATTRIBUTE`.
+5. Resolve each configured attribute key with `AttrType.get_type()`.
+6. Add the configured value to the aggregate.
 
-```text
-ROTATE_SPEED      fixed rotation-speed value
-ROTATE_SPEED_PER  percentage rotation-speed value
-ATK               fixed global equipment-attack value
-ATK_PER           percentage global equipment-attack value
+Because `AttrContainer.get_value()` falls back to type-specific defaults, callers must check `has(type)` before reading an additive equipment value. A missing equipment modifier is `0.0`; the container is not pre-populated with zero values.
+
+```gdscript
+var old_value := 0.0
+if equipment_attrs.has(type):
+	old_value = equipment_attrs.get_value(type)
+equipment_attrs.set_value(type, old_value + value)
 ```
 
-Percentage values use decimals: `0.2` means 20 percent. The calculation rule is:
+The backpack contains few items, so a complete rebuild is preferred over incremental bookkeeping. This makes removal and replacement correct without retaining equipment identity or subtraction history.
 
-```text
-final = (base + sum(fixed modifiers)) * (1 + sum(percentage modifiers))
+## Change Notification
+
+The existing `BackpackManager.equip_changed` signal is reused. Every mutation path calls one internal method that recalculates first and emits second:
+
+```gdscript
+func _notify_equipment_changed() -> void:
+	recalculate_equipment_attrs()
+	equip_changed.emit()
 ```
 
-For example, a base speed of `3.0`, a fixed modifier of `0.5`, and a percentage modifier of `0.2` produce `4.2`.
+Consumers therefore receive the signal only after `equipment_attrs` contains the latest totals. Initialization must also leave the aggregate correct when the new backpack has no equipment.
 
-An entity equipment's `ATK` is its own base attack. A passive equipment's `ATK` and `ATK_PER` become global modifiers. Every rotating and shooting weapon calculates damage as `(equipment base ATK + global ATK) * (1 + global ATK_PER)`. More specific attack scopes can be added later if required.
+## Equipment Runtime
 
-## Modifier Identity and Ownership
+`PASSIVE_ATTRIBUTE` remains an `EquipmentEffectType` so configuration rows can be classified, but passive equipment does not create an `EquipmentEffect` at runtime. `EquipmentHost` skips passive entries and creates only entity effects such as rotating weapons and shooters.
 
-Each modifier contains:
+`RotateWeapon` and `Shooter` read `BackpackManager.equipment_attrs` directly and listen to `equip_changed`. Each lookup checks `has()` before `get_value()` and treats a missing key as zero.
 
-- `source_equipment: Equipment`
-- `attribute: AttrType.Type`
-- `value: float`
-
-The `Equipment` object reference identifies a runtime equipment instance. Two gloves with the same configuration ID remain distinct sources. Removing one glove removes only modifiers whose `source_equipment` is that exact object. Persistent instance identity is deferred until mid-battle save restoration is required.
-
-## Lifecycle and Data Flow
-
-`EquipmentHost.initialize()` performs two phases:
-
-1. Create passive attribute effects and register their modifiers.
-2. Create entity effects such as rotating weapons and shooters.
-
-This guarantees that a newly created rotating weapon sees all active glove modifiers immediately.
+The calculation rule remains:
 
 ```text
-Glove Equipment
-  -> PassiveAttributeEffect
-  -> EquipmentHost.attribute_container.add_modifier()
-  -> attribute_changed
-  -> RotateWeapon reads ROTATE_SPEED and ROTATE_SPEED_PER
-  -> AttributeCalculator
-  -> runtime rotation speed
+final = (base + flat equipment total) * (1 + percentage equipment total)
 ```
 
-A rotating weapon retains its configured speed as an immutable base value. It listens for relevant attribute changes and recalculates its runtime speed. Because every rotating weapon reads `ROTATE_SPEED` and `ROTATE_SPEED_PER`, one glove affects existing and subsequently created rotating weapons. Shooters do not read those keys and remain unchanged.
+`ATK` and `ATK_PER` affect every equipment-created damage source. `ROTATE_SPEED` and `ROTATE_SPEED_PER` are read only by rotating weapons. Attribute names encode their scope.
 
-On unequip, `PassiveAttributeEffect.cleanup()` removes all modifiers associated with its `Equipment` reference. The container emits the corresponding change notification, and all rotating weapons recalculate. Host cleanup and reinitialization must be idempotent.
+## Removed Components
+
+The refactor removes:
+
+- `attribute_modifier.gd`
+- the new equipment-specific `attribute_container.gd`
+- `attribute_calculator.gd`
+- `passive_attribute_effect.gd`
+- `EquipmentContext.attribute_container`
+- `EquipmentHost` attribute-container ownership and passive activation phase
+
+The original `scripts/game/module/battle/data/attray_container.gd` remains the only attribute container implementation.
+
+## Data Flow
+
+```text
+Backpack add/remove/move succeeds
+  -> BackpackManager._notify_equipment_changed()
+  -> reset and rebuild equipment_attrs from all passive backpack equipment
+  -> equip_changed.emit()
+  -> RotateWeapon and Shooter refresh
+  -> has(type), then get_value(type)
+  -> calculate runtime value from immutable base value
+```
 
 ## Error Handling
 
-Missing modifier totals are treated as zero. Invalid attribute keys and unsupported passive equipment configurations are ignored with a diagnostic warning rather than interrupting battle initialization.
+Missing equipment configuration and unknown attribute keys are skipped with diagnostic warnings. Missing aggregate attributes are treated as `0.0`. Recalculation must not interrupt backpack operations or battle initialization.
 
 ## Verification
 
-Automated integration coverage will verify:
+Tests will verify:
 
-- Fixed and percentage modifiers calculate `4.2` from `3.0`, `0.5`, and `0.2`.
-- Two same-ID gloves remain independent by object reference.
-- Removing one source preserves the other source's modifier.
-- One glove affects every rotating weapon but not shooters.
-- Global `ATK` and `ATK_PER` modifiers affect both rotating and shooting weapons.
-- Weapons created after modifier registration receive the modifier.
-- Removing a glove updates existing weapons immediately.
-- Reinitializing the host does not duplicate or retain modifiers.
-- A missing percentage attribute defaults to zero.
+- Multiple passive items add their attributes during a full rebuild.
+- Removing one passive item and rebuilding produces the correct remaining total.
+- An empty backpack clears previous totals.
+- Entity equipment attributes are not added to the passive aggregate.
+- `equip_changed` is emitted after the aggregate is current.
+- All rotating weapons receive the same rotation-speed bonus.
+- Global attack bonuses affect rotating and shooting equipment.
+- Missing flat or percentage keys behave as zero.
+- Repeated host initialization does not create passive entities or duplicate bonuses.
