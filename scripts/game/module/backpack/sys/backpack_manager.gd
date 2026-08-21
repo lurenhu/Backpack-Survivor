@@ -34,6 +34,8 @@ var stage_equip: Dictionary[Vector2i, Equipment] = {}
 var forge_grid: Array[Array] = []
 ## 锻造台区内的装备数据 Vector2i 该装备左上角网格坐标 : Equipment 装备数据
 var forge_equip: Dictionary[Vector2i, Equipment] = {}
+## 当前背包中所有被动装备的属性合计
+var equipment_attrs: AttrContainer = AttrContainer.new()
 
 ## 所有装备（背包）的合并视图，供外部遍历
 var equipments: Dictionary:
@@ -101,6 +103,7 @@ func init_backpack(character_id: int) -> void:
 		equip.grid_pos = pos
 		if pos.x >= 0:
 			add_to_equip_grid(equip, pos)
+	_notify_equipment_changed()
 
 
 ## 添加进指定装备网格区域
@@ -127,7 +130,7 @@ func add_to_equip_grid(equipment: Equipment, pos: Vector2i) -> bool:
 	
 	add_to_grid(equipment.shape, pos, grid_array)
 	equip_dict[pos] = equipment
-	equip_changed.emit()
+	_notify_equipment_changed()
 	return true
 
 
@@ -152,7 +155,7 @@ func remove_equipment(equipment: Equipment) -> bool:
 		return false
 	remove_from_grid(equipment.shape, equipment.grid_pos, grid_array)
 	equip_dict.erase(equipment.grid_pos)
-	equip_changed.emit()
+	_notify_equipment_changed()
 	return true
 
 
@@ -205,11 +208,36 @@ func move_to_grid(equipment: Equipment, origin_equipment: Equipment) -> bool:
 		add_to_grid(new_shape, new_pos, target_grid)
 		origin_equip.erase(old_pos)
 		target_equip[new_pos] = equipment
-		equip_changed.emit()
+		_notify_equipment_changed()
 		return true
 	else:
 		add_to_grid(old_shape, old_pos, origin_grid)
 		return false
+
+
+## 根据当前背包中的被动装备全量重算装备属性
+func recalculate_equipment_attrs() -> void:
+	equipment_attrs.reset()
+	for equipment: Equipment in backpack_equip.values():
+		var data: EquipmentData = GameConfig.equipment.get(equipment.id)
+		if data == null:
+			DebugUtility.warn("BackpackManager", "未找到装备配置: %s" % equipment.id)
+			continue
+		if data.type != EquipmentEffectType.Type.PASSIVE_ATTRIBUTE:
+			continue
+		for key in data.attr:
+			var type := AttrType.get_type(String(key))
+			if int(type) == -1:
+				DebugUtility.warn("BackpackManager", "未知属性类型: %s" % key)
+				continue
+			var total := equipment_attrs.get_value(type) if equipment_attrs.has(type) else 0.0
+			equipment_attrs.set_value(type, total + float(data.attr[key]))
+
+
+## 先刷新装备属性，再通知所有装备消费者
+func _notify_equipment_changed() -> void:
+	recalculate_equipment_attrs()
+	equip_changed.emit()
 
 
 ## 将屏幕坐标转换为网格坐标

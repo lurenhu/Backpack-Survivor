@@ -12,6 +12,8 @@ func _run() -> void:
 	GameConfig._init()
 	if not _test_attribute_container():
 		return
+	if not _test_backpack_equipment_attributes():
+		return
 	if not _test_equipment_type_parsing():
 		return
 	if not _test_passive_equipment_registration():
@@ -36,6 +38,72 @@ func _test_attribute_container() -> bool:
 		return false
 	container.remove_by_source(glove_a)
 	return _assert(is_equal_approx(container.calculate(3.0, AttrType.Type.ROTATE_SPEED, AttrType.Type.ROTATE_SPEED_PER), 3.3), "same-ID equipment references should be independent")
+
+
+func _test_backpack_equipment_attributes() -> bool:
+	var original_backpack_equip := BackpackManager.backpack_equip.duplicate()
+	var glove_a := Equipment.new(23)
+	var glove_b := Equipment.new(23)
+	BackpackManager.backpack_equip = {
+		Vector2i(0, 0): glove_a,
+		Vector2i(1, 0): glove_b,
+	}
+	BackpackManager.recalculate_equipment_attrs()
+	if not _assert(
+		is_equal_approx(BackpackManager.equipment_attrs.get_value(AttrType.Type.ATK), 20.0),
+		"two passive items should aggregate attack"
+	):
+		return false
+	if not _assert(
+		is_equal_approx(BackpackManager.equipment_attrs.get_value(AttrType.Type.ROTATE_SPEED_PER), 0.4),
+		"two passive items should aggregate rotate speed percentage"
+	):
+		return false
+
+	BackpackManager.backpack_equip.erase(Vector2i(0, 0))
+	BackpackManager.recalculate_equipment_attrs()
+	if not _assert(
+		is_equal_approx(BackpackManager.equipment_attrs.get_value(AttrType.Type.ATK), 10.0),
+		"full rebuild should remove absent passive equipment"
+	):
+		return false
+
+	BackpackManager.backpack_equip[Vector2i(2, 0)] = Equipment.new(1)
+	BackpackManager.recalculate_equipment_attrs()
+	if not _assert(
+		is_equal_approx(BackpackManager.equipment_attrs.get_value(AttrType.Type.ATK), 10.0),
+		"entity equipment attributes should not enter the passive aggregate"
+	):
+		return false
+
+	BackpackManager.backpack_equip.clear()
+	BackpackManager.recalculate_equipment_attrs()
+	if not _assert(
+		not BackpackManager.equipment_attrs.has(AttrType.Type.ATK),
+		"empty backpack should clear previous aggregate values"
+	):
+		return false
+
+	BackpackManager.backpack_equip = original_backpack_equip
+	BackpackManager.init_backpack(1)
+	var observed_attack := {"value": -1.0}
+	var on_changed := func() -> void:
+		observed_attack.value = (
+			BackpackManager.equipment_attrs.get_value(AttrType.Type.ATK)
+			if BackpackManager.equipment_attrs.has(AttrType.Type.ATK)
+			else 0.0
+		)
+	BackpackManager.equip_changed.connect(on_changed, CONNECT_ONE_SHOT)
+	var signal_glove := Equipment.new(11)
+	signal_glove.state = BackpackManager.GridType.PACKAGE
+	var position := BackpackManager.find_position(signal_glove.shape, BackpackManager.backpack_grid)
+	signal_glove.grid_pos = position
+	if not _assert(BackpackManager.add_to_equip_grid(signal_glove, position), "signal-order glove should fit in backpack"):
+		return false
+	return _assert(
+		is_equal_approx(observed_attack.value, 10.0),
+		"equip_changed listeners should observe rebuilt attributes"
+	)
 
 
 func _test_equipment_type_parsing() -> bool:
