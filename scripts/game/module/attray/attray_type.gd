@@ -16,9 +16,13 @@ enum Type {
 	RANGE, # 攻击范围倍率
 	COOLDOWN, # 冷却缩减 (0~1)
 	LIFE_STEAL, # 吸血比例 (0~1)
+
+	## 旋转装备参数
 	ROTATE_SPEED, # 旋转速度
 	ROTATE_SPEED_PER, # 旋转速度百分比
 	ROTATE_RADIUS, # 旋转半径
+
+	## 发射装备参数
 	SHOOT_NUM, # 发射数量
 	SHOOT_INTERVAL, # 发射间隔
 	SHOOT_RADIUS, # 发射范围半径
