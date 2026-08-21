@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://gqawk1lcrsuy"]
 
 [ext_resource type="Script" uid="uid://cupsjfugnlspf" path="res://scripts/game/module/battle/view/entities/player.gd" id="1_er4xr"]
+[ext_resource type="Script" uid="uid://drocvufwlqvh2" path="res://scripts/game/module/equipment/component/equipment_host.gd" id="2_equipment_host"]
 [ext_resource type="Animation" uid="uid://cn0y63umqxb25" path="res://assets/preset/animation/pudding.res" id="3_1ie0h"]
 [ext_resource type="Texture2D" uid="uid://cl10ur53mwbo3" path="res://assets/res/vfx/Dust_01.png" id="3_42nxq"]
 
@@ -77,9 +78,16 @@ libraries/ = SubResource("AnimationLibrary_42nxq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1946567817]
 shape = SubResource("CapsuleShape2D_aipg6")
 
-[node name="WeaponAnchor" type="Node2D" parent="." unique_id=952100804]
+[node name="Components" type="Node" parent="." unique_id=2052379322]
 
-[node name="ShooterAnchor" type="Node2D" parent="." unique_id=1418506078]
+[node name="EquipmentHost" type="Node" parent="Components" unique_id=2129984546]
+script = ExtResource("2_equipment_host")
+
+[node name="EquipmentEntities" type="Node2D" parent="." unique_id=1514647626]
+
+[node name="WeaponAnchor" type="Node2D" parent="EquipmentEntities" unique_id=952100804]
+
+[node name="ShooterAnchor" type="Node2D" parent="EquipmentEntities" unique_id=1418506078]
 
 [node name="Dust" type="GPUParticles2D" parent="." unique_id=1787456655]
 material = SubResource("CanvasItemMaterial_5u6hq")

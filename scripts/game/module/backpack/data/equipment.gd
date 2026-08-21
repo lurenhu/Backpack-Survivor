@@ -2,20 +2,12 @@ class_name Equipment
 extends RefCounted
 ## 装备数据：持有配置ID、形状和旋转状态
 
-enum EQUIPMENT_TYPE {
-	ROTATE = 0,
-	SHOOTER,
-	JEWELRY,
-}
-
 var id: int = 0
 var name: String
 var rarity: int
-var attr: Dictionary # {"ATK": 5, "ROTATE_RADIUS": 90, ...}
 var price: int
 var source: String
 var shape: Array[Array] = []
-var type: EQUIPMENT_TYPE = EQUIPMENT_TYPE.ROTATE
 
 ## 当前装备在网格中的旋转次数
 var rotate_times: int = 0
@@ -35,11 +27,9 @@ func _init(equipment_id: int) -> void:
 	id = equipment_id
 	name = config.name
 	rarity = config.rarity
-	attr = config.attr.duplicate(true)
 	price = config.price
 	source = config.source
 	shape = config.shape.duplicate(true)
-	type = config.type
 
 	preview_equipment = null
 	state = BackpackManager.GridType.NONE
@@ -73,7 +63,6 @@ func copy() -> Equipment:
 	new_equip.grid_pos = grid_pos
 	new_equip.state = state
 	new_equip.shape = shape.duplicate(true)
-	new_equip.attr = attr.duplicate(true)
 	new_equip.preview_equipment = preview_equipment
 	return new_equip
 
@@ -83,11 +72,9 @@ func copy_equipment(equipment: Equipment):
 	id = equipment.id
 	name = equipment.name
 	rarity = equipment.rarity
-	attr = equipment.attr.duplicate(true)
 	price = equipment.price
 	source = equipment.source
 	shape = equipment.shape.duplicate(true)
-	type = equipment.type
 	rotate_times = equipment.rotate_times
 	grid_pos = equipment.grid_pos
 	state = equipment.state

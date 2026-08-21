@@ -3,14 +3,12 @@ extends CharacterBody2D
 ## 玩家角色：WASD移动，属性从背包系统同步，自动战斗
 
 @onready var body_ani: AnimatedSprite2D = $BodyAni
-@onready var weapon_anchor: Node = $WeaponAnchor
-@onready var shooter_anchor: Node2D = $ShooterAnchor
+@onready var equipment_host: EquipmentHost = $Components/EquipmentHost
+@onready var weapon_anchor: Node2D = $EquipmentEntities/WeaponAnchor
+@onready var shooter_anchor: Node2D = $EquipmentEntities/ShooterAnchor
 @onready var hit_timer: Timer = $HitTimer
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var dust: GPUParticles2D = $Dust
-
-@export var ROTATE_WEAPON_SCENE: PackedScene = preload("res://scene/battle/entities/rotate_weapon.tscn")
-@export var SHOOTER_SCENE: PackedScene = preload("res://scene/battle/entities/shooter.tscn")
 
 
 # 角色属性
@@ -19,12 +17,6 @@ extends CharacterBody2D
 var current_hp: float = 100.0
 var _is_death: bool = false
 var attrs: AttrContainer = null
-
-# 旋转武器属性
-var rotation_equipment_count: Dictionary = {}
-
-# 发射武器属性
-var shoot_equipemt_count: Dictionary = {}
 
 # 角色动画
 var _animate_perfix: StringName = &"idle"
@@ -48,7 +40,8 @@ func _ready() -> void:
 			body_ani.sprite_frames = frames
 
 	_update_animation()
-	_initialize_weapons()
+	var equipment_context := EquipmentContext.new().setup(self, weapon_anchor, shooter_anchor)
+	equipment_host.initialize(BackpackManager.equipments.values(), equipment_context)
 
 func _physics_process(_delta: float) -> void:
 	var move_input: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -82,84 +75,6 @@ func _update_animation():
 		animation_player.speed_scale = 2.0
 	else:
 		animation_player.seek(0.0)
-
-#endregion
-
-#region 武器
-
-## 实例化武器：根据背包装备生成武器实例，均匀分配旋转角度
-func _initialize_weapons() -> void:
-	for child in weapon_anchor.get_children():
-		child.queue_free()
-
-	var equip_list: Array[Equipment] = []
-	for equip in BackpackManager.equipments.values():
-		equip_list.append(equip)
-
-	if equip_list.is_empty():
-		return
-
-	for equip: Equipment in equip_list:
-		var equip_config_id = equip.id
-		match equip.type:
-			Equipment.EQUIPMENT_TYPE.ROTATE:
-				if not rotation_equipment_count.has(equip_config_id):
-					rotation_equipment_count[equip_config_id] = 1
-				else:
-					rotation_equipment_count[equip_config_id] += 1
-			Equipment.EQUIPMENT_TYPE.SHOOTER:
-				if not shoot_equipemt_count.has(equip_config_id):
-					shoot_equipemt_count[equip_config_id] = 1
-				else:
-					shoot_equipemt_count[equip_config_id] += 1
-			_: continue
-	
-	_init_rotation_weapon()
-	_init_shooter_weapon()
-
-
-## 实例化旋转装备
-func _init_rotation_weapon() -> void:
-	for equip_config_id in rotation_equipment_count:
-		var equip_config: EquipmentData = GameConfig.equipment[equip_config_id]
-		if equip_config == null:
-			DebugUtility.error("equip_config", "not have configid %s" % equip_config_id)
-		
-		var equip_attrs: Dictionary = equip_config.attr
-		var damage = float(equip_attrs.get(AttrType.get_key(AttrType.Type.ATK), 0.0))
-		var rotate_radius = float(equip_attrs.get(AttrType.get_key(AttrType.Type.ROTATE_RADIUS), 0.0))
-		var rotate_speed = float(equip_attrs.get(AttrType.get_key(AttrType.Type.ROTATE_SPEED), 0.0))
-		var shape: Array[Array] = equip_config.shape
-		var source = load(equip_config.source) as Texture2D
-
-		var count = rotation_equipment_count[equip_config_id]
-		for i in count:
-			var weapon: RotateWeapon = ROTATE_WEAPON_SCENE.instantiate()
-			weapon_anchor.add_child(weapon)
-			weapon.setup(damage, rotate_radius, rotate_speed, shape, source)
-			weapon._angle = i * TAU / count
-
-
-## 实例化发射装备
-func _init_shooter_weapon() -> void:
-	var i = 0
-	for equip_config_id in shoot_equipemt_count:
-		var equip_config: EquipmentData = GameConfig.equipment[equip_config_id]
-		if equip_config == null:
-			DebugUtility.error("equip_config", "not have configid %s" % equip_config_id)
-		
-		var equip_attrs: Dictionary = equip_config.attr
-		var bullet_damage = float(equip_attrs.get(AttrType.get_key(AttrType.Type.ATK), 0.0))
-		var shoot_interval = float(equip_attrs.get(AttrType.get_key(AttrType.Type.SHOOT_INTERVAL), 0.0))
-		var bullet_speed = float(equip_attrs.get(AttrType.get_key(AttrType.Type.BULLET_SPEED), 0.0))
-		var shoot_radius = float(equip_attrs.get(AttrType.get_key(AttrType.Type.SHOOT_RADIUS), 0.0))
-		var count = shoot_equipemt_count[equip_config_id]
-
-		var shooter: Shooter = SHOOTER_SCENE.instantiate()
-		shooter_anchor.add_child(shooter)
-		shooter.setup(shoot_interval, bullet_speed, bullet_damage, shoot_radius, count, self)
-		shooter.pos_shooter(i * TAU / count - PI / 2)
-		i += 1
 
 #endregion
 

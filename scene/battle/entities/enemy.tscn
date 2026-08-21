@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b2epmjjeendfk"]
 
-[ext_resource type="Script" uid="uid://c0tr7wsx2vbcs" path="res://scripts/game/module/battle/view/entities/enemy.gd" id="1_oi853"]
+[ext_resource type="Script" uid="uid://c0tr7wsx2vbcs" path="res://scripts/game/module/battle/view/entities/enemy/enemy.gd" id="1_oi853"]
 
 [node name="Enemy" type="CharacterBody2D" unique_id=319728877]
 collision_layer = 4

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bwj3dedthwwrx"]
 
-[ext_resource type="Script" uid="uid://tqjmfn566h3h" path="res://scripts/game/module/battle/view/entities/shooter.gd" id="1_7y3p4"]
+[ext_resource type="Script" uid="uid://tqjmfn566h3h" path="res://scripts/game/module/equipment/entity/shooter.gd" id="1_7y3p4"]
 [ext_resource type="Texture2D" uid="uid://lmf1622h3shh" path="res://assets/icon/progress_empty.png" id="2_7y3p4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ssunt"]

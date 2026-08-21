@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://kxv4uklaedpl"]
 
-[ext_resource type="Script" uid="uid://c4cth4fgjubaw" path="res://scripts/game/module/battle/view/entities/enemy_shooter.gd" id="1_plbx6"]
+[ext_resource type="Script" uid="uid://c4cth4fgjubaw" path="res://scripts/game/module/battle/view/entities/enemy/enemy_shooter.gd" id="1_plbx6"]
 [ext_resource type="PackedScene" uid="uid://bwj3dedthwwrx" path="res://scene/battle/entities/shooter.tscn" id="2_5025c"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vbh4y"]

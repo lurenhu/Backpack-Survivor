@@ -8,7 +8,7 @@ var rarity: int
 var attr: Dictionary # {"ATK": 5, "ROTATE_RADIUS": 90, ...}
 var price: int
 var source: String
-var type: Equipment.EQUIPMENT_TYPE
+var type: EquipmentEffectType.Type
 
 
 static func from_dict(dict: Dictionary) -> EquipmentData:
@@ -20,12 +20,5 @@ static func from_dict(dict: Dictionary) -> EquipmentData:
 	obj.attr = parse_kv_string(_to_str(dict.get("Attr", "")))
 	obj.price = _to_int(dict.get("Price", 0))
 	obj.source = _to_str(dict.get("Source", ""))
-	obj.type = pharse_type(_to_str(dict.get("Type", "")))
+	obj.type = EquipmentEffectType.from_string(_to_str(dict.get("Type", "")))
 	return obj
-
-static func pharse_type(type_str: String) -> Equipment.EQUIPMENT_TYPE:
-	match type_str:
-		"SHOOTER":
-			return Equipment.EQUIPMENT_TYPE.SHOOTER
-		_:
-			return Equipment.EQUIPMENT_TYPE.ROTATE

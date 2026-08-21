@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dtmfa3vnji0wh"]
 
 [ext_resource type="Shape2D" uid="uid://brayr2gs57umm" path="res://assets/preset/collision_shape/rotate_weapon.tres" id="1_4otrn"]
-[ext_resource type="Script" uid="uid://dki1esry7mnor" path="res://scripts/game/module/battle/view/entities/rotate_weapon.gd" id="1_ys35s"]
+[ext_resource type="Script" uid="uid://dki1esry7mnor" path="res://scripts/game/module/equipment/entity/rotate_weapon.gd" id="1_ys35s"]
 
 [node name="RotateWeapon" type="Area2D" unique_id=851253856]
 collision_layer = 64

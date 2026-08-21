@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://yxvaqf1wai4g" path="res://scripts/game/module/battle/view/battle.gd" id="1_yjev4"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_gk444"]
 [ext_resource type="PackedScene" uid="uid://gqawk1lcrsuy" path="res://scene/battle/entities/player.tscn" id="3_a12nh"]
-[ext_resource type="Texture2D" uid="uid://byrbl0nmtv0jr" path="res://assets/res/maps/Map_1.png" id="3_lpir7"]
+[ext_resource type="Texture2D" uid="uid://ceb75uvnr3bsc" path="res://assets/res/maps/Map_5.jpg" id="3_gk444"]
 [ext_resource type="PackedScene" uid="uid://cgpwcqun28n5o" path="res://scene/battle/battle_ui.tscn" id="3_wq6iy"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="5_twcql"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_6y0hr"]
@@ -16,7 +16,6 @@ script = ExtResource("1_yjev4")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=56271998]
 physics_interpolation_mode = 1
-top_level = true
 limit_left = -1200
 limit_top = -900
 limit_right = 1200
@@ -31,14 +30,14 @@ script = ExtResource("2_gk444")
 [node name="Map" type="Node2D" parent="." unique_id=1522311848]
 
 [node name="Sprite2D" type="Sprite2D" parent="Map" unique_id=1812613139]
-texture = ExtResource("3_lpir7")
+texture = ExtResource("3_gk444")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Map" unique_id=1039566087]
 collision_mask = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Map/StaticBody2D" unique_id=563277774]
 build_mode = 1
-polygon = PackedVector2Array(-721, -251, -501, -251, -362, -385, -358, -587, 331, -584, 315, -394, 472, -258, 698, -252, 697, 240, 474, 238, 324, 381, 322, 557, -344, 564, -344, 388, -507, 219, -721, 215)
+polygon = PackedVector2Array(570, -516, 851, -407, 1029, -172, 927, 337, 564, 527, -14, 656, -842, 513, -977, 16, -941, -379, -387, -567, 128, -583)
 
 [node name="PickUpContainer" type="Node2D" parent="." unique_id=1657001260]
 

@@ -4,10 +4,10 @@
 
 # ai skill 及相关配置文件
 .agents/
-.claude/
 skills-lock.json
 
 .vscode/
 .DS_Store
 *.uid
 
+docs/
