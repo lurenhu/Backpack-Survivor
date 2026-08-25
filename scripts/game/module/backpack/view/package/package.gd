@@ -10,6 +10,8 @@ const CARD_SCENE: PackedScene = preload("res://scene/shop/equipment_card.tscn")
 @onready var stage_container: Control = $StageGrid
 @onready var card_container: Control = $CardContainer
 
+signal add_equipment_card(card: EquipmentCard)
+
 # 背包网格装备卡片字典vector2i -> equipmentcard
 var backpack_cards: Dictionary[Vector2i, EquipmentCard] = {}
 # 闲置区网格装备卡片字典vector2i -> equipmentcard
@@ -95,7 +97,7 @@ func _add_equipment_card(equip: Equipment, card_dict: Dictionary[Vector2i, Equip
 	card_container.add_child(card)
 	card.setup_by_equipment(equip)
 	card_dict[equip.grid_pos] = card
-	BackpackManager.add_equipment_card.emit(card)
+	add_equipment_card.emit(card)
 	DebugUtility.info("add_equip_card", "Equipment:%s, pos:%s" % [equip, equip.grid_pos])
 
 

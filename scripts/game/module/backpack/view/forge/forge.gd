@@ -12,6 +12,7 @@ const CARD_SCENE: PackedScene = preload("res://scene/shop/equipment_card.tscn")
 @onready var exit_button: Button = $ExitButton
 @onready var card_container: Control = $CardContainer
 
+signal add_equipment_card(card: EquipmentCard)
 
 # 材料卡片: {Vector2i: EquipmentCard}
 var table_cards: Dictionary[Vector2i, EquipmentCard] = {}
@@ -93,7 +94,7 @@ func _add_equipment_card(equip: Equipment):
 	card_container.add_child(card)
 	card.setup_by_equipment(equip)
 	table_cards[equip.grid_pos] = card
-	BackpackManager.add_equipment_card.emit(card)
+	add_equipment_card.emit(card)
 	DebugUtility.info("add_equip_card", "Equipment:%s, pos:%s" % [equip, equip.grid_pos])
 
 

@@ -11,3 +11,5 @@ skills-lock.json
 *.uid
 
 docs/
+
+.superpowers/

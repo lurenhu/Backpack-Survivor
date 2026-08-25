@@ -1,6 +1,7 @@
 extends Node
 ## 单例：背包管理器，核心玩法系统——管理网格、装备放置/移除/旋转，属性重算
 
+## 网格类型
 enum GridType {
 	NONE = -1,
 	PACKAGE = 0,
@@ -11,16 +12,15 @@ enum GridType {
 }
 
 
-const CELL_SIZE: int = 48
-const BACKPACK_COLS: int = 8
-const BACKPACK_ROWS: int = 6
-const STAGE_COLS: int = 8
-const STAGE_ROWS: int = 4
-const FORGE_COLS: int = 8
-const FORGE_ROWS: int = 4
+const CELL_SIZE: int = 48 # 当个网格宽度
+const BACKPACK_COLS: int = 8 # 背包网格的列数
+const BACKPACK_ROWS: int = 6 # 背包网格的行数
+const STAGE_COLS: int = 8 # 闲置区网格的列数
+const STAGE_ROWS: int = 4 # 闲置区网格的行数
+const FORGE_COLS: int = 8 # 锻造台网格的列数
+const FORGE_ROWS: int = 4 # 锻造台网格的行数
 
-signal equip_changed()
-signal add_equipment_card(card: EquipmentCard)
+signal equip_changed() # 网格区域装备发生变化（包括但不限于增加，减少，移动）
 
 ## 背包内的网格占用状态 0为未占用 1为占用
 var backpack_grid: Array[Array] = []
@@ -66,9 +66,9 @@ func init_backpack(character_id: int) -> void:
 		row.fill(-1)
 		backpack_grid.append(row)
 
-	var start_y: int = (BACKPACK_ROWS - layout.size()) / 2
+	var start_y: int = floori((BACKPACK_ROWS - layout.size()) / 2.0)
 	var end_y: int = start_y + layout.size()
-	var start_x: int = (BACKPACK_COLS - layout[0].size()) / 2
+	var start_x: int = floori((BACKPACK_COLS - layout[0].size()) / 2.0)
 	var end_x: int = start_x + layout[0].size()
 	for y in range(start_y, end_y):
 		for x in range(start_x, end_x):

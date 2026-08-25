@@ -16,9 +16,9 @@ func _ready() -> void:
 	_regist_card_signal()
 	show_map()
 
-	BackpackManager.add_equipment_card.connect(_on_add_equipment_card)
-
+	package.add_equipment_card.connect(_on_add_equipment_card)
 	shop.exit_button.pressed.connect(_on_shop_exit_button_pressed)
+	forge.add_equipment_card.connect(_on_add_equipment_card)
 	forge.exit_button.pressed.connect(_on_forge_exit_button_pressed)
 
 func _process(_delta: float) -> void:
@@ -200,7 +200,7 @@ func _update_all_grid_highlights() -> void:
 #endregion
 
 #region 信号回调
-
+## 添加装备卡片
 func _on_add_equipment_card(card: EquipmentCard):
 	if not card.drag_dropped.is_connected(_on_equipment_dropped):
 		card.drag_dropped.connect(_on_equipment_dropped.bind(card))
