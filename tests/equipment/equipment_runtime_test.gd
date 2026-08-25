@@ -22,7 +22,6 @@ func _run() -> void:
 		return
 	get_tree().quit(0)
 
-
 func _test_backpack_equipment_attributes() -> bool:
 	var original_backpack_equip := BackpackManager.backpack_equip.duplicate()
 	var glove_a := Equipment.new(23)
@@ -38,7 +37,7 @@ func _test_backpack_equipment_attributes() -> bool:
 	):
 		return false
 	if not _assert(
-		is_equal_approx(BackpackManager.equipment_attrs.get_value(AttrType.Type.ROTATE_SPEED_PER), 0.4),
+		is_equal_approx(BackpackManager.equipment_attrs.get_value(AttrType.Type.ROTATE_SPEED_GAIN), 0.4),
 		"two passive items should aggregate rotate speed percentage"
 	):
 		return false
@@ -69,7 +68,7 @@ func _test_backpack_equipment_attributes() -> bool:
 
 	BackpackManager.backpack_equip = original_backpack_equip
 	BackpackManager.init_backpack(1)
-	var observed_attack := {"value": -1.0}
+	var observed_attack := {"value": - 1.0}
 	var on_changed := func() -> void:
 		observed_attack.value = (
 			BackpackManager.equipment_attrs.get_value(AttrType.Type.ATK)
@@ -218,7 +217,7 @@ func _test_shooter_equipment() -> bool:
 	):
 		return false
 
-	if not _assert(is_equal_approx(shooter._bullet_damage, 40.0), "global attack should apply when equipment shooter is created"):
+	if not _assert(is_equal_approx(shooter._base_bullet_damage, 40.0), "global attack should apply when equipment shooter is created"):
 		return false
 	if not _assert(is_equal_approx(shooter.shoot_timer.wait_time, 0.5), "rotation modifiers should not change shooter timing"):
 		return false

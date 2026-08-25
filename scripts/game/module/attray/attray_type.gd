@@ -6,7 +6,8 @@ extends RefCounted
 # 属性类型枚举——新增属性只需在此添加一项
 enum Type {
 	ATK, # 攻击力
-	ATK_PER, # 攻击力百分比
+	ATK_INC, # 攻击力增加
+	ATK_GAIN, # 攻击力百分比
 	HP, # 生命值上限
 	SPD, # 移动速度
 	CRIT_RATE, # 暴击率 (0~1)
@@ -19,20 +20,26 @@ enum Type {
 
 	## 旋转装备参数
 	ROTATE_SPEED, # 旋转速度
-	ROTATE_SPEED_PER, # 旋转速度百分比
+	ROTATE_SPEED_GAIN, # 旋转速度提高
 	ROTATE_RADIUS, # 旋转半径
+	ROTATE_RADIUS_GAIN, # 旋转半径提高
 
 	## 发射装备参数
 	SHOOT_NUM, # 发射数量
 	SHOOT_INTERVAL, # 发射间隔
+	SHOOT_INTERVAL_GAIN, # 发射间隔缩短百分比
 	SHOOT_RADIUS, # 发射范围半径
+	SHOOT_RADIUS_GAIN, # 发射范围半径扩大百分比
 	BULLET_SPEED, # 子弹速度
+	BULLET_SPEED_INC, # 子弹速度增加
+	BULLET_SPEED_GAIN, # 子弹速度增加百分比
 }
 
 # 属性类型 → CSV键名映射（新增属性时同步添加）
 const TYPE_TO_KEY: Dictionary = {
 	Type.ATK: "ATK",
-	Type.ATK_PER: "ATK_PER",
+	Type.ATK_INC: "ATK_INC",
+	Type.ATK_GAIN: "ATK_GAIN",
 	Type.HP: "HP",
 	Type.SPD: "SPD",
 	Type.CRIT_RATE: "CRIT_RATE",
@@ -43,34 +50,45 @@ const TYPE_TO_KEY: Dictionary = {
 	Type.COOLDOWN: "COOLDOWN",
 	Type.LIFE_STEAL: "LIFE_STEAL",
 	Type.ROTATE_SPEED: "ROTATE_SPEED",
-	Type.ROTATE_SPEED_PER: "ROTATE_SPEED_PER",
+	Type.ROTATE_SPEED_GAIN: "ROTATE_SPEED_GAIN",
 	Type.ROTATE_RADIUS: "ROTATE_RADIUS",
+	Type.ROTATE_RADIUS_GAIN: "ROTATE_RADIUS_GAIN",
 	Type.SHOOT_NUM: "SHOOT_NUM",
 	Type.SHOOT_INTERVAL: "SHOOT_INTERVAL",
+	Type.SHOOT_INTERVAL_GAIN: "SHOOT_INTERVAL_GAIN",
 	Type.SHOOT_RADIUS: "SHOOT_RADIUS",
+	Type.SHOOT_RADIUS_GAIN: "SHOOT_RADIUS_GAIN",
 	Type.BULLET_SPEED: "BULLET_SPEED",
+	Type.BULLET_SPEED_INC: "BULLET_SPEED_INC",
+	Type.BULLET_SPEED_GAIN: "BULLET_SPEED_GAIN",
 }
 
 # 各属性类型的默认值（新增属性时同步添加）
 const DEFAULTS: Dictionary = {
 	Type.ATK: 0.0,
-	Type.ATK_PER: 0.0,
+	Type.ATK_INC: 0.0,
+	Type.ATK_GAIN: 0.0,
 	Type.HP: 0.0,
 	Type.SPD: 0.0,
 	Type.CRIT_RATE: 0.0,
-	Type.CRIT_DMG: 1.5,
+	Type.CRIT_DMG: 0.0,
 	Type.DEF: 0.0,
-	Type.ATK_SPEED: 1.0,
-	Type.RANGE: 1.0,
+	Type.ATK_SPEED: 0.0,
+	Type.RANGE: 0.0,
 	Type.COOLDOWN: 0.0,
 	Type.LIFE_STEAL: 0.0,
-	Type.ROTATE_SPEED: 1.0,
-	Type.ROTATE_SPEED_PER: 0.0,
-	Type.ROTATE_RADIUS: 1.0,
-	Type.SHOOT_NUM: 1.0,
-	Type.SHOOT_INTERVAL: 1.0,
-	Type.SHOOT_RADIUS: 1.0,
-	Type.BULLET_SPEED: 1.0,
+	Type.ROTATE_SPEED: 0.0,
+	Type.ROTATE_SPEED_GAIN: 0.0,
+	Type.ROTATE_RADIUS: 0.0,
+	Type.ROTATE_RADIUS_GAIN: 0.0,
+	Type.SHOOT_NUM: 0.0,
+	Type.SHOOT_INTERVAL: 0.0,
+	Type.SHOOT_INTERVAL_GAIN: 0.0,
+	Type.SHOOT_RADIUS: 0.0,
+	Type.SHOOT_RADIUS_GAIN: 0.0,
+	Type.BULLET_SPEED: 0.0,
+	Type.BULLET_SPEED_INC: 0.0,
+	Type.BULLET_SPEED_GAIN: 0.0,
 }
 
 # CSV键名 → 属性类型反向映射
