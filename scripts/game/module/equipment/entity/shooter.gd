@@ -39,6 +39,7 @@ func setup(source: Node,
 	bullet_speed: float,
 	bullet_damage: float,
 	detect_radius: float, ) -> void:
+	_source = source
 	_base_shoot_interval = shoot_interval
 	_base_shoot_count = shoot_count
 	_base_bullet_speed = bullet_speed

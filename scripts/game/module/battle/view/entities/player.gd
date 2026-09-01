@@ -6,6 +6,7 @@ extends CharacterBody2D
 @onready var equipment_host: EquipmentHost = $Components/EquipmentHost
 @onready var weapon_anchor: Node2D = $EquipmentEntities/WeaponAnchor
 @onready var shooter_anchor: Node2D = $EquipmentEntities/ShooterAnchor
+@onready var area_anchor: Node2D = $EquipmentEntities/AreaAnchor
 @onready var hit_timer: Timer = $HitTimer
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var dust: GPUParticles2D = $Dust
@@ -40,7 +41,7 @@ func _ready() -> void:
 			body_ani.sprite_frames = frames
 
 	_update_animation()
-	var equipment_context := EquipmentContext.new().setup(self, weapon_anchor, shooter_anchor)
+	var equipment_context := EquipmentContext.new().setup(self, weapon_anchor, shooter_anchor, area_anchor)
 	equipment_host.initialize(BackpackManager.equipments.values(), equipment_context)
 
 func _physics_process(_delta: float) -> void:

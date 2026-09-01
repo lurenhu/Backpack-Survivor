@@ -9,7 +9,7 @@ ID,Name,Shape,Rarity,Attr,Price,Source,Type
 8,火花棍,"1;1;1;1",2,"ATK:20,SHOOT_INTERVAL:0.2,BULLET_SPEED:600,SHOOT_RADIUS:500",20,"res://assets/res/entity/equipment/火花棍.png",SHOOTER
 9,木盾,"1,1;1,1",0,"HP:20",5,"res://assets/res/entity/equipment/木盾.png",JEWELRY
 10,木箭矢,"1;1",0,"ATK:10",5,"res://assets/res/entity/equipment/木质箭矢.png",JEWELRY
-11,水晶球,"1",1,"ATK:10",5,"res://assets/res/entity/equipment/水晶球.png",JEWELRY
+11,水晶球,"1",1,"ATK:10,AREA_INTERVAL:2,AREA_RADIUS:100",5,"res://assets/res/entity/equipment/水晶球.png",AREA
 12,瞄准镜,"1",1,"ATK:10",5,"res://assets/res/entity/equipment/瞄准镜.png",JEWELRY
 13,箭袋,"1;1",2,"ATK:20",5,"res://assets/res/entity/equipment/箭袋.png",JEWELRY
 14,铁块,"1",1,"ATK:5",5,"res://assets/res/entity/equipment/铁块.png",JEWELRY
@@ -21,7 +21,7 @@ ID,Name,Shape,Rarity,Attr,Price,Source,Type
 20,魔法宝石,"1",4,"ATK:40",40,"res://assets/res/entity/equipment/魔法宝石.png",JEWELRY
 21,魔法帽,"1,1;1,1",4,"ATK:50",40,"res://assets/res/entity/equipment/魔法帽.png",JEWELRY
 22,魔法长袍,"1,1;1,1;1,1",4,"ATK:50",40,"res://assets/res/entity/equipment/魔法长袍.png",JEWELRY
-23,铁片手套,"1;1;1",3,"ATK:10,ROTATE_SPEED_PER:0.2",20,"res://assets/res/entity/equipment/铁片手套.png",JEWELRY
+23,铁片手套,"1;1;1",3,"ATK:10,ROTATE_SPEED_GAIN:0.2",20,"res://assets/res/entity/equipment/铁片手套.png",JEWELRY
 24,石中剑,"1;1;1;1",4,"ATK:10,ROTATE_RADIUS:120,ROTATE_SPEED:12",20,"res://assets/res/entity/equipment/石中剑.png",ROTATE
 25,皮革帽子,"1,1;1,1",2,"HP:20",10,"res://assets/res/entity/equipment/皮革帽子.png",JEWELRY
 26,皮革手套,"1;1",2,"HP:20",10,"res://assets/res/entity/equipment/皮革手套.png",JEWELRY

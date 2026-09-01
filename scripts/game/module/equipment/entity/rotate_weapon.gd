@@ -64,7 +64,7 @@ func _equipment_attr(type: AttrType.Type) -> float:
 
 ## 计算属性最终值
 func _recalculate_attributes() -> void:
-	_attack_power = (_base_attack_power + _equipment_attr(AttrType.Type.ATK_INC)) \
+	_attack_power = (_base_attack_power + _equipment_attr(AttrType.Type.ATK)) \
 		* (1.0 + _equipment_attr(AttrType.Type.ATK_GAIN))
 	_rotation_speed = _base_rotation_speed * (1.0 + _equipment_attr(AttrType.Type.ROTATE_SPEED_GAIN))
 	_rotation_radius = _base_rotation_radius * (1.0 + _equipment_attr(AttrType.Type.ROTATE_RADIUS_GAIN))

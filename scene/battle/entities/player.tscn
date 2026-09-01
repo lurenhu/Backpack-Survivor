@@ -89,6 +89,8 @@ script = ExtResource("2_equipment_host")
 
 [node name="ShooterAnchor" type="Node2D" parent="EquipmentEntities" unique_id=1418506078]
 
+[node name="AreaAnchor" type="Node2D" parent="EquipmentEntities"]
+
 [node name="Dust" type="GPUParticles2D" parent="." unique_id=1787456655]
 material = SubResource("CanvasItemMaterial_5u6hq")
 position = Vector2(0, 43)

@@ -10,9 +10,22 @@ func _ready() -> void:
 
 func _run() -> void:
 	GameConfig._init()
+	if "--area-only" in OS.get_cmdline_user_args():
+		if not _test_equipment_type_parsing():
+			return
+		if not _test_area_effect_factory():
+			return
+		if not await _test_area_equipment():
+			return
+		get_tree().quit(0)
+		return
 	if not _test_backpack_equipment_attributes():
 		return
 	if not _test_equipment_type_parsing():
+		return
+	if not _test_area_effect_factory():
+		return
+	if not await _test_area_equipment():
 		return
 	if not await _test_enemy_shooter_timer():
 		return
@@ -76,7 +89,7 @@ func _test_backpack_equipment_attributes() -> bool:
 			else 0.0
 		)
 	BackpackManager.equip_changed.connect(on_changed, CONNECT_ONE_SHOT)
-	var signal_glove := Equipment.new(11)
+	var signal_glove := Equipment.new(12)
 	signal_glove.state = BackpackManager.GridType.PACKAGE
 	var position := BackpackManager.find_position(signal_glove.shape, BackpackManager.backpack_grid)
 	signal_glove.grid_pos = position
@@ -89,6 +102,11 @@ func _test_backpack_equipment_attributes() -> bool:
 
 
 func _test_equipment_type_parsing() -> bool:
+	if not _assert(
+		EquipmentEffectType.from_string("AREA") == EquipmentEffectType.Type.AREA,
+		"area equipment type should be parsed"
+	):
+		return false
 	if not _assert(
 		EquipmentEffectType.from_string("JEWELRY") == EquipmentEffectType.Type.PASSIVE_ATTRIBUTE,
 		"legacy jewelry should map to passive attributes"
@@ -104,6 +122,79 @@ func _test_equipment_type_parsing() -> bool:
 		"factory should reject unknown equipment types"
 	):
 		return false
+	return true
+
+
+func _test_area_effect_factory() -> bool:
+	return _assert(
+		EquipmentEffectFactory.create_effect(EquipmentEffectType.Type.AREA) != null,
+		"factory should create area equipment effects"
+	)
+
+
+func _test_area_equipment() -> bool:
+	GameState.current_character_id = 1
+	BackpackManager.init_backpack(1)
+	var player := PLAYER_SCENE.instantiate() as Player
+	add_child(player)
+	await get_tree().process_frame
+	var area_anchor := player.get_node("EquipmentEntities/AreaAnchor") as Node2D
+	if not _assert(area_anchor != null, "player should expose AreaAnchor"):
+		return false
+
+	var data := EquipmentData.from_dict({
+		"ID": 99,
+		"Name": "test area weapon",
+		"Shape": "1",
+		"Attr": "ATK:12,AREA_RADIUS:80,AREA_INTERVAL:0.05",
+		"Type": "AREA",
+	})
+	var context := EquipmentContext.new().setup(
+		player,
+		player.weapon_anchor,
+		player.shooter_anchor,
+		area_anchor
+	)
+	var effect := EquipmentEffectFactory.create_effect(data.type)
+	effect.setup(context, data, [Equipment.new(1), Equipment.new(1)])
+	effect.activate()
+	await get_tree().physics_frame
+
+	if not _assert(area_anchor.get_child_count() == 2, "each area equipment should create one AreaWeapon"):
+		return false
+	var area_weapon := area_anchor.get_child(0) as AreaWeapon
+	var circle := area_weapon.collision_shape_2d.shape as CircleShape2D
+	if not _assert(is_equal_approx(circle.radius, 80.0), "area weapon should use configured radius"):
+		return false
+	if not _assert(is_equal_approx(area_weapon.damage_timer.wait_time, 0.05), "area weapon should use configured interval"):
+		return false
+
+	var enemy := ENEMY_SHOOTER_SCENE.instantiate() as EnemyShooter
+	enemy.setup(3)
+	add_child(enemy)
+	enemy.global_position = area_weapon.global_position
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	var observed_damage := {"count": 0, "amount": 0.0}
+	var on_damage := func(target: Node, amount: float) -> void:
+		if target == enemy:
+			observed_damage.count += 1
+			observed_damage.amount = amount
+	CombatManager.damage_dealt.connect(on_damage)
+	area_weapon._on_damage_timer_timeout()
+	CombatManager.damage_dealt.disconnect(on_damage)
+	if not _assert(observed_damage.count == 1, "area tick should damage every overlapping enemy once"):
+		return false
+	if not _assert(is_equal_approx(observed_damage.amount, 12.0), "area tick should use configured attack"):
+		return false
+
+	effect.cleanup()
+	enemy.queue_free()
+	await get_tree().process_frame
+	if not _assert(area_anchor.get_child_count() == 0, "area effect cleanup should remove its entities"):
+		return false
+	player.queue_free()
+	await get_tree().process_frame
 	return true
 
 
@@ -207,7 +298,7 @@ func _test_shooter_equipment() -> bool:
 		return false
 
 	var shooter := shooter_anchor.get_child(0) as Shooter
-	if not _assert(shooter._shoot_num == 2, "duplicate shooter equipment should produce two projectiles"):
+	if not _assert(shooter._shoot_count == 2, "duplicate shooter equipment should produce two projectiles"):
 		return false
 	if not _assert(is_equal_approx(shooter.shoot_timer.wait_time, 0.5), "shooter timer should use the configured interval"):
 		return false
@@ -217,7 +308,7 @@ func _test_shooter_equipment() -> bool:
 	):
 		return false
 
-	if not _assert(is_equal_approx(shooter._base_bullet_damage, 40.0), "global attack should apply when equipment shooter is created"):
+	if not _assert(is_equal_approx(shooter._bullet_damage, 40.0), "global attack should apply when equipment shooter is created"):
 		return false
 	if not _assert(is_equal_approx(shooter.shoot_timer.wait_time, 0.5), "rotation modifiers should not change shooter timing"):
 		return false

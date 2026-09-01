@@ -33,6 +33,12 @@ enum Type {
 	BULLET_SPEED, # 子弹速度
 	BULLET_SPEED_INC, # 子弹速度增加
 	BULLET_SPEED_GAIN, # 子弹速度增加百分比
+
+	## 范围装备参数
+	AREA_RADIUS, # 范围半径
+	AREA_RADIUS_GAIN, # 范围扩大百分比
+	AREA_INTERVAL, # 范围伤害频率
+	AREA_INTERVAL_GAIN, # 范围伤害频率提高百分比
 }
 
 # 属性类型 → CSV键名映射（新增属性时同步添加）
@@ -61,6 +67,10 @@ const TYPE_TO_KEY: Dictionary = {
 	Type.BULLET_SPEED: "BULLET_SPEED",
 	Type.BULLET_SPEED_INC: "BULLET_SPEED_INC",
 	Type.BULLET_SPEED_GAIN: "BULLET_SPEED_GAIN",
+	Type.AREA_RADIUS: "AREA_RADIUS",
+	Type.AREA_RADIUS_GAIN: "AREA_RADIUS_GAIN",
+	Type.AREA_INTERVAL: "AREA_INTERVAL",
+	Type.AREA_INTERVAL_GAIN: "AREA_INTERVAL_GAIN",
 }
 
 # 各属性类型的默认值（新增属性时同步添加）
@@ -89,6 +99,10 @@ const DEFAULTS: Dictionary = {
 	Type.BULLET_SPEED: 0.0,
 	Type.BULLET_SPEED_INC: 0.0,
 	Type.BULLET_SPEED_GAIN: 0.0,
+	Type.AREA_RADIUS: 0.0,
+	Type.AREA_RADIUS_GAIN: 0.0,
+	Type.AREA_INTERVAL: 0.0,
+	Type.AREA_INTERVAL_GAIN: 0.0,
 }
 
 # CSV键名 → 属性类型反向映射

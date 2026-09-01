@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bhg18v526333v"]
+
+[ext_resource type="Script" uid="uid://cxsose6c7reyf" path="res://scripts/game/module/equipment/entity/area_weapon.gd" id="1_area"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uoe7i"]
+resource_local_to_scene = true
+radius = 50.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uoe7i"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 98, 0)
+
+[node name="AreaWeapon" type="Node2D" unique_id=759673963]
+script = ExtResource("1_area")
+
+[node name="DetectArea" type="Area2D" parent="." unique_id=1609029392]
+collision_layer = 64
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectArea" unique_id=1932899709]
+shape = SubResource("CircleShape2D_uoe7i")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1090989352]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_uoe7i")
+
+[node name="DamageTimer" type="Timer" parent="." unique_id=186071868]
