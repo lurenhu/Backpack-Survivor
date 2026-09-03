@@ -5,7 +5,7 @@
 [sub_resource type="LabelSettings" id="LabelSettings_jg182"]
 resource_local_to_scene = true
 font_size = 32
-font_color = Color(0, 1, 1, 1)
+font_color = Color(0.77513033, 0.19102374, 0.20206481, 1)
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
