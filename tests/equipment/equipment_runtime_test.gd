@@ -202,27 +202,32 @@ func _test_enemy_shooter_timer() -> bool:
 	var enemy := ENEMY_SHOOTER_SCENE.instantiate() as EnemyShooter
 	enemy.setup(3)
 	add_child(enemy)
+	if not _assert(enemy.shooter is TargetingShooter, "enemy shooter should use TargetingShooter"):
+		return false
 	if not _assert(enemy.shooter.shoot_timer.is_stopped(), "enemy shooter setup should stop its automatic timer"):
 		return false
 	var other_enemy := ENEMY_SHOOTER_SCENE.instantiate() as EnemyShooter
 	other_enemy.setup(3)
 	add_child(other_enemy)
-	var shots_fired := 0
-	var on_shoot := func(
-		_source: Node,
-		_target: Node,
-		_num: int,
-		_damage: int,
-		_speed: int,
-		_from: Node2D,
-	) -> void:
-		shots_fired += 1
-	CombatManager.shoot_bullet.connect(on_shoot)
-	enemy.shooter._on_detect_area_enter(other_enemy)
-	await get_tree().process_frame
-	CombatManager.shoot_bullet.disconnect(on_shoot)
-	if not _assert(shots_fired == 0, "enemy shooters should not auto-target other enemies"):
+	var requests: Array[ProjectileSpawnRequest] = []
+	var on_projectile := func(request: ProjectileSpawnRequest) -> void:
+		requests.append(request)
+	CombatManager.projectile_requested.connect(on_projectile)
+	enemy.shooter._on_shoot_timeout()
+	if not _assert(requests.is_empty(), "enemy shooters should not auto-target other enemies"):
 		return false
+	var player := PLAYER_SCENE.instantiate() as Player
+	player.position = Vector2(100.0, 0.0)
+	enemy._player = player
+	enemy.fire_bullet()
+	CombatManager.projectile_requested.disconnect(on_projectile)
+	if not _assert(
+		requests.size() == 1
+		and requests[0].spec.source_faction == ProjectileSpec.Faction.ENEMY,
+		"enemy attack animations should request one enemy projectile"
+	):
+		return false
+	player.free()
 	other_enemy.queue_free()
 	enemy.queue_free()
 	await get_tree().process_frame
@@ -314,12 +319,14 @@ func _test_shooter_equipment() -> bool:
 	add_child(player)
 	await get_tree().process_frame
 	var shooter_anchor := player.get_node("EquipmentEntities/ShooterAnchor")
-	if not _assert(shooter_anchor.get_child_count() == 1, "duplicate shooter equipment should create one Shooter"):
+	var coordinator := shooter_anchor.get_node("ShooterRingCoordinator") as ShooterRingCoordinator
+	if not _assert(coordinator.get_rings().size() == 1, "one shooter equipment id should create one ring"):
 		return false
 
-	var shooter := shooter_anchor.get_child(0) as Shooter
-	if not _assert(shooter._shoot_count == 2, "duplicate shooter equipment should produce two projectiles"):
+	var ring := coordinator.get_rings()[0]
+	if not _assert(ring.get_shooters().size() == 2, "two equipment copies should create two shooters"):
 		return false
+	var shooter := ring.get_shooters()[0]
 	if not _assert(is_equal_approx(shooter.shoot_timer.wait_time, 0.5), "shooter timer should use the configured interval"):
 		return false
 	if not _assert(
@@ -328,7 +335,7 @@ func _test_shooter_equipment() -> bool:
 	):
 		return false
 
-	if not _assert(is_equal_approx(shooter._bullet_damage, 40.0), "global attack should apply when equipment shooter is created"):
+	if not _assert(is_equal_approx(shooter.spec.direct_damage, 40.0), "global attack should apply when equipment shooter is created"):
 		return false
 	if not _assert(is_equal_approx(shooter.shoot_timer.wait_time, 0.5), "rotation modifiers should not change shooter timing"):
 		return false

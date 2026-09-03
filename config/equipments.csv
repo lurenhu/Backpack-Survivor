@@ -1,6 +1,6 @@
 ID,Name,Shape,Rarity,Attr,Price,Source,Type
 1,木剑,"1;1",0,"ATK:5,ROTATE_RADIUS:90,ROTATE_SPEED:10",5,"res://assets/res/entity/equipment/木剑.png",ROTATE
-2,法杖,"1;1",0,"ATK:20,SHOOT_INTERVAL:0.5,BULLET_SPEED:200,SHOOT_RADIUS:300",10,"res://assets/res/entity/equipment/法杖.png",SHOOTER
+2,法杖,"1;1",0,"ATK:20,SHOOTER_TYPE:ROTATING_RADIAL,BULLET_TYPE:NORMAL,ROTATE_SPEED:20,SHOOT_INTERVAL:0.5,BULLET_SPEED:200",10,"res://assets/res/entity/equipment/法杖.png",SHOOTER
 3,木弓,"1;1",0,"ATK:10,SHOOT_INTERVAL:0.25,BULLET_SPEED:400,SHOOT_RADIUS:400",10,"res://assets/res/entity/equipment/木弓.png",SHOOTER
 4,铁剑,"1;1;1",1,"ATK:10,ROTATE_RADIUS:120,ROTATE_SPEED:12",10,"res://assets/res/entity/equipment/铁剑.png",ROTATE
 5,宝石法杖,"1;1;1",1,"ATK:20,SHOOT_INTERVAL:0.2,BULLET_SPEED:600,SHOOT_RADIUS:500",20,"res://assets/res/entity/equipment/宝石法杖.png",SHOOTER

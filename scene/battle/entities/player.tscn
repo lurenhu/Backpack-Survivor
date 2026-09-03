@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://drocvufwlqvh2" path="res://scripts/game/module/equipment/component/equipment_host.gd" id="2_equipment_host"]
 [ext_resource type="Animation" uid="uid://cn0y63umqxb25" path="res://assets/preset/animation/pudding.res" id="3_1ie0h"]
 [ext_resource type="Texture2D" uid="uid://cl10ur53mwbo3" path="res://assets/res/vfx/Dust_01.png" id="3_42nxq"]
+[ext_resource type="Script" uid="uid://chimx17d22xts" path="res://scripts/game/module/equipment/entity/shooter/shooter_ring_coordinator.gd" id="4_shooter_coordinator"]
 
 [sub_resource type="Animation" id="Animation_08t41"]
 length = 0.001
@@ -89,7 +90,12 @@ script = ExtResource("2_equipment_host")
 
 [node name="ShooterAnchor" type="Node2D" parent="EquipmentEntities" unique_id=1418506078]
 
-[node name="AreaAnchor" type="Node2D" parent="EquipmentEntities"]
+[node name="ShooterRingCoordinator" type="Node2D" parent="EquipmentEntities/ShooterAnchor" unique_id=1903101016]
+script = ExtResource("4_shooter_coordinator")
+base_radius = 200.0
+layer_spacing = 50.0
+
+[node name="AreaAnchor" type="Node2D" parent="EquipmentEntities" unique_id=942923142]
 
 [node name="Dust" type="GPUParticles2D" parent="." unique_id=1787456655]
 material = SubResource("CanvasItemMaterial_5u6hq")

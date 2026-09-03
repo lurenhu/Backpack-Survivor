@@ -6,7 +6,8 @@ signal gold_collected(amount: int)
 signal enemy_killed(enemy: Node, gold_reward: int)
 signal damage_dealt(target: Node, amount: float)
 signal battle_ended(won: bool)
-signal shoot_bullet(source: Node, target: Node, num: int, damage: int, speed: int, from: Node2D)
+## 发射器提交子弹生成参数时触发，由当前战斗场景的 BulletSpawner 接收。
+signal projectile_requested(request: ProjectileSpawnRequest)
 
 var is_battle_active: bool = false
 var _spawn_parent: Node = null

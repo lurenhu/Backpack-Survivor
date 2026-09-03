@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/game/module/equipment/entity/shooter/targeting_shooter.gd" id="1_script"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_detect"]
+resource_local_to_scene = true
+radius = 200.0
+
+[node name="TargetingShooter" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="DetectArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectArea"]
+shape = SubResource("CircleShape2D_detect")
+
+[node name="ShootTimer" type="Timer" parent="."]

@@ -1,23 +1,5 @@
-[gd_scene format=3 uid="uid://bwj3dedthwwrx"]
+[gd_scene load_steps=2 format=3 uid="uid://bwj3dedthwwrx"]
 
-[ext_resource type="Script" uid="uid://tqjmfn566h3h" path="res://scripts/game/module/equipment/entity/shooter.gd" id="1_7y3p4"]
-[ext_resource type="Texture2D" uid="uid://lmf1622h3shh" path="res://assets/icon/progress_empty.png" id="2_7y3p4"]
+[ext_resource type="PackedScene" path="res://scene/battle/entities/shooter/targeting_shooter.tscn" id="1_targeting"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ssunt"]
-resource_local_to_scene = true
-radius = 200.0
-
-[node name="Shooter" type="Node2D" unique_id=840961110]
-script = ExtResource("1_7y3p4")
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1897529777]
-texture = ExtResource("2_7y3p4")
-
-[node name="DetectArea" type="Area2D" parent="." unique_id=897849843]
-collision_layer = 2
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectArea" unique_id=367463400]
-shape = SubResource("CircleShape2D_ssunt")
-
-[node name="ShootTimer" type="Timer" parent="." unique_id=383747147]
+[node name="Shooter" instance=ExtResource("1_targeting")]

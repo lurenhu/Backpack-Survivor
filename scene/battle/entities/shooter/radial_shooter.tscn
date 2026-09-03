@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://sxnc8a3rofle"]
+
+[ext_resource type="Script" uid="uid://b8hc6xf0npvnn" path="res://scripts/game/module/equipment/entity/shooter/radial_shooter.gd" id="1_script"]
+
+[node name="RadialShooter" type="Node2D" unique_id=1394914976]
+script = ExtResource("1_script")
+
+[node name="ShootTimer" type="Timer" parent="." unique_id=1401856315]

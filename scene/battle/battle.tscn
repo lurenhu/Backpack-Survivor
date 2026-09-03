@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cgpwcqun28n5o" path="res://scene/battle/battle_ui.tscn" id="3_wq6iy"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="5_twcql"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_6y0hr"]
+[ext_resource type="Script" path="res://scripts/game/module/battle/view/entities/bullet/bullet_spawner.gd" id="7_bullet_spawner"]
 
 [sub_resource type="Resource" id="Resource_5xu2w"]
 script = ExtResource("6_6y0hr")
@@ -44,6 +45,9 @@ polygon = PackedVector2Array(570, -516, 851, -407, 1029, -172, 927, 337, 564, 52
 [node name="EnemyContainer" type="Node2D" parent="." unique_id=644764787]
 
 [node name="BulletContainer" type="Node2D" parent="." unique_id=758089253]
+
+[node name="BulletSpawner" type="Node" parent="."]
+script = ExtResource("7_bullet_spawner")
 
 [node name="EnemySpawner" type="Node2D" parent="." unique_id=1714243216]
 

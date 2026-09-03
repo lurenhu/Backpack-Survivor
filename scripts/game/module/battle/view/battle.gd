@@ -5,14 +5,16 @@ extends Node2D
 @onready var _stage_timer: Timer = $StageTimer
 @onready var _enemy_container: Node2D = $EnemyContainer
 @onready var _pick_up_container: Node2D = $PickUpContainer
+## 运行时子弹实例的场景容器。
 @onready var bullet_container: Node2D = $BulletContainer
+## 接收发射请求并创建具体子弹的工厂节点。
+@onready var _bullet_spawner: BulletSpawner = $BulletSpawner
 
 var _stage_duration: float = 0.0
 
-const BULLET_SCENE: PackedScene = preload("res://scene/battle/entities/bullet.tscn")
-
 ## 就绪时初始化战斗：读取关卡配置，设置阶段计时器，启动战斗管理器
 func _ready() -> void:
+	_bullet_spawner.setup(bullet_container)
 	var config_id: int = MapManager.current_map_node.config_id
 	var wave_data: Dictionary = GameConfig.battles[config_id]
 	# 计算所有波次的总时长作为关卡阶段时长
@@ -34,7 +36,7 @@ func _ready() -> void:
 
 	CombatManager.battle_ended.connect(_on_battle_ended)
 	CombatManager.damage_dealt.connect(_on_damage_dealt)
-	CombatManager.shoot_bullet.connect(_on_shoot_bullet)
+	CombatManager.projectile_requested.connect(_bullet_spawner.spawn)
 
 ## 每帧更新战斗计时和战斗逻辑
 func _process(delta: float) -> void:
@@ -43,6 +45,7 @@ func _process(delta: float) -> void:
 
 #region 信号回调
 
+## 收到有效伤害事件时刷新玩家生命值界面。
 func _on_damage_dealt(target: Node, amount: int):
 	if target == null:
 		return
@@ -54,18 +57,5 @@ func _on_damage_dealt(target: Node, amount: int):
 ## 战斗结束回调：失败则GameOver，最顶层通关则GameOver，否则回到地图
 func _on_battle_ended(won: bool) -> void:
 	_battle_ui.show_game_over(won)
-
-
-## 发射子弹：朝目标方向生成num颗子弹，小角度扇形散开避免重叠
-func _on_shoot_bullet(source: Node, target: Node, num: int, damage: int, speed: int, from: Node2D) -> void:
-	var base_direction: Vector2 = (target.global_position - source.global_position).normalized()
-	const SPREAD_ANGLE: float = PI / 24.0
-	for i in num:
-		var bullet: Bullet = BULLET_SCENE.instantiate()
-		bullet.global_position = source.global_position
-		var angle_offset: float = (i - (num - 1) * 0.5) * SPREAD_ANGLE
-		var direction: Vector2 = base_direction.rotated(angle_offset)
-		bullet.setup(damage, speed, direction, from)
-		bullet_container.add_child(bullet)
 
 #endregion
