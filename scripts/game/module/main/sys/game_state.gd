@@ -20,7 +20,6 @@ extends Node
 
 var current_character_id: int = 0
 var total_gold_collected: int = 0
-var gold: int = 0
 
 func _ready() -> void:
 	GameConfig._init()
@@ -35,15 +34,15 @@ func change_scene(scene_name: String) -> void:
 func start_new_run(character_id: int) -> void:
 	current_character_id = character_id
 	total_gold_collected = 0
-	gold = 999
+	BackpackManager.set_gold(999)
 	BackpackManager.init_backpack(character_id)
 	MapManager.init_map(1)
 
 
-## 增加金币
-func add_gold(amount: int) -> void:
-	total_gold_collected += amount
-	gold += amount
+## 记录本局收集的金币总量
+func record_collected_gold(amount: int) -> void:
+	if amount > 0:
+		total_gold_collected += amount
 
 
 ## 查找玩家节点

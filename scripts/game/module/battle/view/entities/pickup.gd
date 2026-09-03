@@ -75,7 +75,8 @@ func _on_body_entered(body: Node2D) -> void:
 func _collect() -> void:
 	match type:
 		PickupType.GOLD:
-			GameState.add_gold(value)
+			GameState.record_collected_gold(value)
+			BackpackManager.add_gold(value)
 			CombatManager.gold_collected.emit(value)
 	call_deferred("queue_free")
 

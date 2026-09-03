@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bralt2yyy0vje"]
+
+[ext_resource type="Script" uid="uid://b34txv7jjcurk" path="res://scripts/game/module/backpack/view/package/package_label.gd" id="1_lgjxb"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_prwmt"]
+resource_local_to_scene = true
+font_size = 32
+font_color = Color(0.7934667, 0.5618223, 0.23915222, 1)
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="PackageLabel" type="Label" unique_id=2126920844]
+offset_right = 55.0
+offset_bottom = 45.0
+text = "999"
+label_settings = SubResource("LabelSettings_prwmt")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("1_lgjxb")

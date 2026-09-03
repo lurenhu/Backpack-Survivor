@@ -11,10 +11,10 @@ extends CanvasLayer
 
 func _ready() -> void:
 	CombatManager.update_wave_show.connect(_on_wave_show)
-	CombatManager.gold_collected.connect(_on_gold_collected)
+	BackpackManager.gold_changed.connect(_on_gold_changed)
 	CombatManager.damage_dealt.connect(_on_damage_dealt)
 	update_health_bar()
-	_update_gold_display()
+	_on_gold_changed(BackpackManager.gold)
 
 #region 公开方法
 
@@ -33,11 +33,6 @@ func update_health_bar() -> void:
 #endregion
 
 #region 内部方法
-
-## 刷新金币数量显示
-func _update_gold_display() -> void:
-	_gold_label.text = str(GameState.gold)
-
 
 ## 在指定世界坐标实例化伤害数字并播放动画
 func _show_damage(damage: int, world_position: Vector2) -> void:
@@ -61,9 +56,9 @@ func _on_wave_show(wave_index: int) -> void:
 	_wave_label.text = str(wave_index + 1)
 
 
-## 金币收集回调：刷新金币显示
-func _on_gold_collected(_amount: int) -> void:
-	_update_gold_display()
+## 金币变化回调：刷新金币显示
+func _on_gold_changed(current_gold: int) -> void:
+	_gold_label.text = str(current_gold)
 
 
 ## 伤害处理回调：在受击目标位置显示伤害数字

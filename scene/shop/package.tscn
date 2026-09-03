@@ -5,12 +5,22 @@
 [ext_resource type="Texture2D" uid="uid://c37iwobpgvxe4" path="res://assets/res/ui/backpack/背包.png" id="2_rxkfn"]
 [ext_resource type="Texture2D" uid="uid://cucxhawr44dj8" path="res://assets/res/ui/backpack/仓库.png" id="3_60ucg"]
 [ext_resource type="Texture2D" uid="uid://cjkbe31qio8x3" path="res://assets/res/ui/backpack/标题1.png" id="4_58gow"]
+[ext_resource type="Texture2D" uid="uid://ca6adio31tkxc" path="res://assets/icon/progress_full.png" id="4_c8fdd"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1nnao"]
 font_size = 32
 font_color = Color(1.1294625, 0.83751404, 0.5196019, 1)
 shadow_size = 5
 shadow_color = Color(0, 0, 0, 0.4627451)
+
+[sub_resource type="LabelSettings" id="LabelSettings_58gow"]
+resource_local_to_scene = true
+font_size = 32
+font_color = Color(1.0744532, 1.0153223, 0.3969228, 1)
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 5
+shadow_color = Color(0.27772468, 0.15806803, 0, 0.549)
 
 [node name="Package" type="Control" unique_id=81504182]
 layout_mode = 3
@@ -158,6 +168,21 @@ grow_vertical = 0
 [node name="GridTile" type="TileMapLayer" parent="StageGrid" unique_id=1173733189]
 tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAMAAQAAAAAAAAABAAAAAQAAAAAAAAABAAEAAQAAAAAAAAABAAIAAQAAAAAAAAABAAMAAQAAAAAAAAACAAAAAQAAAAAAAAACAAEAAQAAAAAAAAACAAIAAQAAAAAAAAACAAMAAQAAAAAAAAADAAAAAQAAAAAAAAADAAEAAQAAAAAAAAADAAIAAQAAAAAAAAADAAMAAQAAAAAAAAAEAAAAAQAAAAAAAAAEAAEAAQAAAAAAAAAEAAIAAQAAAAAAAAAEAAMAAQAAAAAAAAAFAAAAAQAAAAAAAAAFAAEAAQAAAAAAAAAFAAIAAQAAAAAAAAAFAAMAAQAAAAAAAAAGAAAAAQAAAAAAAAAGAAEAAQAAAAAAAAAGAAIAAQAAAAAAAAAGAAMAAQAAAAAAAAAHAAAAAQAAAAAAAAAHAAEAAQAAAAAAAAAHAAIAAQAAAAAAAAAHAAMAAQAAAAAAAAA=")
 tile_set = ExtResource("1_ewcwq")
+
+[node name="Coin" type="HBoxContainer" parent="." unique_id=1033639495]
+layout_mode = 1
+offset_right = 251.0
+offset_bottom = 64.0
+
+[node name="TextureRect" type="TextureRect" parent="Coin" unique_id=867929430]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("4_c8fdd")
+
+[node name="Label" type="Label" parent="Coin" unique_id=330756270]
+layout_mode = 2
+text = "9999"
+label_settings = SubResource("LabelSettings_58gow")
 
 [node name="CardContainer" type="Control" parent="." unique_id=368680537]
 layout_mode = 1

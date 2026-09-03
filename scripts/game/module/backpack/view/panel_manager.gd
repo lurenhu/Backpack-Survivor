@@ -211,7 +211,7 @@ func _on_add_equipment_card(card: EquipmentCard):
 func _on_equipment_dropped(screen_position: Vector2, equipment_card: EquipmentCard) -> void:
 	var origin_grid_type: BackpackManager.GridType = equipment_card.origin_equipment.state
 	if origin_grid_type == BackpackManager.GridType.SHOP:
-		if GameState.gold < equipment_card.equipment.price:
+		if BackpackManager.gold < equipment_card.equipment.price:
 			equipment_card.return_to_origin()
 			return
 
@@ -239,9 +239,11 @@ func _on_equipment_dropped(screen_position: Vector2, equipment_card: EquipmentCa
 	if origin_grid_type == BackpackManager.GridType.SHOP and (target_grid_type == BackpackManager.GridType.PACKAGE or target_grid_type == BackpackManager.GridType.STAGE):
 		var new_equipment = equipment_card.equipment.copy()
 		can_place = BackpackManager.add_to_equip_grid(new_equipment, new_pos)
-		if can_place and GameState.gold >= equipment_card.equipment.price:
-			GameState.gold -= equipment_card.equipment.price
-			equipment_card.visible = false
+		if can_place:
+			if BackpackManager.spend_gold(equipment_card.equipment.price):
+				equipment_card.visible = false
+			else:
+				BackpackManager.remove_equipment(new_equipment)
 		equipment_card.return_to_origin()
 	elif origin_grid_type == BackpackManager.GridType.FORGE_REWARD and (target_grid_type == BackpackManager.GridType.PACKAGE or target_grid_type == BackpackManager.GridType.STAGE):
 		var new_equipment = equipment_card.equipment.copy()
@@ -305,6 +307,7 @@ func _on_card_drag_state_changed(is_dragging: bool, card: EquipmentCard) -> void
 
 ## 关闭隐藏商店界面
 func _on_shop_exit_button_pressed():
+	BackpackManager.set_grid_purchase_mode(false)
 	hide_shop()
 	show_map()
 

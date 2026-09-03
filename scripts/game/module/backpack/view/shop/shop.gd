@@ -3,6 +3,7 @@ extends Control
 ## 商店面板：管理商品卡片列表、刷新和购买交互
 
 @onready var refresh_button: Button = $RefreshButton
+@onready var grid_button: Button = $GridButton
 @onready var exit_button: Button = $ExitButton
 
 const CARD_COUNT: int = 4
@@ -20,6 +21,11 @@ func _ready() -> void:
 		_name_labels.append(name_label)
 
 	refresh_button.pressed.connect(refresh_shop)
+	grid_button.toggle_mode = true
+	grid_button.set_pressed_no_signal(BackpackManager.is_grid_purchase_mode)
+	grid_button.toggled.connect(_on_grid_button_toggled)
+	BackpackManager.grid_purchase_state_changed.connect(_update_grid_button)
+	_update_grid_button()
 
 #region 私有方法
 
@@ -39,6 +45,9 @@ func _roll_from_pool(count: int, pool: Array[int]) -> Array[int]:
 #endregion
 
 #region 信号回调
+
+func _on_grid_button_toggled(enabled: bool) -> void:
+	BackpackManager.set_grid_purchase_mode(enabled)
 
 #endregion
 
@@ -72,5 +81,13 @@ func refresh_shop(item_ids: Array[int] = []) -> void:
 		card.equipment.state = BackpackManager.GridType.SHOP
 		card.visible = true
 		_name_labels[i].text = card.equipment.name
+
+
+func _update_grid_button() -> void:
+	grid_button.set_pressed_no_signal(BackpackManager.is_grid_purchase_mode)
+	if BackpackManager.is_grid_purchase_mode:
+		grid_button.text = "退出购买"
+	else:
+		grid_button.text = "购买网格"
 
 #endregion

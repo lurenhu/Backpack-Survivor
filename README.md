@@ -12,6 +12,7 @@
   - [x] 商店包含5个商品货架放置装备供玩家购买
   - [x] 根据当前地图节点刷新商店刷新池--不同阶段能够刷新的装备不同
   - [x] 商店刷新
+  - [ ] 商店添加背包网格购买状态，供玩家购买背包中的网格
 - 地图系统
   - [ ] 一场对局包含3层地图，每层地图有多个地图节点，节点之间有路径，玩家可先预览地图再选择路径
   - [x] 地图节点与地图之间的刷新逻辑
@@ -23,7 +24,7 @@
   - 玩家装备类型
     - [x] 旋转装备：玩家装备后，该装备会围绕玩家身体按照配置的**旋转半径**和**旋转速度**进行旋转
     - [x] 发射装备：玩家装备后，该装备会根据配置的射击间隔和**射击速度**，**检测半径**和**子弹速度**发射子弹
-    - [ ] 范围装备：玩家装备后，该装备会根据配置的**范围区域**和**触发间隔**触发范围伤害
+    - [x] 范围装备：玩家装备后，该装备会根据配置的**范围区域**和**触发间隔**触发范围伤害
     - [ ] 饰品装备：玩家装备后，根据装备配置的数值给予玩家对应数值的增加
     - [ ] 防御装备：玩家装备后，根据装备配置的**旋转半径**，**旋转速度**和**再生间隔**添加能够抵挡敌人弹幕的装备
   - 敌人怪物类型
@@ -67,7 +68,7 @@ addons/                  SceneManager、PhantomCamera 等第三方插件
       └─ FORGE  → 装备合成与整理背包 → 返回地图
 ```
 
-`GameState` 保存当前角色、持有金币和累计金币，并封装场景切换。`gaming.gd` 监听地图节点选择，根据节点类型打开对应面板或进入战斗。地图进度、背包装备和金币均由 Autoload 保存，因此切换场景后仍能延续当前对局。
+`GameState` 保存当前角色和累计拾取金币，并封装场景切换；可消费金币由 `BackpackManager` 独占，并通过 `gold_changed` 通知界面。`gaming.gd` 监听地图节点选择，根据节点类型打开对应面板或进入战斗。地图进度、背包装备和金币均由 Autoload 保存，因此切换场景后仍能延续当前对局。
 
 ### 3. 配置与数据模块
 
@@ -80,14 +81,14 @@ addons/                  SceneManager、PhantomCamera 等第三方插件
 
 ### 4. 全局状态与场景模块
 
-`GameState` 是一局游戏的总入口：开始新对局时重置金币，调用 `BackpackManager.init_backpack()` 和 `MapManager.init_map()`；运行中负责查找玩家及切换 `main_menu`、`character_select`、`gaming`、`battle` 等场景。实际转场动画由 SceneManager 插件完成。
+`GameState` 是一局游戏的总入口：开始新对局时重置累计拾取金币，通过 `BackpackManager.set_gold()` 初始化可消费金币，并调用 `BackpackManager.init_backpack()` 和 `MapManager.init_map()`；运行中负责查找玩家及切换 `main_menu`、`character_select`、`gaming`、`battle` 等场景。实际转场动画由 SceneManager 插件完成。
 
 主界面模块由 `main_menu.gd`、`character_select.gd`、`character_card.gd`、`gaming.gd` 和 `game_over.gd` 组成，分别负责开始游戏、角色选择、对局面板调度及战斗结算。`PanelManager` 统一控制地图、背包、商店和锻造面板，避免各页面互相直接切换。
 
 ### 5. 背包与装备模块
 
 - **核心数据**：`Equipment` 保存配置 ID、形状、旋转状态、网格位置和所在区域。
-- **核心系统**：`BackpackManager` 维护装备区、存储区和锻造台的二维占用数组及装备字典。
+- **核心系统**：`BackpackManager` 维护可消费金币，以及装备区、存储区和锻造台的二维占用数组及装备字典。
 - **核心能力**：初始化角色背包形状、寻找空位、验证边界/碰撞、放置、移除、跨网格移动和坐标转换。
 - **表现组件**：`EquipmentCard` 负责装备图形、拖拽和旋转；`Package` 将管理器数据同步为卡牌。
 
@@ -95,7 +96,7 @@ addons/                  SceneManager、PhantomCamera 等第三方插件
 
 ### 6. 商店与锻造模块
 
-**商店**根据当前地图节点的 `config_id` 读取 `ShopConfigData`，生成装备池并刷新货架。购买成功后扣除 `GameState.gold`，再通过 `BackpackManager` 将装备放入可用网格。刷新和购买都依赖金币与空位校验。
+**商店**根据当前地图节点的 `config_id` 读取 `ShopConfigData`，生成装备池并刷新货架。装备成功放入可用网格后，通过 `BackpackManager.spend_gold()` 原子校验并扣除金币；若扣款失败则回滚刚放入的装备。刷新和购买都依赖金币与空位校验。
 
 **锻造**读取 `equipment_forge.csv`，收集锻造台中的材料 ID，与配方进行无序匹配；匹配成功时展示结果预览。确认锻造后消耗材料、创建高级装备，并尝试放入锻造结果/背包流程。`PanelManager` 复用统一拖拽逻辑，使装备可在背包、存储区和锻造台之间移动。
 
@@ -114,7 +115,7 @@ addons/                  SceneManager、PhantomCamera 等第三方插件
 - `damage_dealt`：统一调用玩家或敌人的受伤接口，并通知 UI。
 - `shoot_bullet`：由 Shooter 请求，由战斗场景创建子弹。
 - `enemy_killed`：记录击杀并生成金币掉落物。
-- `gold_collected`：刷新金币显示。
+- `gold_collected`：保留金币拾取这一战斗事件；可消费余额及界面刷新由 `BackpackManager.gold_changed` 驱动。
 - `battle_ended`：触发胜负结算。
 
 ### 9. 战斗实体模块
@@ -124,7 +125,7 @@ addons/                  SceneManager、PhantomCamera 等第三方插件
 - **RotateWeapon**：绕玩家旋转，碰撞敌人时发送伤害事件。
 - **Shooter / Bullet**：检测最近目标、按间隔请求射击；子弹区分来源阵营并在命中后销毁。
 - **Pickup**：处理金币掉落、吸附、闪烁、过期和拾取。
-- **BattleUI / GameOver**：展示生命、金币、波次、伤害数字和战斗结果。
+- **BattleUI / GameOver**：展示生命、金币、波次、伤害数字和战斗结果；金币标签初始化并订阅 `BackpackManager.gold_changed`。
 
 ### 10. 模块依赖与扩展边界
 

@@ -345,9 +345,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -61.0
+offset_left = -151.0
 offset_top = -88.0
-offset_right = 59.0
+offset_right = -31.0
 offset_bottom = -28.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -361,6 +361,30 @@ theme_override_styles/normal = ExtResource("4_8r1wq")
 theme_override_styles/pressed = ExtResource("5_ajxib")
 theme_override_styles/hover = ExtResource("6_y6sft")
 text = "刷新商店"
+
+[node name="GridButton" type="Button" parent="." unique_id=728798729]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 29.0
+offset_top = -88.0
+offset_right = 149.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0.06100855, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0.0627451, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = ExtResource("4_8r1wq")
+theme_override_styles/pressed = ExtResource("5_ajxib")
+theme_override_styles/hover = ExtResource("6_y6sft")
+text = "购买网格"
 
 [node name="ExitButton" type="Button" parent="." unique_id=1820081843]
 layout_mode = 1

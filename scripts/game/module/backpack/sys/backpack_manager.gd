@@ -19,8 +19,22 @@ const STAGE_COLS: int = 8 # 闲置区网格的列数
 const STAGE_ROWS: int = 4 # 闲置区网格的行数
 const FORGE_COLS: int = 8 # 锻造台网格的列数
 const FORGE_ROWS: int = 4 # 锻造台网格的行数
+const INITIAL_GRID_COST: int = 10 # 首个背包网格的购买价格
+const GRID_NEIGHBOR_DIRECTIONS: Array[Vector2i] = [
+	Vector2i.UP,
+	Vector2i.DOWN,
+	Vector2i.LEFT,
+	Vector2i.RIGHT,
+]
 
 signal equip_changed() # 网格区域装备发生变化（包括但不限于增加，减少，移动）
+signal grid_purchase_state_changed() # 网格购买模式、价格或已解锁网格发生变化
+signal gold_changed(current_gold: int)
+
+var _gold: int = 0
+var gold: int:
+	get:
+		return _gold
 
 ## 背包内的网格占用状态 0为未占用 1为占用
 var backpack_grid: Array[Array] = []
@@ -36,6 +50,10 @@ var forge_grid: Array[Array] = []
 var forge_equip: Dictionary[Vector2i, Equipment] = {}
 ## 当前背包中所有被动装备的属性合计
 var equipment_attrs: AttrContainer = AttrContainer.new()
+## 下一个背包网格的购买价格
+var grid_cost: int = INITIAL_GRID_COST
+## 是否处于背包网格购买状态
+var is_grid_purchase_mode: bool = false
 
 ## 所有装备（背包）的合并视图，供外部遍历
 var equipments: Dictionary:
@@ -45,10 +63,34 @@ var equipments: Dictionary:
 			all[key] = backpack_equip[key]
 		return all
 
+
+func set_gold(amount: int) -> void:
+	var next_gold := maxi(amount, 0)
+	if gold == next_gold:
+		return
+	_gold = next_gold
+	gold_changed.emit(gold)
+
+
+func add_gold(amount: int) -> bool:
+	if amount <= 0:
+		return false
+	set_gold(gold + amount)
+	return true
+
+
+func spend_gold(amount: int) -> bool:
+	if amount <= 0 or gold < amount:
+		return false
+	set_gold(gold - amount)
+	return true
+
 #region 背包网格业务逻辑
 
 ## 初始化背包：根据角色配置设置网格布局、放置初始装备，并初始化闲置区4x8网格
 func init_backpack(character_id: int) -> void:
+	grid_cost = INITIAL_GRID_COST
+	is_grid_purchase_mode = false
 	var char_config: CharacterData = GameConfig.characters[character_id]
 	if char_config == null:
 		return
@@ -104,6 +146,53 @@ func init_backpack(character_id: int) -> void:
 		if pos.x >= 0:
 			add_to_equip_grid(equip, pos)
 	_notify_equipment_changed()
+	grid_purchase_state_changed.emit()
+
+
+## 设置背包网格购买状态
+func set_grid_purchase_mode(enabled: bool) -> void:
+	if is_grid_purchase_mode == enabled:
+		return
+	is_grid_purchase_mode = enabled
+	grid_purchase_state_changed.emit()
+
+
+## 获取所有与已拥有网格上下左右相邻的未拥有网格
+func get_purchasable_grid_cells() -> Array[Vector2i]:
+	var result: Array[Vector2i] = []
+	for y in backpack_grid.size():
+		for x in backpack_grid[y].size():
+			if backpack_grid[y][x] == -1:
+				continue
+			var owned_pos := Vector2i(x, y)
+			for direction in GRID_NEIGHBOR_DIRECTIONS:
+				var neighbor := owned_pos + direction
+				if not _is_backpack_grid_position_valid(neighbor):
+					continue
+				if backpack_grid[neighbor.y][neighbor.x] == -1 and neighbor not in result:
+					result.append(neighbor)
+	return result
+
+
+## 购买指定背包网格；仅购买模式下的候选网格可以解锁
+func purchase_grid(grid_pos: Vector2i) -> bool:
+	if not is_grid_purchase_mode:
+		return false
+	if grid_pos not in get_purchasable_grid_cells():
+		return false
+	if not spend_gold(grid_cost):
+		return false
+
+	backpack_grid[grid_pos.y][grid_pos.x] = 0
+	grid_cost *= 2
+	grid_purchase_state_changed.emit()
+	return true
+
+
+func _is_backpack_grid_position_valid(grid_pos: Vector2i) -> bool:
+	if grid_pos.y < 0 or grid_pos.y >= backpack_grid.size():
+		return false
+	return grid_pos.x >= 0 and grid_pos.x < backpack_grid[grid_pos.y].size()
 
 
 ## 添加进指定装备网格区域
