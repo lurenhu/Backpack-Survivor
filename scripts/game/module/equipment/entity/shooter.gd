@@ -133,11 +133,16 @@ func _on_detect_area_enter(body: Node2D) -> void:
 	if not auto_shoot:
 		return
 
+	# 敌人的射击由攻击动画触发，不应使用玩家装备的自动索敌逻辑。
+	if not _source is Player:
+		return
+
 	if not body is Enemy:
 		return
 	if not shoot_timer.is_stopped():
 		return
-	shoot(body, _source)
+	# body_entered 在物理查询刷新期间发出；延迟生成 Area2D 子弹，避免修改物理状态。
+	shoot.call_deferred(body, _source)
 	shoot_timer.start()
 
 #endregion

@@ -204,6 +204,26 @@ func _test_enemy_shooter_timer() -> bool:
 	add_child(enemy)
 	if not _assert(enemy.shooter.shoot_timer.is_stopped(), "enemy shooter setup should stop its automatic timer"):
 		return false
+	var other_enemy := ENEMY_SHOOTER_SCENE.instantiate() as EnemyShooter
+	other_enemy.setup(3)
+	add_child(other_enemy)
+	var shots_fired := 0
+	var on_shoot := func(
+		_source: Node,
+		_target: Node,
+		_num: int,
+		_damage: int,
+		_speed: int,
+		_from: Node2D,
+	) -> void:
+		shots_fired += 1
+	CombatManager.shoot_bullet.connect(on_shoot)
+	enemy.shooter._on_detect_area_enter(other_enemy)
+	await get_tree().process_frame
+	CombatManager.shoot_bullet.disconnect(on_shoot)
+	if not _assert(shots_fired == 0, "enemy shooters should not auto-target other enemies"):
+		return false
+	other_enemy.queue_free()
 	enemy.queue_free()
 	await get_tree().process_frame
 	return true
