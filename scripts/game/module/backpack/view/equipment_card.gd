@@ -6,6 +6,8 @@ extends Control
 signal drag_dropped(screen_position: Vector2)
 signal drag_state_changed(is_dragging: bool)
 
+const EQUIPMENT_TIP_SCENE := preload("res://scene/shop/equipment_tip.tscn")
+
 @onready var grid_preview: Control = $GridPreview
 @onready var _grid_tile: TileMapLayer = $GridPreview/GridTile
 @onready var equipment_sprite: TextureRect = $EquipmentSprite
@@ -14,6 +16,10 @@ signal drag_state_changed(is_dragging: bool)
 @export var angle_x_max: float = 20.0
 ## 绕y轴最大倾斜角度
 @export var angle_y_max: float = 20.0
+## 鼠标保持悬停多久后显示装备提示。
+@export_range(0.0, 10.0, 0.1) var tooltip_delay: float = 2.0
+## 装备卡片与提示框之间的间隔。
+@export_range(0.0, 100.0, 1.0) var tooltip_gap: float = 12.0
 
 var equipment: Equipment = null
 var origin_equipment: Equipment = null
@@ -27,11 +33,21 @@ var _scale_tween: Tween
 var _rot_tween: Tween
 var _move_tween: Tween
 var _rotate_tween: Tween
+var _tooltip_timer: Timer
+var _equipment_tip: EquipmentTip
 
 ## 就绪时设置鼠标过滤，确保控件可以接收输入事件
 func _ready() -> void:
 	mouse_entered.connect(_on_mouse_enter)
 	mouse_exited.connect(_on_mouse_exit)
+	_tooltip_timer = Timer.new()
+	_tooltip_timer.one_shot = true
+	_tooltip_timer.timeout.connect(_show_equipment_tip)
+	add_child(_tooltip_timer)
+
+
+func _exit_tree() -> void:
+	_hide_equipment_tip()
 
 ## 处理鼠标输入：左键长按拖拽、右键旋转
 func _gui_input(event: InputEvent) -> void:
@@ -81,6 +97,7 @@ func _handle_mouse_move(event: InputEvent) -> void:
 
 ## 记录拖拽起始位置和旋转状态，并将pivot中心吸附到鼠标位置
 func _on_drag_start(mouse_global: Vector2) -> void:
+	_hide_equipment_tip()
 	_origin_pos = position
 	if equipment:
 		origin_equipment = equipment.copy()
@@ -217,10 +234,13 @@ func _on_mouse_enter() -> void:
 		_scale_tween.kill()
 	_scale_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
 	_scale_tween.tween_property(self, "scale", Vector2.ONE * 1.2, 0.15)
+	if equipment != null and not _is_dragging and mouse_filter != Control.MOUSE_FILTER_IGNORE:
+		_tooltip_timer.start(tooltip_delay)
 
 
 ## 鼠标离开：tween快进缓出恢复，重置shader旋转角度
 func _on_mouse_exit() -> void:
+	_hide_equipment_tip()
 	if _scale_tween and _scale_tween.is_valid():
 		_scale_tween.kill()
 	_scale_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
@@ -231,6 +251,48 @@ func _on_mouse_exit() -> void:
 	_rot_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	_rot_tween.tween_property(equipment_sprite.material, "shader_parameter/x_rot", 0.0, 0.15)
 	_rot_tween.tween_property(equipment_sprite.material, "shader_parameter/y_rot", 0.0, 0.15)
+
+
+func _show_equipment_tip() -> void:
+	if equipment == null or _is_dragging or _is_pressed:
+		return
+	_hide_equipment_tip()
+	_equipment_tip = EQUIPMENT_TIP_SCENE.instantiate() as EquipmentTip
+	_get_tooltip_parent().add_child(_equipment_tip)
+	_equipment_tip.layout_updated.connect(
+		_position_equipment_tip.bind(_equipment_tip),
+		CONNECT_ONE_SHOT
+	)
+	_equipment_tip.setup(equipment, equipment_sprite.size)
+
+
+func _get_tooltip_parent() -> Node:
+	var ancestor := get_parent()
+	while ancestor != null:
+		if ancestor is CanvasLayer:
+			return ancestor
+		ancestor = ancestor.get_parent()
+	return get_tree().root
+
+
+func _position_equipment_tip(tip: EquipmentTip) -> void:
+	if not is_instance_valid(tip) or tip != _equipment_tip:
+		return
+	var viewport_size := get_viewport_rect().size
+	tip.position = EquipmentTip.calculate_position(
+		get_global_rect(),
+		tip.size,
+		viewport_size,
+		tooltip_gap
+	)
+
+
+func _hide_equipment_tip() -> void:
+	if _tooltip_timer != null:
+		_tooltip_timer.stop()
+	if is_instance_valid(_equipment_tip):
+		_equipment_tip.queue_free()
+	_equipment_tip = null
 
 #endregion
 
@@ -282,10 +344,16 @@ func get_rotate_offset() -> Vector2:
 ## 将当前装备卡片设置为预览模式
 func set_preview_modulate(is_preview: bool):
 	if is_preview:
+		_hide_equipment_tip()
 		mouse_filter = Control.MOUSE_FILTER_IGNORE
 		equipment_sprite.material.set_shader_parameter("modulate", Color(0.4, 0.4, 0.4, 1.0))
 	else:
 		mouse_filter = Control.MOUSE_FILTER_PASS
 		equipment_sprite.material.set_shader_parameter("modulate", Color.WHITE)
+
+
+## 返回当前显示的装备提示，便于界面管理与验证。
+func get_equipment_tip() -> EquipmentTip:
+	return _equipment_tip if is_instance_valid(_equipment_tip) else null
 		
 #endregion

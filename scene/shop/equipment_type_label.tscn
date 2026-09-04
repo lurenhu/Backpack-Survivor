@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cvenoi5dlcg1h"]
+
+[ext_resource type="Script" uid="uid://dwwiniw8aqssp" path="res://scripts/game/module/backpack/view/equipment_type_label.gd" id="1_2kmf1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bs53b"]
+resource_local_to_scene = true
+font_size = 32
+font_color = Color(1.1294625, 0.83751404, 0.5196019, 1)
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 0.4627451)
+
+[node name="EquipmentTypeLabel" type="Label" unique_id=1781109707]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+text = "装备类型名称"
+label_settings = SubResource("LabelSettings_bs53b")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("1_2kmf1")

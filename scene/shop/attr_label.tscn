@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://call1obkdb8jc"]
+
+[ext_resource type="Script" uid="uid://1lmcf7lpl25j" path="res://scripts/game/module/backpack/view/attr_label.gd" id="1_3nisx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5kve5"]
+resource_local_to_scene = true
+font_size = 32
+font_color = Color(1.1294625, 0.83751404, 0.5196019, 1)
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 0.4627451)
+
+[node name="AttrLabel" type="Label" unique_id=1224375176]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+text = "属性词条文本"
+label_settings = SubResource("LabelSettings_5kve5")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("1_3nisx")

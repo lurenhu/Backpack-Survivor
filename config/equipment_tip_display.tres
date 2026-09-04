@@ -1,0 +1,248 @@
+[gd_resource type="Resource" script_class="EquipmentTipDisplayConfig" format=3 uid="uid://dsr3b6myt32gj"]
+
+[ext_resource type="Script" path="res://scripts/game/module/backpack/view/equipment_tip_display_config.gd" id="1_config"]
+[ext_resource type="Script" path="res://scripts/game/module/backpack/view/equipment_tip_display_entry.gd" id="2_entry"]
+
+[sub_resource type="Resource" id="Attr_atk"]
+script = ExtResource("2_entry")
+key = "ATK"
+text_template = "攻击力 +{value}"
+
+[sub_resource type="Resource" id="Attr_atk_inc"]
+script = ExtResource("2_entry")
+key = "ATK_INC"
+text_template = "攻击力增加 +{value}"
+
+[sub_resource type="Resource" id="Attr_atk_gain"]
+script = ExtResource("2_entry")
+key = "ATK_GAIN"
+text_template = "攻击力倍率 +{value}"
+
+[sub_resource type="Resource" id="Attr_hp"]
+script = ExtResource("2_entry")
+key = "HP"
+text_template = "生命值 +{value}"
+
+[sub_resource type="Resource" id="Attr_spd"]
+script = ExtResource("2_entry")
+key = "SPD"
+text_template = "移动速度 +{value}"
+
+[sub_resource type="Resource" id="Attr_crit_rate"]
+script = ExtResource("2_entry")
+key = "CRIT_RATE"
+text_template = "暴击率 +{value}"
+
+[sub_resource type="Resource" id="Attr_crit_dmg"]
+script = ExtResource("2_entry")
+key = "CRIT_DMG"
+text_template = "暴击伤害 +{value}"
+
+[sub_resource type="Resource" id="Attr_def"]
+script = ExtResource("2_entry")
+key = "DEF"
+text_template = "防御力 +{value}"
+
+[sub_resource type="Resource" id="Attr_atk_speed"]
+script = ExtResource("2_entry")
+key = "ATK_SPEED"
+text_template = "攻击速度 +{value}"
+
+[sub_resource type="Resource" id="Attr_range"]
+script = ExtResource("2_entry")
+key = "RANGE"
+text_template = "攻击范围 +{value}"
+
+[sub_resource type="Resource" id="Attr_cooldown"]
+script = ExtResource("2_entry")
+key = "COOLDOWN"
+text_template = "冷却缩减 +{value}"
+
+[sub_resource type="Resource" id="Attr_life_steal"]
+script = ExtResource("2_entry")
+key = "LIFE_STEAL"
+text_template = "生命偷取 +{value}"
+
+[sub_resource type="Resource" id="Attr_rotate_speed"]
+script = ExtResource("2_entry")
+key = "ROTATE_SPEED"
+text_template = "旋转速度 +{value}"
+
+[sub_resource type="Resource" id="Attr_rotate_speed_gain"]
+script = ExtResource("2_entry")
+key = "ROTATE_SPEED_GAIN"
+text_template = "旋转速度提高 +{value}"
+
+[sub_resource type="Resource" id="Attr_rotate_radius"]
+script = ExtResource("2_entry")
+key = "ROTATE_RADIUS"
+text_template = "旋转半径 +{value}"
+
+[sub_resource type="Resource" id="Attr_rotate_radius_gain"]
+script = ExtResource("2_entry")
+key = "ROTATE_RADIUS_GAIN"
+text_template = "旋转半径提高 +{value}"
+
+[sub_resource type="Resource" id="Attr_shoot_num"]
+script = ExtResource("2_entry")
+key = "SHOOT_NUM"
+text_template = "发射数量 +{value}"
+
+[sub_resource type="Resource" id="Attr_shoot_interval"]
+script = ExtResource("2_entry")
+key = "SHOOT_INTERVAL"
+text_template = "发射间隔 {value}秒"
+
+[sub_resource type="Resource" id="Attr_shoot_interval_gain"]
+script = ExtResource("2_entry")
+key = "SHOOT_INTERVAL_GAIN"
+text_template = "发射间隔缩短 +{value}"
+
+[sub_resource type="Resource" id="Attr_shoot_radius"]
+script = ExtResource("2_entry")
+key = "SHOOT_RADIUS"
+text_template = "发射范围 +{value}"
+
+[sub_resource type="Resource" id="Attr_shoot_radius_gain"]
+script = ExtResource("2_entry")
+key = "SHOOT_RADIUS_GAIN"
+text_template = "发射范围提高 +{value}"
+
+[sub_resource type="Resource" id="Attr_bullet_speed"]
+script = ExtResource("2_entry")
+key = "BULLET_SPEED"
+text_template = "子弹速度 +{value}"
+
+[sub_resource type="Resource" id="Attr_bullet_speed_inc"]
+script = ExtResource("2_entry")
+key = "BULLET_SPEED_INC"
+text_template = "子弹速度增加 +{value}"
+
+[sub_resource type="Resource" id="Attr_bullet_speed_gain"]
+script = ExtResource("2_entry")
+key = "BULLET_SPEED_GAIN"
+text_template = "子弹速度提高 +{value}"
+
+[sub_resource type="Resource" id="Attr_penetration"]
+script = ExtResource("2_entry")
+key = "PENETRATION_COUNT"
+text_template = "最多命中 {value} 个敌人"
+
+[sub_resource type="Resource" id="Attr_explosion_damage"]
+script = ExtResource("2_entry")
+key = "EXPLOSION_DAMAGE"
+text_template = "爆炸伤害 +{value}"
+
+[sub_resource type="Resource" id="Attr_explosion_radius"]
+script = ExtResource("2_entry")
+key = "EXPLOSION_RADIUS"
+text_template = "爆炸范围 +{value}"
+
+[sub_resource type="Resource" id="Attr_area_radius"]
+script = ExtResource("2_entry")
+key = "AREA_RADIUS"
+text_template = "范围半径 +{value}"
+
+[sub_resource type="Resource" id="Attr_area_radius_gain"]
+script = ExtResource("2_entry")
+key = "AREA_RADIUS_GAIN"
+text_template = "范围半径提高 +{value}"
+
+[sub_resource type="Resource" id="Attr_area_interval"]
+script = ExtResource("2_entry")
+key = "AREA_INTERVAL"
+text_template = "伤害间隔 {value}秒"
+
+[sub_resource type="Resource" id="Attr_area_interval_gain"]
+script = ExtResource("2_entry")
+key = "AREA_INTERVAL_GAIN"
+text_template = "范围伤害频率提高 +{value}"
+
+[sub_resource type="Resource" id="Attr_shooter_radial"]
+script = ExtResource("2_entry")
+key = "SHOOTER_TYPE"
+value = "RADIAL"
+text_template = "固定环形发射"
+
+[sub_resource type="Resource" id="Attr_shooter_rotating"]
+script = ExtResource("2_entry")
+key = "SHOOTER_TYPE"
+value = "ROTATING_RADIAL"
+text_template = "旋转环形发射"
+
+[sub_resource type="Resource" id="Attr_shooter_targeting"]
+script = ExtResource("2_entry")
+key = "SHOOTER_TYPE"
+value = "TARGETING"
+text_template = "自动瞄准发射"
+
+[sub_resource type="Resource" id="Attr_bullet_normal"]
+script = ExtResource("2_entry")
+key = "BULLET_TYPE"
+value = "NORMAL"
+text_template = "普通子弹"
+
+[sub_resource type="Resource" id="Attr_bullet_piercing"]
+script = ExtResource("2_entry")
+key = "BULLET_TYPE"
+value = "PIERCING"
+text_template = "穿透子弹"
+
+[sub_resource type="Resource" id="Attr_bullet_explosive"]
+script = ExtResource("2_entry")
+key = "BULLET_TYPE"
+value = "EXPLOSIVE"
+text_template = "爆炸子弹"
+
+[sub_resource type="LabelSettings" id="LabelSettings_rotate"]
+font_size = 32
+font_color = Color(0.95, 0.55, 0.25, 1)
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 0.46)
+
+[sub_resource type="Resource" id="Type_rotate"]
+script = ExtResource("2_entry")
+key = "ROTATE"
+text_template = "旋转武器"
+label_settings = SubResource("LabelSettings_rotate")
+
+[sub_resource type="LabelSettings" id="LabelSettings_shooter"]
+font_size = 32
+font_color = Color(0.35, 0.75, 1, 1)
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 0.46)
+
+[sub_resource type="Resource" id="Type_shooter"]
+script = ExtResource("2_entry")
+key = "SHOOTER"
+text_template = "发射武器"
+label_settings = SubResource("LabelSettings_shooter")
+
+[sub_resource type="LabelSettings" id="LabelSettings_area"]
+font_size = 32
+font_color = Color(0.7, 0.4, 1, 1)
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 0.46)
+
+[sub_resource type="Resource" id="Type_area"]
+script = ExtResource("2_entry")
+key = "AREA"
+text_template = "范围武器"
+label_settings = SubResource("LabelSettings_area")
+
+[sub_resource type="LabelSettings" id="LabelSettings_passive"]
+font_size = 32
+font_color = Color(0.35, 0.9, 0.5, 1)
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 0.46)
+
+[sub_resource type="Resource" id="Type_passive"]
+script = ExtResource("2_entry")
+key = "PASSIVE_ATTRIBUTE"
+text_template = "被动装备"
+label_settings = SubResource("LabelSettings_passive")
+
+[resource]
+script = ExtResource("1_config")
+equipment_types = Array[ExtResource("2_entry")]([SubResource("Type_rotate"), SubResource("Type_shooter"), SubResource("Type_area"), SubResource("Type_passive")])
+attributes = Array[ExtResource("2_entry")]([SubResource("Attr_atk"), SubResource("Attr_atk_inc"), SubResource("Attr_atk_gain"), SubResource("Attr_hp"), SubResource("Attr_spd"), SubResource("Attr_crit_rate"), SubResource("Attr_crit_dmg"), SubResource("Attr_def"), SubResource("Attr_atk_speed"), SubResource("Attr_range"), SubResource("Attr_cooldown"), SubResource("Attr_life_steal"), SubResource("Attr_rotate_speed"), SubResource("Attr_rotate_speed_gain"), SubResource("Attr_rotate_radius"), SubResource("Attr_rotate_radius_gain"), SubResource("Attr_shoot_num"), SubResource("Attr_shoot_interval"), SubResource("Attr_shoot_interval_gain"), SubResource("Attr_shoot_radius"), SubResource("Attr_shoot_radius_gain"), SubResource("Attr_bullet_speed"), SubResource("Attr_bullet_speed_inc"), SubResource("Attr_bullet_speed_gain"), SubResource("Attr_penetration"), SubResource("Attr_explosion_damage"), SubResource("Attr_explosion_radius"), SubResource("Attr_area_radius"), SubResource("Attr_area_radius_gain"), SubResource("Attr_area_interval"), SubResource("Attr_area_interval_gain"), SubResource("Attr_shooter_radial"), SubResource("Attr_shooter_rotating"), SubResource("Attr_shooter_targeting"), SubResource("Attr_bullet_normal"), SubResource("Attr_bullet_piercing"), SubResource("Attr_bullet_explosive")])

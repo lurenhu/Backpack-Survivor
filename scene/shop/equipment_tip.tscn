@@ -1,0 +1,67 @@
+[gd_scene load_steps=4 format=3 uid="uid://drt08fk3tyqmj"]
+
+[ext_resource type="Texture2D" uid="uid://c52ou6daw6f2n" path="res://assets/res/ui/底框.png" id="1_bg"]
+[ext_resource type="Script" uid="uid://dh4g4mageqkgk" path="res://scripts/game/module/backpack/view/equipment_tip.gd" id="2_script"]
+[ext_resource type="Resource" path="res://config/equipment_tip_display.tres" id="3_config"]
+
+[node name="EquipmentTip" type="Control"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("2_script")
+display_config = ExtResource("3_config")
+
+[node name="Bg" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_bg")
+patch_margin_left = 40
+patch_margin_top = 41
+patch_margin_right = 42
+patch_margin_bottom = 43
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Content" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="IconCenter" type="CenterContainer" parent="Margin/Content"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="Margin/Content/IconCenter"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TypeList" type="HBoxContainer" parent="Margin/Content"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="AttrList" type="VBoxContainer" parent="Margin/Content"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
