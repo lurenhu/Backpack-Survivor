@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EquipmentTipDisplayConfig" format=3 uid="uid://dsr3b6myt32gj"]
 
-[ext_resource type="Script" path="res://scripts/game/module/backpack/view/equipment_tip_display_config.gd" id="1_config"]
-[ext_resource type="Script" path="res://scripts/game/module/backpack/view/equipment_tip_display_entry.gd" id="2_entry"]
+[ext_resource type="Script" uid="uid://dig1defxpr73l" path="res://scripts/game/module/backpack/view/equipment_tip_display_config.gd" id="1_config"]
+[ext_resource type="Script" uid="uid://dxc3p103nlb5w" path="res://scripts/game/module/backpack/view/equipment_tip_display_entry.gd" id="2_entry"]
 
 [sub_resource type="Resource" id="Attr_atk"]
 script = ExtResource("2_entry")

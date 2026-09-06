@@ -8,7 +8,6 @@ skills-lock.json
 
 .vscode/
 .DS_Store
-*.uid
 
 docs/
 
