@@ -4,11 +4,13 @@ extends EditorPlugin
 
 func _enter_tree() -> void:
 	set_up_default_buses()
-	add_autoload_singleton("SoundManager", "res://addons/sound_manager/sound_manager.gd")
+	if not ProjectSettings.has_setting("autoload/SoundManager"):
+		add_autoload_singleton("SoundManager", "res://addons/sound_manager/sound_manager.gd")
 
 
-func _exit_tree() -> void:
-	remove_autoload_singleton("SoundManager")
+func _disable_plugin() -> void:
+	if ProjectSettings.has_setting("autoload/SoundManager"):
+		remove_autoload_singleton("SoundManager")
 
 
 func set_up_default_buses() -> void:

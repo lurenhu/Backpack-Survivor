@@ -95,7 +95,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("15_oq625")
 }],
-"loop": true,
+"loop": 1,
 "name": &"attack",
 "speed": 14.0
 }, {
@@ -103,7 +103,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bvnwm")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 5.0
 }, {
@@ -186,7 +186,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("42_m26pb")
 }],
-"loop": true,
+"loop": 1,
 "name": &"run",
 "speed": 13.0
 }]

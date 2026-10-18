@@ -177,7 +177,7 @@ func _settings_changed() -> void:
 
 func _visibility_check() -> void:
 	if not viewfinder_visible: return
-	if not is_instance_valid(Engine.get_singleton(_constants.PCAM_MANAGER_NODE_NAME)): return
+	if not Engine.has_singleton(_constants.PCAM_MANAGER_NODE_NAME): return
 	_assign_manager()
 
 	var pcam_host: PhantomCameraHost
@@ -567,7 +567,7 @@ func _select_override_pcam() -> void:
 
 func _assign_manager() -> void:
 	if not is_instance_valid(_pcam_manager):
-		if Engine.get_singleton(_constants.PCAM_MANAGER_NODE_NAME):
+		if Engine.has_singleton(_constants.PCAM_MANAGER_NODE_NAME):
 			_pcam_manager = Engine.get_singleton(_constants.PCAM_MANAGER_NODE_NAME)
 			_pcam_manager.pcam_host_added_to_scene.connect(_pcam_changed)
 			_pcam_manager.pcam_host_removed_from_scene.connect(_pcam_host_removed_from_scene)

@@ -35,8 +35,15 @@ func _enter_tree():
 		path_to_scenes = ProjectSettings.get_setting(SETTINGS_PROPERTY_NAME)
 		set_properties_for_setting()
 	
-	add_autoload_singleton("SceneManager", "res://addons/scene_manager/scene_manager.tscn")
-	add_autoload_singleton("Scenes", path_to_scenes)
+	# Re-registering existing autoloads rebuilds other plugins' tool singletons.
+	if not ProjectSettings.has_setting("autoload/SceneManager"):
+		add_autoload_singleton("SceneManager", "res://addons/scene_manager/scene_manager.tscn")
+	var scenes_autoload_path: String = ProjectSettings.get_setting("autoload/Scenes", "")
+	scenes_autoload_path = scenes_autoload_path.trim_prefix("*")
+	if scenes_autoload_path.begins_with("uid://"):
+		scenes_autoload_path = ResourceUID.get_id_path(ResourceUID.text_to_id(scenes_autoload_path))
+	if scenes_autoload_path != path_to_scenes:
+		add_autoload_singleton("Scenes", path_to_scenes)
 	menu = preload("res://addons/scene_manager/menu.tscn").instantiate()
 	menu.name = "Scene Manager"
 
@@ -53,7 +60,12 @@ func _exit_tree():
 	# ProjectSettings.clear(SETTINGS_PROPERTY_NAME)
 	#
 	# We just don't remove the settings for now
-	remove_autoload_singleton("SceneManager")
-	remove_autoload_singleton("Scenes")
 	remove_control_from_docks(menu)
 	menu.free()
+
+
+func _disable_plugin() -> void:
+	if ProjectSettings.has_setting("autoload/SceneManager"):
+		remove_autoload_singleton("SceneManager")
+	if ProjectSettings.has_setting("autoload/Scenes"):
+		remove_autoload_singleton("Scenes")

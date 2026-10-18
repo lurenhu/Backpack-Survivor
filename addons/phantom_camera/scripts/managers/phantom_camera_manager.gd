@@ -82,7 +82,10 @@ func _enter_tree() -> void:
 #	get_tree().scene_changed.connect(_scene_changed)
 
 func _exit_tree() -> void:
-	Engine.unregister_singleton(_CONSTANTS.PCAM_MANAGER_NODE_NAME)
+	# Temporary editor instances must not unregister the active manager.
+	if Engine.has_singleton(_CONSTANTS.PCAM_MANAGER_NODE_NAME):
+		if Engine.get_singleton(_CONSTANTS.PCAM_MANAGER_NODE_NAME) == self:
+			Engine.unregister_singleton(_CONSTANTS.PCAM_MANAGER_NODE_NAME)
 
 
 func _ready() -> void:
