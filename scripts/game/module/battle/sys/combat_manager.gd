@@ -4,7 +4,8 @@ extends Node
 signal update_wave_show(wave_index: int)
 signal gold_collected(amount: int)
 signal enemy_killed(enemy: Node, gold_reward: int)
-signal damage_dealt(target: Node, amount: float)
+## 伤害已处理完成，监听者仅消费结果，不再负责扣血。
+signal damage_applied(result: DamageResult)
 signal battle_ended(won: bool)
 ## 发射器提交子弹生成参数时触发，由当前战斗场景的 BulletSpawner 接收。
 signal projectile_requested(request: ProjectileSpawnRequest)
@@ -12,6 +13,7 @@ signal projectile_requested(request: ProjectileSpawnRequest)
 var is_battle_active: bool = false
 var _spawn_parent: Node = null
 var _pickup_parent: Node = null
+var _damage_system: DamageSystem = DamageSystem.new()
 
 @export var PICKUP_SCENE_PATH: PackedScene = preload("res://scene/battle/pick_up.tscn")
 const GOLD_PICKUP_CONFIG_ID: int = 1
@@ -22,6 +24,16 @@ var _current_wave_index: int = -1
 var _spawn_points: Array[Marker2D] = []
 
 #region 公开方法
+
+## 战斗中的统一伤害入口；无效、被拒绝或战斗结束后的请求不会发出通知。
+func apply_damage(request: DamageRequest) -> DamageResult:
+	if not is_battle_active:
+		return DamageResult.new()
+	var result := _damage_system.apply_damage(request)
+	if result.applied:
+		damage_applied.emit(result)
+	return result
+
 
 ## 根据 battle.csv 的嵌套数据初始化波次，为每条配置创建一个 EnemySpawner
 func setup_from_config(wave_data: Dictionary) -> void:
@@ -145,6 +157,8 @@ func _check_battle_victory() -> void:
 
 ## 结束当前战斗
 func end_battle(won: bool) -> void:
+	if not is_battle_active:
+		return
 	is_battle_active = false
 	battle_ended.emit(won)
 

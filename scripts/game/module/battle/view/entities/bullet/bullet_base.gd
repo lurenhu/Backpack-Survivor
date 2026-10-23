@@ -81,10 +81,10 @@ func _on_valid_target_hit(_body: Node2D) -> void:
 	pass
 
 
-## 通过 CombatManager 发送伤害事件，非正数伤害不会发送。
+## 通过 CombatManager 同步提交伤害请求。
 func _deal_damage(body: Node2D, amount: float) -> void:
 	if amount > 0.0:
-		CombatManager.damage_dealt.emit(body, amount)
+		CombatManager.apply_damage(DamageRequest.create(self, body, amount))
 
 
 ## 幂等地标记子弹结束并安排释放节点。

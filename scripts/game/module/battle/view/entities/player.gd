@@ -97,13 +97,13 @@ func setup(config_id: int) -> void:
 
 ## 受到伤害（仅在计时器结束时可受击，受击后开始计时）
 func take_damage(amount: float) -> bool:
-	if not hit_timer.is_stopped():
+	if _is_death or not is_finite(amount) or amount <= 0.0 or not hit_timer.is_stopped():
 		return false
 	current_hp = max(current_hp - amount, 0.0)
 	hit_timer.start()
 	if current_hp <= 0 and not _is_death:
 		_is_death = true
-		CombatManager.battle_ended.emit(false)
+		CombatManager.end_battle(false)
 	return true
 
 #endregion

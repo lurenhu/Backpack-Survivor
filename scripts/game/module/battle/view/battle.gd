@@ -1,7 +1,7 @@
 extends Node2D
 ## 战斗场景：控制战斗流程，管理关卡计时和波次推进
 
-@onready var _battle_ui: BattleUI = $BattleUI
+@onready var _battle_ui: BattleUI = get_node_or_null("BattleUI") as BattleUI
 @onready var _stage_timer: Timer = $StageTimer
 @onready var _enemy_container: Node2D = $EnemyContainer
 @onready var _pick_up_container: Node2D = $PickUpContainer
@@ -35,7 +35,6 @@ func _ready() -> void:
 	CombatManager.register_pickup_parent(_pick_up_container)
 
 	CombatManager.battle_ended.connect(_on_battle_ended)
-	CombatManager.damage_dealt.connect(_on_damage_dealt)
 	CombatManager.projectile_requested.connect(_bullet_spawner.spawn)
 
 ## 每帧更新战斗计时和战斗逻辑
@@ -45,17 +44,9 @@ func _process(delta: float) -> void:
 
 #region 信号回调
 
-## 收到有效伤害事件时刷新玩家生命值界面。
-func _on_damage_dealt(target: Node, amount: int):
-	if target == null:
-		return
-	if amount == 0:
-		return
-
-	_battle_ui.update_health_bar()
-
 ## 战斗结束回调：失败则GameOver，最顶层通关则GameOver，否则回到地图
 func _on_battle_ended(won: bool) -> void:
-	_battle_ui.show_game_over(won)
+	if is_instance_valid(_battle_ui):
+		_battle_ui.show_game_over(won)
 
 #endregion

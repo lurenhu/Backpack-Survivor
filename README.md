@@ -108,15 +108,19 @@ addons/                  SceneManager、PhantomCamera 等第三方插件
 
 ### 8. 战斗模块
 
-`battle.gd` 是战斗场景装配器：根据当前地图节点取得战斗配置，注册敌人、掉落物、出生点和 UI，并把伤害、射击与结算信号接入 `CombatManager`。
+`battle.gd` 是战斗场景装配器：根据当前地图节点取得战斗配置，注册敌人、掉落物、出生点和可选 UI，并把射击与结算信号接入 `CombatManager`。
 
 `CombatManager` 负责波次推进、敌人生成器调度、击杀统计、金币掉落和胜利判断；`EnemySpawner` 根据怪物 ID、数量、间隔和出生点实例化敌人。模块通过以下信号解耦：
 
-- `damage_dealt`：统一调用玩家或敌人的受伤接口，并通知 UI。
-- `shoot_bullet`：由 Shooter 请求，由战斗场景创建子弹。
+- `damage_applied(result: DamageResult)`：伤害已经生效，UI 仅根据结果快照显示伤害数字和更新血条。
+- `projectile_requested`：由 Shooter 请求，由战斗场景创建子弹。
 - `enemy_killed`：记录击杀并生成金币掉落物。
 - `gold_collected`：保留金币拾取这一战斗事件；可消费余额及界面刷新由 `BackpackManager.gold_changed` 驱动。
 - `battle_ended`：触发胜负结算。
+
+伤害执行链路为：武器 / 子弹 / 敌人 → `DamageRequest` → `CombatManager.apply_damage()` → `DamageSystem` → 目标 `take_damage()` → `DamageResult` → `damage_applied` → UI。`DamageSystem` 是由管理器持有的普通 `RefCounted` 对象，不新增 Autoload；目标通过 `current_hp` 和 `take_damage(float) -> bool` 提供受伤接口，并负责自己的无敌时间和死亡行为。
+
+结果保存实际扣血量、剩余生命值、受击位置及死亡标记，显示层无需读取已经销毁的敌人位置。无效或被拒绝的伤害不发送通知；玩家死亡统一调用 `end_battle(false)`，战斗结束后拒绝新的伤害请求。伤害处理不依赖 HUD 是否存在。
 
 ### 9. 战斗实体模块
 

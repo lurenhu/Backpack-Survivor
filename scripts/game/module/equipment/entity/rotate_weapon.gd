@@ -71,9 +71,9 @@ func _recalculate_attributes() -> void:
 
 #region 信号回调
 
-## 敌人进入武器区域 → 对敌人造成攻击力伤害并发射伤害信号
+## 敌人进入武器区域时提交伤害请求。
 func _on_body_entered(body: Node2D) -> void:
 	if body is Enemy:
-		CombatManager.damage_dealt.emit(body, _attack_power)
+		CombatManager.apply_damage(DamageRequest.create(self, body, _attack_power))
 
 #endregion

@@ -10,7 +10,8 @@ func _ready() -> void:
 
 
 func _run() -> void:
-	CombatManager.damage_dealt.connect(_on_damage_dealt)
+	CombatManager.setup_from_config({})
+	CombatManager.damage_applied.connect(_on_damage_applied)
 	if not await _test_normal_bullet_hits_once():
 		return
 	if not await _test_spawner_defers_normal_bullet():
@@ -19,7 +20,7 @@ func _run() -> void:
 		return
 	if not await _test_explosion_excludes_direct_target():
 		return
-	CombatManager.damage_dealt.disconnect(_on_damage_dealt)
+	CombatManager.damage_applied.disconnect(_on_damage_applied)
 	get_tree().quit(0)
 
 
@@ -34,6 +35,8 @@ func _test_normal_bullet_hits_once() -> bool:
 	bullet._on_body_entered(enemy)
 	var target_damage: Array = _damage_by_target.get(enemy.get_instance_id(), [])
 	if not _assert(target_damage == [10.0], "normal bullets should damage the first target once"):
+		return false
+	if not _assert(enemy.current_hp == 90.0, "normal bullets should reduce health without a HUD"):
 		return false
 	await get_tree().process_frame
 	enemy.queue_free()
@@ -131,11 +134,11 @@ func _request(type: BulletType.Type) -> ProjectileSpawnRequest:
 	return ProjectileSpawnRequest.create(Vector2.ZERO, Vector2.RIGHT, spec)
 
 
-func _on_damage_dealt(target: Node, amount: float) -> void:
-	var target_id := target.get_instance_id()
+func _on_damage_applied(result: DamageResult) -> void:
+	var target_id := result.target.get_instance_id()
 	if not _damage_by_target.has(target_id):
 		_damage_by_target[target_id] = []
-	_damage_by_target[target_id].append(amount)
+	_damage_by_target[target_id].append(result.actual_damage)
 
 
 func _assert(condition: bool, message: String) -> bool:

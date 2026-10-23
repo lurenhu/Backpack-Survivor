@@ -118,7 +118,7 @@ func _on_animation_finished(anim_name: StringName) -> void:
 ## 玩家进入伤害区域 → 对玩家造成伤害
 func _on_damage_area_body_entered(body: Node2D) -> void:
 	if body is Player:
-		CombatManager.damage_dealt.emit(body, attrs.get_value(AttrType.Type.ATK))
+		CombatManager.apply_damage(DamageRequest.create(self, body, attrs.get_value(AttrType.Type.ATK)))
 
 #endregion
 
@@ -136,9 +136,11 @@ func setup(config_id: int) -> void:
 	current_hp = attrs.get_value(AttrType.Type.HP)
 	gold_reward = monster_config.gold_drop
 
-## 受到伤害（仅在计时器结束时可受击，受击后开始计时）
+## 受到伤害；已死亡的敌人拒绝重复命中。
 func take_damage(amount: float) -> bool:
-	current_hp -= amount
+	if _is_dead or not is_finite(amount) or amount <= 0.0:
+		return false
+	current_hp = maxf(current_hp - amount, 0.0)
 	return true
 
 #endregion

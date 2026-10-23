@@ -12,7 +12,7 @@ extends CanvasLayer
 func _ready() -> void:
 	CombatManager.update_wave_show.connect(_on_wave_show)
 	BackpackManager.gold_changed.connect(_on_gold_changed)
-	CombatManager.damage_dealt.connect(_on_damage_dealt)
+	CombatManager.damage_applied.connect(_on_damage_applied)
 	update_health_bar()
 	_on_gold_changed(BackpackManager.gold)
 
@@ -22,7 +22,7 @@ func _ready() -> void:
 func show_game_over(won: bool) -> void:
 	_game_over.show_game_over(won)
 
-## 每帧从玩家节点同步血量到进度条
+## 初始化或刷新时从玩家节点同步血量到进度条。
 func update_health_bar() -> void:
 	var player: Player = GameState.find_player()
 	if player == null:
@@ -61,9 +61,10 @@ func _on_gold_changed(current_gold: int) -> void:
 	_gold_label.text = str(current_gold)
 
 
-## 伤害处理回调：在受击目标位置显示伤害数字
-func _on_damage_dealt(target: Node, amount: float) -> void:
-	if target.take_damage(amount):
-		_show_damage(int(amount), target.global_position)
+## 消费已生效的伤害快照；目标死亡后仍可显示伤害数字。
+func _on_damage_applied(result: DamageResult) -> void:
+	_show_damage(int(result.actual_damage), result.world_position)
+	if is_instance_valid(result.target) and result.target is Player:
+		_health_bar.value = result.remaining_hp
 
 #endregion

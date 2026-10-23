@@ -176,16 +176,21 @@ func _test_area_equipment() -> bool:
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	var observed_damage := {"count": 0, "amount": 0.0}
-	var on_damage := func(target: Node, amount: float) -> void:
-		if target == enemy:
+	var on_damage := func(result: DamageResult) -> void:
+		if result.target == enemy:
 			observed_damage.count += 1
-			observed_damage.amount = amount
-	CombatManager.damage_dealt.connect(on_damage)
+			observed_damage.amount = result.actual_damage
+	CombatManager.setup_from_config({})
+	CombatManager.damage_applied.connect(on_damage)
+	var previous_hp := enemy.current_hp
 	area_weapon._on_damage_timer_timeout()
-	CombatManager.damage_dealt.disconnect(on_damage)
+	CombatManager.damage_applied.disconnect(on_damage)
+	CombatManager.end_battle(true)
 	if not _assert(observed_damage.count == 1, "area tick should damage every overlapping enemy once"):
 		return false
 	if not _assert(is_equal_approx(observed_damage.amount, 12.0), "area tick should use configured attack"):
+		return false
+	if not _assert(is_equal_approx(previous_hp - enemy.current_hp, 12.0), "area damage should reduce health without a HUD"):
 		return false
 
 	effect.cleanup()

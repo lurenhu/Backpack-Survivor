@@ -55,4 +55,4 @@ func _recalculate_attributes() -> void:
 func _on_damage_timer_timeout() -> void:
 	for body in detect_area.get_overlapping_bodies():
 		if body is Enemy:
-			CombatManager.damage_dealt.emit(body, _attack_power)
+			CombatManager.apply_damage(DamageRequest.create(self, body, _attack_power))
