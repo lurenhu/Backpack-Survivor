@@ -154,7 +154,10 @@ func _update_all_grid_highlights() -> void:
 	if _dragging_cards.is_empty():
 		return
 
-	for card in _dragging_cards:
+	for card in _dragging_cards.duplicate():
+		if not is_instance_valid(card) or card.is_queued_for_deletion():
+			_dragging_cards.erase(card)
+			continue
 		var centers: Array[Vector2] = card.get_occupied_global_centers()
 		if centers.is_empty():
 			continue
@@ -162,19 +165,23 @@ func _update_all_grid_highlights() -> void:
 		var target_container: Control = null
 		var target_tile: TileMapLayer = null
 		var target_grid: Array[Array] = []
+		var target_type: int = BackpackManager.GridType.NONE
 		for point in centers:
 			if package.backpack_container.get_global_rect().has_point(point):
 				target_container = package.backpack_container
 				target_tile = package.backpack_grid_tile
 				target_grid = BackpackManager.backpack_grid
+				target_type = BackpackManager.GridType.PACKAGE
 			elif package.stage_container.get_global_rect().has_point(point):
 				target_container = package.stage_container
 				target_tile = package.stage_grid_tile
 				target_grid = BackpackManager.stage_grid
+				target_type = BackpackManager.GridType.STAGE
 			elif forge.forge_table_grid.get_global_rect().has_point(point):
 				target_container = forge.forge_table_grid
 				target_tile = forge.forge_table_grid_tile
 				target_grid = BackpackManager.forge_grid
+				target_type = BackpackManager.GridType.FORGE_TABLE
 			else:
 				continue
 		if target_container == null:
@@ -189,7 +196,7 @@ func _update_all_grid_highlights() -> void:
 			var source_id: int = 3
 			if gy < 0 or gy >= target_grid.size() or gx < 0 or gx >= target_grid[gy].size():
 				continue
-			elif grid_pos in origin_cells:
+			elif card.origin_equipment.state == target_type and grid_pos in origin_cells:
 				source_id = 2
 			elif target_grid[gy][gx] != 0:
 				source_id = 3
@@ -208,80 +215,59 @@ func _on_add_equipment_card(card: EquipmentCard):
 		card.drag_state_changed.connect(_on_card_drag_state_changed.bind(card))
 
 ## 装备拖拽放置处理：判断是否落在背包网格内，执行放置或归位
-func _on_equipment_dropped(screen_position: Vector2, equipment_card: EquipmentCard) -> void:
-	var origin_grid_type: BackpackManager.GridType = equipment_card.origin_equipment.state
-	if origin_grid_type == BackpackManager.GridType.SHOP:
-		if BackpackManager.gold < equipment_card.equipment.price:
-			equipment_card.return_to_origin()
-			return
-
-	# 判断背包对应区域是否可放置对应装备
-	var can_place: bool = false
-	var target_container: Control
-	var new_pos: Vector2i = Vector2i(-1, -1)
+func _on_equipment_dropped(screen_position: Vector2, card: EquipmentCard) -> void:
+	var source := card.origin_equipment
+	var rotation := card.equipment.rotate_times
+	card.finish_drag()
+	_dragging_cards.erase(card)
+	_drag_origin_grid_cells.erase(card)
+	var area: int = BackpackManager.GridType.NONE
+	var container: Control
 	if package.backpack_container.get_global_rect().has_point(screen_position):
-		target_container = package.backpack_container
-		equipment_card.equipment.state = BackpackManager.GridType.PACKAGE
+		area = BackpackManager.GridType.PACKAGE
+		container = package.backpack_container
 	elif package.stage_container.get_global_rect().has_point(screen_position):
-		target_container = package.stage_container
-		equipment_card.equipment.state = BackpackManager.GridType.STAGE
+		area = BackpackManager.GridType.STAGE
+		container = package.stage_container
 	elif forge.forge_table_grid.get_global_rect().has_point(screen_position):
-		target_container = forge.forge_table_grid
-		equipment_card.equipment.state = BackpackManager.GridType.FORGE_TABLE
-	else:
-		equipment_card.return_to_origin()
+		area = BackpackManager.GridType.FORGE_TABLE
+		container = forge.forge_table_grid
+	if container == null:
+		card.return_to_origin()
+		_refresh_transaction_views()
 		return
-	new_pos = BackpackManager.screen_to_grid(screen_position, target_container.global_position)
-	equipment_card.equipment.grid_pos = new_pos
+	var pos := BackpackManager.screen_to_grid(screen_position, container.global_position)
+	var result := InventoryOperationResult.rejected(&"invalid_target")
+	match source.state:
+		BackpackManager.GridType.SHOP:
+			result = BackpackManager.try_purchase_equipment(card.offer_id, area, pos, rotation)
+		BackpackManager.GridType.FORGE_REWARD:
+			result = BackpackManager.try_claim_forge_reward(source.instance_id, area, pos, rotation)
+		BackpackManager.GridType.PACKAGE, BackpackManager.GridType.STAGE:
+			if area == BackpackManager.GridType.FORGE_TABLE:
+				result = BackpackManager.try_select_forge_material(source.instance_id, pos, rotation)
+			else:
+				result = BackpackManager.try_move_equipment(source.instance_id, area, pos, rotation)
+		BackpackManager.GridType.FORGE_TABLE:
+			if area == BackpackManager.GridType.FORGE_TABLE:
+				result = BackpackManager.try_move_forge_material(source.instance_id, pos, rotation)
+			else:
+				result = BackpackManager.cancel_forge_material(source.instance_id)
+	if not result.success or source.state in [BackpackManager.GridType.SHOP, BackpackManager.GridType.FORGE_REWARD]:
+		card.return_to_origin()
+	# 成功的变化已经由结果信号刷新；失败或原地放下时主动恢复显示。
+	if not result.success or not (result.inventory_changed or result.shop_changed or result.forge_changed):
+		_refresh_transaction_views()
 
-	# 实例化卡片
-	var target_grid_type: BackpackManager.GridType = equipment_card.equipment.state
-	if origin_grid_type == BackpackManager.GridType.SHOP and (target_grid_type == BackpackManager.GridType.PACKAGE or target_grid_type == BackpackManager.GridType.STAGE):
-		var new_equipment = equipment_card.equipment.copy()
-		can_place = BackpackManager.add_to_equip_grid(new_equipment, new_pos)
-		if can_place:
-			if BackpackManager.spend_gold(equipment_card.equipment.price):
-				equipment_card.visible = false
-			else:
-				BackpackManager.remove_equipment(new_equipment)
-		equipment_card.return_to_origin()
-	elif origin_grid_type == BackpackManager.GridType.FORGE_REWARD and (target_grid_type == BackpackManager.GridType.PACKAGE or target_grid_type == BackpackManager.GridType.STAGE):
-		var new_equipment = equipment_card.equipment.copy()
-		can_place = BackpackManager.add_to_equip_grid(new_equipment, new_pos)
-		if can_place:
-			equipment_card.visible = false
-		equipment_card.return_to_origin()
-	elif origin_grid_type == BackpackManager.GridType.PACKAGE or origin_grid_type == BackpackManager.GridType.STAGE:
-		if target_grid_type == BackpackManager.GridType.FORGE_TABLE:
-			var new_equipment = equipment_card.equipment.copy()
-			new_equipment.preview_equipment = equipment_card.origin_equipment
-			equipment_card.equipment.copy_equipment(equipment_card.origin_equipment)
-			can_place = BackpackManager.add_to_equip_grid(new_equipment, new_pos)
-			if can_place:
-				equipment_card.set_preview_modulate(true)
-			equipment_card.return_to_origin()
-		elif target_grid_type == BackpackManager.GridType.PACKAGE or target_grid_type == BackpackManager.GridType.STAGE:
-			can_place = BackpackManager.move_to_grid(equipment_card.equipment, equipment_card.origin_equipment)
-			if not can_place:
-				equipment_card.return_to_origin()
-	elif origin_grid_type == BackpackManager.GridType.FORGE_TABLE:
-		if target_grid_type == BackpackManager.GridType.PACKAGE or target_grid_type == BackpackManager.GridType.STAGE:
-			var preview_equipment: Equipment = equipment_card.equipment.preview_equipment
-			can_place = BackpackManager.remove_equipment(equipment_card.origin_equipment)
-			if can_place:
-				var card: EquipmentCard
-				if preview_equipment.state == BackpackManager.GridType.PACKAGE:
-					card = package.backpack_cards[preview_equipment.grid_pos]
-				elif preview_equipment.state == BackpackManager.GridType.STAGE:
-					card = package.stage_cards[preview_equipment.grid_pos]
-				card.set_preview_modulate(false)
-			else:
-				equipment_card.return_to_origin()
-		elif target_grid_type == BackpackManager.GridType.FORGE_TABLE:
-			can_place = BackpackManager.move_to_grid(equipment_card.equipment, equipment_card.origin_equipment)
-			if not can_place:
-				equipment_card.return_to_origin()
-			
+
+func _refresh_transaction_views() -> void:
+	# 成功后按正式快照刷新；失败的旧商品请求也需要同步当前货架。
+	package._update_view()
+	forge._update_view()
+	if is_instance_valid(shop):
+		shop.update_view()
+	_update_all_grid()
+
 
 ## 卡片拖拽状态变化回调：开始拖拽时记录原始占用网格坐标，结束拖拽时恢复网格
 func _on_card_drag_state_changed(is_dragging: bool, card: EquipmentCard) -> void:
@@ -314,16 +300,7 @@ func _on_shop_exit_button_pressed():
 
 ## 关闭隐藏锻造界面
 func _on_forge_exit_button_pressed():
-	for card: EquipmentCard in forge.table_cards.values():
-		var preview_card: EquipmentCard = null
-		var preview_equipment: Equipment = card.equipment.preview_equipment
-		if preview_equipment.state == BackpackManager.GridType.PACKAGE:
-			preview_card = package.backpack_cards[preview_equipment.grid_pos]
-		elif preview_equipment.state == BackpackManager.GridType.STAGE:
-			preview_card = package.stage_cards[preview_equipment.grid_pos]
-		preview_card.set_preview_modulate(false)
-		BackpackManager.remove_equipment(card.equipment)
-	forge.show_merge_result_card()
+	BackpackManager.clear_forge_selection()
 	hide_forge()
 	show_map()
 

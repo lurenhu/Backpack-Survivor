@@ -19,7 +19,7 @@ func _run() -> void:
 
 
 func _test_only_orthogonal_locked_neighbors_are_purchasable() -> bool:
-	BackpackManager.backpack_grid = [
+	BackpackManager._inventory.grids[BackpackManager.GridType.PACKAGE] = [
 		[-1, -1, -1],
 		[-1, 0, -1],
 		[-1, -1, -1],
@@ -40,8 +40,8 @@ func _test_only_orthogonal_locked_neighbors_are_purchasable() -> bool:
 
 
 func _test_insufficient_gold_does_not_unlock_grid() -> bool:
-	BackpackManager.backpack_grid = [[0, -1]]
-	BackpackManager.grid_cost = 10
+	BackpackManager._inventory.grids[BackpackManager.GridType.PACKAGE] = [[0, -1]]
+	BackpackManager._inventory.grid_cost = 10
 	BackpackManager.set_grid_purchase_mode(true)
 	BackpackManager.set_gold(9)
 	_observed_gold.clear()
@@ -58,8 +58,8 @@ func _test_insufficient_gold_does_not_unlock_grid() -> bool:
 
 
 func _test_purchase_unlocks_grid_and_doubles_cost() -> bool:
-	BackpackManager.backpack_grid = [[0, -1, -1]]
-	BackpackManager.grid_cost = 10
+	BackpackManager._inventory.grids[BackpackManager.GridType.PACKAGE] = [[0, -1, -1]]
+	BackpackManager._inventory.grid_cost = 10
 	BackpackManager.set_grid_purchase_mode(true)
 	BackpackManager.set_gold(25)
 	var purchased: bool = BackpackManager.purchase_grid(Vector2i(1, 0))

@@ -35,9 +35,9 @@ func _test_package_label_uses_configurable_float_animation() -> bool:
 
 
 func _test_purchasable_grid_hover_shows_cost_at_cell_center() -> bool:
-	BackpackManager.backpack_grid = [[0, -1]]
-	BackpackManager.stage_grid = []
-	BackpackManager.grid_cost = 10
+	BackpackManager._inventory.grids[BackpackManager.GridType.PACKAGE] = [[0, -1]]
+	BackpackManager._inventory.grids[BackpackManager.GridType.STAGE] = []
+	BackpackManager._inventory.grid_cost = 10
 	BackpackManager.set_grid_purchase_mode(true)
 	var package := PACKAGE_SCENE.instantiate() as Package
 	add_child(package)

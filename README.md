@@ -87,18 +87,24 @@ addons/                  SceneManager、PhantomCamera 等第三方插件
 
 ### 5. 背包与装备模块
 
-- **核心数据**：`Equipment` 保存配置 ID、形状、旋转状态、网格位置和所在区域。
-- **核心系统**：`BackpackManager` 维护可消费金币，以及装备区、存储区和锻造台的二维占用数组及装备字典。
-- **核心能力**：初始化角色背包形状、寻找空位、验证边界/碰撞、放置、移除、跨网格移动和坐标转换。
-- **表现组件**：`EquipmentCard` 负责装备图形、拖拽和旋转；`Package` 将管理器数据同步为卡牌。
+- **核心数据**：`Equipment.id` 为配置编号，`instance_id` 唯一标识实际装备；`InventoryState` 保存金币、按实例编号索引的正式装备和网格占用，`ShopState` 保存货架，`ForgeState` 保存材料选择和未领取成品。
+- **核心系统**：`BackpackManager` 持有这些状态及普通 `RefCounted` 服务 `InventoryService`，作为跨场景业务入口。`GridRules` 提供放置、旋转、寻找空位等纯计算，`ForgeRules` 按材料配置编号及数量匹配配方。
+- **完整操作**：`try_purchase_equipment()`、`try_move_equipment()`、`try_forge()`、`try_claim_forge_reward()` 返回 `InventoryOperationResult`，包含成功状态、失败原因及受影响实例和区域。失败不修改数据；成功先完成所有写入和属性重算，再发送通知。
+- **表现组件**：`EquipmentCard` 只修改显示快照，`PanelManager` 将鼠标位置转为目标网格后提交操作；`Package` 按实例编号同步卡牌。查询返回副本，界面不能通过修改返回的字典、网格或装备绕过业务入口。
 
-`equip_changed` 驱动背包和锻造界面刷新。所有网格写操作应经过 `BackpackManager`，View 只负责把鼠标坐标转换为候选网格位置并展示合法性反馈。
+数据链路为：`玩家输入 → View 生成候选位置 → BackpackManager → InventoryService 校验并提交 → 属性重算 → 结果信号 → View 刷新`。`equip_changed`、`gold_changed`、`shop_changed`、`forge_changed` 按本次变化分别最多发送一次；同步通知期间再次提交写操作会被拒绝，避免监听者观察到混合状态。新局重置库存、材料选择、成品和货架，但不复用实例或商品编号，旧拖拽请求不会命中新局对象。
+
+主要目录：`data/` 下为 `equipment.gd`、`inventory_state.gd`、`shop_state.gd`、`forge_state.gd`、`inventory_operation_result.gd`；`sys/` 下为 `backpack_manager.gd`、`inventory_service.gd`、`grid_rules.gd`、`forge_rules.gd`；现有 `view/` 和场景路径继续保留。没有新增 Autoload。
 
 ### 6. 商店与锻造模块
 
-**商店**根据当前地图节点的 `config_id` 读取 `ShopConfigData`，生成装备池并刷新货架。装备成功放入可用网格后，通过 `BackpackManager.spend_gold()` 原子校验并扣除金币；若扣款失败则回滚刚放入的装备。刷新和购买都依赖金币与空位校验。
+**商店**根据当前地图节点的 `config_id` 读取 `ShopConfigData`，由业务层生成商品编号和货架状态。购买先校验商品未售出、余额及目标空位，再统一扣钱、增加装备并标记售出；价格从正式商品状态读取。刷新生成新商品编号，刷新前的请求会被拒绝。重建界面或再次打开当前节点时读取已有货架，不会把已售商品恢复。刷新沿用现有免费规则。
 
-**锻造**读取 `equipment_forge.csv`，收集锻造台中的材料 ID，与配方进行无序匹配；匹配成功时展示结果预览。确认锻造后消耗材料、创建高级装备，并尝试放入锻造结果/背包流程。`PanelManager` 复用统一拖拽逻辑，使装备可在背包、存储区和锻造台之间移动。
+**锻造**选择材料时记录装备实例编号和锻造台预览位置，原装备仍留在背包/暂存区，但禁止移动、移除和重复选择；取消只解除选择，不复制装备。`try_forge()` 从业务状态匹配 `equipment_forge.csv`，校验材料数量、结果槽和 `Coin` 费用后，一次性扣费、消耗材料并生成成品。结果预览不代表拥有成品，实际成品由 `ForgeState.pending_reward` 保存。
+
+领取成品时校验目标空位，成功后转入库存并清空结果槽；失败保留成品。关闭锻造面板会取消未合成材料的选择，已合成的待领取成品继续保存，且领取前禁止再次锻造，避免覆盖奖励。
+
+`tests/backpack/` 中的购买、移动、锻造和 UI 流程测试覆盖无界面业务执行、通知一致性、重复/过期请求、旋转碰撞、材料锁定、配方费用、面板重建及领取失败。编辑器手动检查：购买到背包和暂存区、拖拽旋转后放到重叠/越界位置、取消材料选择、金币不足时锻造、合成后关闭重开面板再领取，以及整理装备后进入战斗。
 
 ### 7. 地图模块
 

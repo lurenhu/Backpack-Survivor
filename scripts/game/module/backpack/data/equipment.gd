@@ -3,6 +3,8 @@ extends RefCounted
 ## 装备数据：持有配置ID、形状和旋转状态
 
 var id: int = 0
+## 业务层分配的装备实例编号；0 表示配置预览，复制快照不会分配新编号。
+var instance_id: int = 0
 var name: String
 var rarity: int
 var price: int
@@ -13,8 +15,6 @@ var shape: Array[Array] = []
 var rotate_times: int = 0
 ## 在背包或者暂存区的网格坐标
 var grid_pos: Vector2i = Vector2i.ZERO
-## 预览装备数据
-var preview_equipment: Equipment = null
 ## 当前装备位于哪个状态
 var state: BackpackManager.GridType = BackpackManager.GridType.NONE
 
@@ -31,7 +31,6 @@ func _init(equipment_id: int) -> void:
 	source = config.source
 	shape = config.shape.duplicate(true)
 
-	preview_equipment = null
 	state = BackpackManager.GridType.NONE
 
 
@@ -44,6 +43,8 @@ func rotate_clockwise() -> Array[Array]:
 ## 判断两个装备的所有内部变量是否完全相等
 func is_equal(other: Equipment) -> bool:
 	if not other:
+		return false
+	if instance_id != other.instance_id:
 		return false
 	if id != other.id:
 		return false
@@ -59,17 +60,18 @@ func is_equal(other: Equipment) -> bool:
 ## 深拷贝当前装备，包括形状矩阵
 func copy() -> Equipment:
 	var new_equip: Equipment = Equipment.new(id)
+	new_equip.instance_id = instance_id
 	new_equip.rotate_times = rotate_times
 	new_equip.grid_pos = grid_pos
 	new_equip.state = state
 	new_equip.shape = shape.duplicate(true)
-	new_equip.preview_equipment = preview_equipment
 	return new_equip
 
 
 ## 完全复制传入装备数值
 func copy_equipment(equipment: Equipment):
 	id = equipment.id
+	instance_id = equipment.instance_id
 	name = equipment.name
 	rarity = equipment.rarity
 	price = equipment.price
@@ -78,7 +80,6 @@ func copy_equipment(equipment: Equipment):
 	rotate_times = equipment.rotate_times
 	grid_pos = equipment.grid_pos
 	state = equipment.state
-	preview_equipment = equipment.preview_equipment
 
 
 ## 将形状矩阵顺时针旋转90度

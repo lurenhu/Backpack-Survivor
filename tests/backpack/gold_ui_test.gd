@@ -9,8 +9,8 @@ func _ready() -> void:
 
 
 func _run() -> void:
-	BackpackManager.backpack_grid = []
-	BackpackManager.stage_grid = []
+	BackpackManager._inventory.grids[BackpackManager.GridType.PACKAGE] = []
+	BackpackManager._inventory.grids[BackpackManager.GridType.STAGE] = []
 	BackpackManager.set_gold(25)
 	var package := PACKAGE_SCENE.instantiate() as Package
 	add_child(package)

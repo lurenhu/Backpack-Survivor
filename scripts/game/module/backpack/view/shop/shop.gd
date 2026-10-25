@@ -1,93 +1,67 @@
 class_name Shop
 extends Control
-## 商店面板：管理商品卡片列表、刷新和购买交互
+## 货架只是业务状态的显示，出售状态不依赖卡牌是否可见。
 
 @onready var refresh_button: Button = $RefreshButton
 @onready var grid_button: Button = $GridButton
 @onready var exit_button: Button = $ExitButton
 
-const CARD_COUNT: int = 4
-
+const CARD_COUNT: int = ShopState.CARD_COUNT
 var _cards: Array[EquipmentCard] = []
 var _name_labels: Array[Label] = []
-var _equipment_pool: PackedInt32Array = []
 
-## 就绪时收集5个货架的卡片和名称标签引用
+
 func _ready() -> void:
 	for i in range(1, CARD_COUNT + 1):
-		var card: EquipmentCard = get_node("Market/Commodity_%d/CenterContainer/EquipmentCard" % i)
-		var name_label: Label = get_node("Market/Commodity_%d/EquipName/Name" % i)
-		_cards.append(card)
-		_name_labels.append(name_label)
-
+		_cards.append(get_node("Market/Commodity_%d/CenterContainer/EquipmentCard" % i))
+		_name_labels.append(get_node("Market/Commodity_%d/EquipName/Name" % i))
 	refresh_button.pressed.connect(refresh_shop)
 	grid_button.toggle_mode = true
-	grid_button.set_pressed_no_signal(BackpackManager.is_grid_purchase_mode)
 	grid_button.toggled.connect(_on_grid_button_toggled)
 	BackpackManager.grid_purchase_state_changed.connect(_update_grid_button)
+	BackpackManager.shop_changed.connect(update_view)
 	_update_grid_button()
+	update_view()
 
-#region 私有方法
 
-## 从指定装备池中随机选取指定数量的装备ID。池子不足时随机填充至 count 个后打乱返回
-func _roll_from_pool(count: int, pool: Array[int]) -> Array[int]:
-	if pool.is_empty():
-		return []
-	var result: Array[int] = pool.duplicate()
-	result.shuffle()
-	if result.size() >= count:
-		return result.slice(0, count)
-	while result.size() < count:
-		result.append(pool[randi() % pool.size()])
-	result.shuffle()
-	return result
+func get_cards() -> Array[EquipmentCard]:
+	return _cards.duplicate()
 
-#endregion
 
-#region 信号回调
+func set_equipment_pool() -> void:
+	var node := MapManager.current_map_node
+	if node == null:
+		return
+	var key := "%s:%s:%s" % [node.map_id, node.layer_index, node.node_index]
+	BackpackManager.open_shop(key, node.config_id)
+	update_view()
+
+
+func refresh_shop(item_ids: Array[int] = []) -> void:
+	BackpackManager.refresh_shop(item_ids)
+
+
+func update_view() -> void:
+	var offers := BackpackManager.get_shop_offers()
+	for i in _cards.size():
+		var card := _cards[i]
+		if card.is_interacting():
+			continue
+		if i >= offers.size():
+			card.hide()
+			_name_labels[i].text = ""
+			continue
+		var offer: Dictionary = offers[i]
+		card.setup(offer.config_id)
+		card.offer_id = offer.offer_id
+		card.visible = not offer.sold
+		_name_labels[i].text = card.equipment.name if not offer.sold else ""
+
 
 func _on_grid_button_toggled(enabled: bool) -> void:
 	BackpackManager.set_grid_purchase_mode(enabled)
 
-#endregion
-
-#region 公开功能
-
-## 获取所有商品卡片
-func get_cards() -> Array[EquipmentCard]:
-	return _cards.duplicate()
-
-## 根据Equipment对象在商店内查找对应的卡片
-func get_card_from_equip(equipment: Equipment) -> EquipmentCard:
-	for card in _cards:
-		if card.equipment == equipment:
-			return card
-	return null
-
-func set_equipment_pool():
-	var shop_config_id: int = MapManager.current_map_node.config_id
-	var shop_config: ShopConfigData = GameConfig.shops[shop_config_id]
-	_equipment_pool = shop_config.equipment_ids
-	refresh_shop()
-
-## 刷新商店：从指定装备ID列表随机选取填充货架，未指定时使用限定池
-func refresh_shop(item_ids: Array[int] = []) -> void:
-	if item_ids.is_empty():
-		if not _equipment_pool.is_empty():
-			item_ids = _roll_from_pool(CARD_COUNT, _equipment_pool)
-	for i in range(CARD_COUNT):
-		var card: EquipmentCard = _cards[i]
-		card.setup(item_ids[i])
-		card.equipment.state = BackpackManager.GridType.SHOP
-		card.visible = true
-		_name_labels[i].text = card.equipment.name
-
 
 func _update_grid_button() -> void:
 	grid_button.set_pressed_no_signal(BackpackManager.is_grid_purchase_mode)
-	if BackpackManager.is_grid_purchase_mode:
-		grid_button.text = "退出购买"
-	else:
-		grid_button.text = "购买网格"
-
-#endregion
+	grid_button.text = "退出购买" if BackpackManager.is_grid_purchase_mode else "购买网格"

@@ -36,69 +36,31 @@ func _run() -> void:
 	get_tree().quit(0)
 
 func _test_backpack_equipment_attributes() -> bool:
-	var original_backpack_equip := BackpackManager.backpack_equip.duplicate()
-	var glove_a := Equipment.new(23)
-	var glove_b := Equipment.new(23)
-	BackpackManager.backpack_equip = {
-		Vector2i(0, 0): glove_a,
-		Vector2i(1, 0): glove_b,
-	}
-	BackpackManager.recalculate_equipment_attrs()
-	if not _assert(
-		is_equal_approx(BackpackManager.equipment_attrs.get_value(AttrType.Type.ATK), 20.0),
-		"two passive items should aggregate attack"
-	):
+	var fixture := preload("res://tests/backpack/inventory_test_fixture.gd")
+	fixture.reset()
+	var glove_a: Equipment = fixture.add(23)
+	fixture.add(23)
+	if not _assert(is_equal_approx(BackpackManager.equipment_attrs.get_value(AttrType.Type.ATK), 20.0), "two passive items should aggregate attack"):
 		return false
-	if not _assert(
-		is_equal_approx(BackpackManager.equipment_attrs.get_value(AttrType.Type.ROTATE_SPEED_GAIN), 0.4),
-		"two passive items should aggregate rotate speed percentage"
-	):
+	if not _assert(is_equal_approx(BackpackManager.equipment_attrs.get_value(AttrType.Type.ROTATE_SPEED_GAIN), 0.4), "two passive items should aggregate rotate speed"):
 		return false
-
-	BackpackManager.backpack_equip.erase(Vector2i(0, 0))
-	BackpackManager.recalculate_equipment_attrs()
-	if not _assert(
-		is_equal_approx(BackpackManager.equipment_attrs.get_value(AttrType.Type.ATK), 10.0),
-		"full rebuild should remove absent passive equipment"
-	):
+	BackpackManager.remove_equipment(glove_a)
+	if not _assert(is_equal_approx(BackpackManager.equipment_attrs.get_value(AttrType.Type.ATK), 10.0), "removing a passive item must update attributes"):
 		return false
-
-	BackpackManager.backpack_equip[Vector2i(2, 0)] = Equipment.new(1)
-	BackpackManager.recalculate_equipment_attrs()
-	if not _assert(
-		is_equal_approx(BackpackManager.equipment_attrs.get_value(AttrType.Type.ATK), 10.0),
-		"entity equipment attributes should not enter the passive aggregate"
-	):
+	fixture.add(1)
+	if not _assert(is_equal_approx(BackpackManager.equipment_attrs.get_value(AttrType.Type.ATK), 10.0), "entity equipment must not enter passive aggregate"):
 		return false
-
-	BackpackManager.backpack_equip.clear()
-	BackpackManager.recalculate_equipment_attrs()
-	if not _assert(
-		not BackpackManager.equipment_attrs.has(AttrType.Type.ATK),
-		"empty backpack should clear previous aggregate values"
-	):
+	for item in BackpackManager.backpack_equip.values():
+		BackpackManager.remove_equipment(item)
+	if not _assert(not BackpackManager.equipment_attrs.has(AttrType.Type.ATK), "empty backpack must clear attributes"):
 		return false
-
-	BackpackManager.backpack_equip = original_backpack_equip
 	BackpackManager.init_backpack(1)
-	var observed_attack := {"value": - 1.0}
+	var observed_attack := {"value": -1.0}
 	var on_changed := func() -> void:
-		observed_attack.value = (
-			BackpackManager.equipment_attrs.get_value(AttrType.Type.ATK)
-			if BackpackManager.equipment_attrs.has(AttrType.Type.ATK)
-			else 0.0
-		)
+		observed_attack.value = BackpackManager.equipment_attrs.get_value(AttrType.Type.ATK)
 	BackpackManager.equip_changed.connect(on_changed, CONNECT_ONE_SHOT)
-	var signal_glove := Equipment.new(12)
-	signal_glove.state = BackpackManager.GridType.PACKAGE
-	var position := BackpackManager.find_position(signal_glove.shape, BackpackManager.backpack_grid)
-	signal_glove.grid_pos = position
-	if not _assert(BackpackManager.add_to_equip_grid(signal_glove, position), "signal-order glove should fit in backpack"):
-		return false
-	return _assert(
-		is_equal_approx(observed_attack.value, 10.0),
-		"equip_changed listeners should observe rebuilt attributes"
-	)
+	fixture.add(12)
+	return _assert(is_equal_approx(observed_attack.value, 10.0), "listeners must see recalculated attributes")
 
 
 func _test_equipment_type_parsing() -> bool:
@@ -247,11 +209,10 @@ func _test_rotate_equipment() -> bool:
 	BackpackManager.init_backpack(1)
 	if not _assert(BackpackManager.equipments.size() == 2, "warrior should start with two equipment items"):
 		return false
-	var glove_a := Equipment.new(23)
-	var glove_b := Equipment.new(23)
-	BackpackManager.backpack_equip[Vector2i(10, 0)] = glove_a
-	BackpackManager.backpack_equip[Vector2i(11, 0)] = glove_b
-	BackpackManager.recalculate_equipment_attrs()
+	var fixture := preload("res://tests/backpack/inventory_test_fixture.gd")
+	fixture.expand_backpack()
+	var glove_a: Equipment = fixture.add(23)
+	fixture.add(23)
 
 	var player := PLAYER_SCENE.instantiate() as Player
 	add_child(player)
@@ -278,9 +239,7 @@ func _test_rotate_equipment() -> bool:
 		if not _assert(is_equal_approx(weapon._rotation_speed, 14.0), "all rotate weapons should read the backpack speed bonus"):
 			return false
 
-	BackpackManager.backpack_equip.erase(Vector2i(10, 0))
-	BackpackManager.recalculate_equipment_attrs()
-	BackpackManager.equip_changed.emit()
+	BackpackManager.remove_equipment(glove_a)
 	if not _assert(weapon_anchor.get_child(0) == first_weapon and weapon_anchor.get_child(1) == second_weapon, "modifier removal should not recreate rotate weapons"):
 		return false
 	for weapon in [first_weapon, second_weapon]:
@@ -319,9 +278,10 @@ func _test_shooter_equipment() -> bool:
 	BackpackManager.init_backpack(2)
 	if not _assert(BackpackManager.equipments.size() == 2, "mage should start with two equipment items"):
 		return false
-	BackpackManager.backpack_equip[Vector2i(10, 0)] = Equipment.new(23)
-	BackpackManager.backpack_equip[Vector2i(11, 0)] = Equipment.new(23)
-	BackpackManager.recalculate_equipment_attrs()
+	var fixture := preload("res://tests/backpack/inventory_test_fixture.gd")
+	fixture.expand_backpack()
+	fixture.add(23)
+	fixture.add(23)
 
 	var player := PLAYER_SCENE.instantiate() as Player
 	add_child(player)

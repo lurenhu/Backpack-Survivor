@@ -24,6 +24,7 @@ var _hovered_purchase_grid: Vector2i = Vector2i(-1, -1)
 ## 就绪时连接信号并初始化显示
 func _ready() -> void:
 	BackpackManager.equip_changed.connect(_update_view)
+	BackpackManager.forge_changed.connect(_update_view)
 	BackpackManager.grid_purchase_state_changed.connect(_on_grid_purchase_state_changed)
 	BackpackManager.gold_changed.connect(_on_gold_changed)
 	_update_view()
@@ -143,55 +144,27 @@ func _sync_stage_cards() -> void:
 
 
 func _sync_cards(equip_dict: Dictionary[Vector2i, Equipment], card_dict: Dictionary[Vector2i, EquipmentCard], grid_container: Control) -> void:
-	# 添加equip_dict中存在但card_dict中不存在的装备卡片
-	DebugUtility.info("current_container", "%s" % grid_container.name)
+	var existing: Dictionary[int, EquipmentCard] = {}
+	for card in card_dict.values():
+		existing[card.equipment.instance_id] = card
+	card_dict.clear()
 	for equip in equip_dict.values():
-		if _get_dict_card(equip, card_dict) == null:
-			_add_equipment_card(equip, card_dict)
-
-	# 删除card_dict中存在但equip_dict中不存在的装备卡片
-	var to_remove: Array[Equipment] = []
-	for card in card_dict.values():
-		if not equip_dict.values().has(card.equipment):
-			to_remove.append(card.equipment)
-	for equip in to_remove:
-		_remove_equipment_card(equip, card_dict)
-	
-	# 修正key值与grid_pos不匹配的卡片，同步position坐标
-	for card_pos in card_dict.keys():
-		var card: EquipmentCard = card_dict[card_pos]
-		if card_pos != card.equipment.grid_pos:
-			card_dict.erase(card_pos)
-			card_dict[card.equipment.grid_pos] = card
-			#DebugUtility.info("update_equip_card", "Equipment:%s, pos:%s" % [card.equipment, card.equipment.grid_pos])
-		card.position = BackpackManager.grid_to_pixel(card.equipment.grid_pos, grid_container, card_container) - card.get_rotate_offset()
-
-
-## 添加卡片
-func _add_equipment_card(equip: Equipment, card_dict: Dictionary[Vector2i, EquipmentCard]) -> void:
-	var card: EquipmentCard = CARD_SCENE.instantiate()
-	card_container.add_child(card)
-	card.setup_by_equipment(equip)
-	card_dict[equip.grid_pos] = card
-	add_equipment_card.emit(card)
-	DebugUtility.info("add_equip_card", "Equipment:%s, pos:%s" % [equip, equip.grid_pos])
-
-
-## 移除卡片
-func _remove_equipment_card(equip: Equipment, card_dict: Dictionary[Vector2i, EquipmentCard]) -> void:
-	for pos in card_dict.keys():
-		var card = card_dict[pos]
-		if card.equipment == equip:
-			card.queue_free()
-			card_dict.erase(pos)
-			DebugUtility.info("remove_equip_card", "Equipment:%s, pos:%s" % [equip, pos])
-
-## 判断该卡片字典内是否有equip
-func _get_dict_card(equip: Equipment, card_dict: Dictionary[Vector2i, EquipmentCard]) -> EquipmentCard:
-	for card in card_dict.values():
-		if card.equipment == equip:
-			return card
-	return null
+		var card: EquipmentCard = existing.get(equip.instance_id)
+		if card == null:
+			card = CARD_SCENE.instantiate()
+			card_container.add_child(card)
+			card.setup_by_equipment(equip)
+			add_equipment_card.emit(card)
+		else:
+			existing.erase(equip.instance_id)
+		if not card.is_interacting():
+			card.setup_by_equipment(equip)
+			card.position = BackpackManager.grid_to_pixel(equip.grid_pos, grid_container, card_container) - card.get_rotate_offset()
+		card.set_preview_modulate(BackpackManager.is_material_selected(equip.instance_id))
+		card_dict[equip.grid_pos] = card
+	for card in existing.values():
+		card.hide()
+		card.queue_free()
 
 #endregion
 

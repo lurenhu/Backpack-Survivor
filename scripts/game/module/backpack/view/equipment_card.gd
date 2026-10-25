@@ -1,7 +1,7 @@
 class_name EquipmentCard
 extends Control
 ## 装备卡片：在背包网格中显示装备占用的形状格子和装备图标，支持拖拽和右键旋转
-## 旋转通过控件rotation实现，网格瓦片保持原始朝向不变，equipment数据同步更新
+## 旋转通过控件rotation实现；equipment 是显示快照，拖拽期间不修改正式库存。
 
 signal drag_dropped(screen_position: Vector2)
 signal drag_state_changed(is_dragging: bool)
@@ -23,6 +23,8 @@ const EQUIPMENT_TIP_SCENE := preload("res://scene/shop/equipment_tip.tscn")
 
 var equipment: Equipment = null
 var origin_equipment: Equipment = null
+## 商店卡牌保存商品编号；装备实例编号由 equipment.instance_id 提供。
+var offer_id: int = 0
 
 var _origin_pos: Vector2 = Vector2.ZERO
 
@@ -315,13 +317,15 @@ func setup_by_equipment(equipment_param: Equipment) -> void:
 	if equipment_param == null:
 		return
 
-	equipment = equipment_param
+	_cancel_motion()
+	equipment = equipment_param.copy()
 	origin_equipment = equipment.copy()
 	_init_display()
 
 
 ## 归位：将卡片移回拖拽前的原始位置，并恢复旋转角度、形状和equipment数据
 func return_to_origin() -> void:
+	_cancel_motion()
 	if equipment:
 		equipment.copy_equipment(origin_equipment)
 	rotation = equipment.rotate_times * PI / 2.0
@@ -330,6 +334,23 @@ func return_to_origin() -> void:
 		_move_tween.kill()
 	_move_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
 	_move_tween.tween_property(self, "position", _origin_pos, 0.15)
+
+
+func is_interacting() -> bool:
+	return _is_pressed or _is_dragging
+
+
+func finish_drag() -> void:
+	_is_pressed = false
+	_is_dragging = false
+	_cancel_motion()
+
+
+func _cancel_motion() -> void:
+	if _rotate_tween and _rotate_tween.is_valid():
+		_rotate_tween.kill()
+	if _move_tween and _move_tween.is_valid():
+		_move_tween.kill()
 
 
 ## 获取旋转之后本地坐标偏移量
