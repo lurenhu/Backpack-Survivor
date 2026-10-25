@@ -59,7 +59,6 @@ func _on_main_menu_button_pressed() -> void:
 func _on_continue_button_pressed() -> void:
 	if not _won:
 		GameState.start_new_run(GameState.current_character_id)
-	else:
-		GameState.change_scene("gaming")
+	GameState.change_scene("gaming")
 
 #endregion

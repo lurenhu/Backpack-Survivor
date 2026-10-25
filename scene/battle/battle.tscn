@@ -85,7 +85,4 @@ limit_top = -900
 limit_right = 1200
 limit_bottom = 900
 
-[node name="StageTimer" type="Timer" parent="." unique_id=165249974]
-one_shot = true
-
 [node name="BattleUI" parent="." unique_id=1359685648 instance=ExtResource("3_wq6iy")]

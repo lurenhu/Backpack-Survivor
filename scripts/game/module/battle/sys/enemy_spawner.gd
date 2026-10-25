@@ -51,6 +51,13 @@ func reset() -> void:
 	_spawned = 0
 	_timer = 0.0
 
+
+## 场景退出时释放出生点引用及单场缓存。
+func cleanup() -> void:
+	reset()
+	_spawn_points = []
+	_scene_cache.clear()
+
 ## 实例化怪物场景并添加到指定父节点，返回生成的敌人实例
 func spawn(parent: Node) -> Node:
 	if _spawn_points.is_empty():

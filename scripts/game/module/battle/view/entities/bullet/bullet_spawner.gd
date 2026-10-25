@@ -24,11 +24,18 @@ func setup(container: Node2D) -> void:
 
 ## 延迟处理生成请求，避免在信号或物理查询刷新期间修改场景树。
 func spawn(request: ProjectileSpawnRequest) -> void:
-	call_deferred("_spawn_now", request)
+	if CombatManager.owns_node(self):
+		call_deferred("_spawn_now", request, CombatManager.battle_id)
+
+
+func cleanup() -> void:
+	bullet_container = null
 
 
 ## 验证请求、实例化匹配类型的子弹，并加入子弹容器。
-func _spawn_now(request: ProjectileSpawnRequest) -> void:
+func _spawn_now(request: ProjectileSpawnRequest, battle_id: int) -> void:
+	if not CombatManager.is_current_battle(battle_id) or not CombatManager.owns_node(self):
+		return
 	if bullet_container == null or not is_instance_valid(bullet_container):
 		return
 	if request == null or request.spec == null:

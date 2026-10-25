@@ -16,6 +16,7 @@ enum PickupType {GOLD, EXP}
 var _attracted: bool = false
 var _target: Node2D = null
 var _is_expire: bool = false
+var _collected: bool = false
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
@@ -73,6 +74,9 @@ func _on_body_entered(body: Node2D) -> void:
 
 ## 处理拾取效果：金币增加、生命回复
 func _collect() -> void:
+	if _collected or not CombatManager.owns_node(self):
+		return
+	_collected = true
 	match type:
 		PickupType.GOLD:
 			GameState.record_collected_gold(value)

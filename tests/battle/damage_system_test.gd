@@ -93,6 +93,12 @@ func _test_battle_damage_flow() -> bool:
 	battle.get_node("Node/PhantomCamera2D").show_viewfinder_in_play = false
 	add_child(battle)
 	var player := battle.get_node("Node/Player") as Player
+	var stale_target := Node2D.new()
+	battle.add_child(stale_target)
+	var stale_request := DamageRequest.create(null, stale_target, 1.0)
+	stale_target.free()
+	if not _assert(not CombatManager.apply_damage(stale_request).applied, "manager must safely reject freed targets"):
+		return false
 	var enemy := ENEMY_SCENE.instantiate() as Enemy
 	enemy.setup(1)
 	battle.get_node("EnemyContainer").add_child(enemy)
@@ -167,8 +173,8 @@ func _on_damage_applied(result: DamageResult) -> void:
 	_results.append(result)
 
 
-func _on_battle_ended(won: bool) -> void:
-	_battle_results.append(won)
+func _on_battle_ended(result: BattleResult) -> void:
+	_battle_results.append(result.won)
 
 
 func _assert(condition: bool, message: String) -> bool:

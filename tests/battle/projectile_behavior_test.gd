@@ -10,7 +10,8 @@ func _ready() -> void:
 
 
 func _run() -> void:
-	CombatManager.setup_from_config({})
+	if not _assert(preload("res://tests/battle/battle_test_context.gd").start(self), "battle must start"):
+		return
 	CombatManager.damage_applied.connect(_on_damage_applied)
 	if not await _test_normal_bullet_hits_once():
 		return

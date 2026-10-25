@@ -108,19 +108,28 @@ addons/                  SceneManager、PhantomCamera 等第三方插件
 
 ### 8. 战斗模块
 
-`battle.gd` 是战斗场景装配器：根据当前地图节点取得战斗配置，注册敌人、掉落物、出生点和可选 UI，并把射击与结算信号接入 `CombatManager`。
+`battle.gd` 是战斗场景装配器：将敌人容器、掉落容器和出生点整理成 `BattleContext`，先连接射击、停止和结算事件，再调用 `CombatManager.start_battle(config_id, context)`。配置或场景引用无效时不会启动战斗。
+
+`CombatManager` 统一维护 `IDLE → RUNNING → FINISHED` 状态和经过时间；`battle.gd` 每帧只调用 `tick_combat(delta)`，不再通过场景 Timer 推算时间。波次结束和敌人死亡都会检查胜利，且只统计当前敌人容器中的敌人，因此提前清怪后到达波次结束时间也能结算。
+
+`end_battle(won)` 只执行一次，先停止战斗操作，再发布不含节点引用的 `BattleResult`（战斗编号、配置 ID、胜负、原因、经过时间）。场景停止玩家、敌人、子弹和拾取物的处理，结算 UI 继续运行。失败后点击“再来一次”会初始化新局并返回地图场景。
+
+退出场景统一调用 `cleanup()`，解除本场监听，清空容器、出生点、生成器及计时；中途退出不发送胜负结算。延迟掉落、胜利检查和子弹生成绑定战斗编号，旧场景的回调不会影响下一场。金币、装备和地图进度仍由原有全局系统保存。
 
 `CombatManager` 负责波次推进、敌人生成器调度、击杀统计、金币掉落和胜利判断；`EnemySpawner` 根据怪物 ID、数量、间隔和出生点实例化敌人。模块通过以下信号解耦：
 
 - `damage_applied(result: DamageResult)`：伤害已经生效，UI 仅根据结果快照显示伤害数字和更新血条。
-- `projectile_requested`：由 Shooter 请求，由战斗场景创建子弹。
+- `projectile_requested`：Shooter 通过 `request_projectile()` 校验战斗状态和来源后发布，由战斗场景创建子弹。
 - `enemy_killed`：记录击杀并生成金币掉落物。
 - `gold_collected`：保留金币拾取这一战斗事件；可消费余额及界面刷新由 `BackpackManager.gold_changed` 驱动。
-- `battle_ended`：触发胜负结算。
+- `battle_stopped`：结束或清理时停止场景实体，保留 UI 操作。
+- `battle_ended(result: BattleResult)`：发布结束结果，触发胜负结算。
 
 伤害执行链路为：武器 / 子弹 / 敌人 → `DamageRequest` → `CombatManager.apply_damage()` → `DamageSystem` → 目标 `take_damage()` → `DamageResult` → `damage_applied` → UI。`DamageSystem` 是由管理器持有的普通 `RefCounted` 对象，不新增 Autoload；目标通过 `current_hp` 和 `take_damage(float) -> bool` 提供受伤接口，并负责自己的无敌时间和死亡行为。
 
 结果保存实际扣血量、剩余生命值、受击位置及死亡标记，显示层无需读取已经销毁的敌人位置。无效或被拒绝的伤害不发送通知；玩家死亡统一调用 `end_battle(false)`，战斗结束后拒绝新的伤害请求。伤害处理不依赖 HUD 是否存在。
+
+生命周期回归场景为 `tests/battle/battle_lifecycle_test.tscn`，覆盖启动校验、跨波次计时、提前/延后清怪、场景外敌人隔离、旧延迟任务、重复结束与清理、无结算退出，以及实际战斗场景的冻结和再次进入。编辑器手动检查：进入战斗后分别胜利/死亡，确认结算时实体停止且按钮可用；返回地图再进入战斗；死亡后点击“再来一次”；战斗中切换回菜单后重新开局，检查调试器无失效节点引用。
 
 ### 9. 战斗实体模块
 

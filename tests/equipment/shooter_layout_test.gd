@@ -10,6 +10,8 @@ func _ready() -> void:
 
 
 func _run() -> void:
+	if not _assert(preload("res://tests/battle/battle_test_context.gd").start(self), "battle must start"):
+		return
 	CombatManager.projectile_requested.connect(_on_projectile_requested)
 	if not await _test_radial_direction():
 		return

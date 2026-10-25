@@ -180,7 +180,8 @@ func _test_area_equipment() -> bool:
 		if result.target == enemy:
 			observed_damage.count += 1
 			observed_damage.amount = result.actual_damage
-	CombatManager.setup_from_config({})
+	if not _assert(preload("res://tests/battle/battle_test_context.gd").start(self), "battle must start"):
+		return false
 	CombatManager.damage_applied.connect(on_damage)
 	var previous_hp := enemy.current_hp
 	area_weapon._on_damage_timer_timeout()
@@ -204,6 +205,8 @@ func _test_area_equipment() -> bool:
 
 
 func _test_enemy_shooter_timer() -> bool:
+	if not _assert(preload("res://tests/battle/battle_test_context.gd").start(self), "battle must start"):
+		return false
 	var enemy := ENEMY_SHOOTER_SCENE.instantiate() as EnemyShooter
 	enemy.setup(3)
 	add_child(enemy)

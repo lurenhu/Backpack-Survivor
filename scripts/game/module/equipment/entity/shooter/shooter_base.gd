@@ -62,7 +62,7 @@ func request_fire(shoot_direction: Vector2) -> void:
 		var angle_offset := (index - (count - 1) * 0.5) * SPREAD_ANGLE
 		var direction := shoot_direction.normalized().rotated(angle_offset)
 		var request := ProjectileSpawnRequest.create(global_position, direction, spec)
-		CombatManager.projectile_requested.emit(request)
+		CombatManager.request_projectile(request, self)
 
 
 ## 计算目标方向并发起一次射击，供锁敌或动画驱动的发射器调用。
