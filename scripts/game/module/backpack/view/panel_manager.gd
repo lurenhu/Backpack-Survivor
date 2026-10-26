@@ -1,6 +1,6 @@
 class_name PanelManager
 extends Control
-## 商店场景：管理商店刷新、购买和关卡推进
+## 展示业务状态，转发背包操作和节点退出请求。
 
 @onready var shop: Shop = $Shop
 @onready var package: Package = $Package
@@ -8,13 +8,33 @@ extends Control
 @onready var forge: Forge = $Forge
 @onready var panel_animation: AnimationPlayer = $PanelAnimation
 
+var _shown_panel: StringName = &""
+var _requested_panel: StringName = &""
+var _switching_panels: bool = false
+var _input_blocker: Control
+
+var is_switching_panels: bool:
+	get: return _switching_panels
+
 var _dragging_cards: Array[EquipmentCard] = []
 var _drag_origin_grid_cells: Dictionary = {}
 
 func _ready() -> void:
 	_update_map()
 	_regist_card_signal()
-	show_map()
+	# 初始位置只重置一次，之后由 hide/show 动画接续控制。
+	panel_animation.play("RESET")
+	panel_animation.advance(0)
+	panel_animation.stop()
+	for control in [map, shop, forge, package]:
+		control.hide()
+	_input_blocker = Control.new()
+	_input_blocker.name = "TransitionInputBlocker"
+	_input_blocker.mouse_filter = Control.MOUSE_FILTER_STOP
+	add_child(_input_blocker)
+	_input_blocker.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_input_blocker.hide()
+	present_phase(GameState.phase)
 
 	package.add_equipment_card.connect(_on_add_equipment_card)
 	shop.exit_button.pressed.connect(_on_shop_exit_button_pressed)
@@ -28,67 +48,42 @@ func _process(_delta: float) -> void:
 
 #region 公开功能
 
-## 打开商店
-func show_shop() -> void:
-	shop.set_equipment_pool()
+## 一个切换任务顺序播放动画；等待期间的新请求只更新最终目标。
+func present_phase(phase: RunState.Phase) -> void:
+	var target: StringName = &""
+	match phase:
+		RunState.Phase.MAP: target = &"map"
+		RunState.Phase.SHOP: target = &"shop"
+		RunState.Phase.FORGE: target = &"forge"
+	_requested_panel = target
+	if not _switching_panels and _shown_panel != _requested_panel:
+		_switch_panels()
 
-	if panel_animation.is_playing():
+
+func _switch_panels() -> void:
+	_switching_panels = true
+	_input_blocker.show()
+	while _shown_panel != _requested_panel:
+		if not _shown_panel.is_empty():
+			if _shown_panel == &"map":
+				(map.get_child(0) as Map).scroll_to_top()
+			panel_animation.play("hide_" + _shown_panel)
+			await panel_animation.animation_finished
+			_shown_panel = &""
+			# hide 结束后重新读取目标，过期的 show 请求不会再播放。
+			continue
+		_shown_panel = _requested_panel
+		match _shown_panel:
+			&"map":
+				var map_scene := map.get_child(0) as Map
+				map_scene.update_map_nodes()
+				map_scene.scroll_to_current_map_node_button()
+			&"shop":
+				shop.update_view()
+		panel_animation.play("show_" + _shown_panel)
 		await panel_animation.animation_finished
-	panel_animation.play("show_shop")
-
-## 关闭商店
-func hide_shop() -> void:
-	if panel_animation.is_playing():
-		await panel_animation.animation_finished
-	panel_animation.play("hide_shop")
-
-## 显示地图
-func show_map() -> void:
-	var map_scene: Map = map.get_child(0) as Map
-	if map_scene == null:
-		return
-	map_scene.update_map_nodes()
-
-	if panel_animation.is_playing():
-		await panel_animation.animation_finished
-	panel_animation.play("show_map")
-	
-	map_scene.scroll_to_current_map_node_button()
-
-## 关闭地图
-func hide_map() -> void:
-	var map_scene: Map = map.get_child(0) as Map
-	if map_scene == null:
-		return
-	map_scene.scroll_to_top()
-
-	if panel_animation.is_playing():
-		await panel_animation.animation_finished
-	panel_animation.play("hide_map")
-
-## 显示背包
-func show_package() -> void:
-	if panel_animation.is_playing():
-		await panel_animation.animation_finished
-	panel_animation.play("show_package")
-
-## 关闭背包
-func hide_package() -> void:
-	if panel_animation.is_playing():
-		await panel_animation.animation_finished
-	panel_animation.play("hide_package")
-
-## 显示锻造
-func show_forge() -> void:
-	if panel_animation.is_playing():
-		await panel_animation.animation_finished
-	panel_animation.play("show_forge")
-
-## 关闭锻造
-func hide_forge() -> void:
-	if panel_animation.is_playing():
-		await panel_animation.animation_finished
-	panel_animation.play("hide_forge")
+	_switching_panels = false
+	_input_blocker.hide()
 
 #endregion
 
@@ -107,7 +102,7 @@ func _update_map():
 		map.remove_child(child_map)
 		child_map.queue_free()
 
-	var map_scene: PackedScene = load("res://scene/map/map_%s.tscn" % MapManager.current_map_id)
+	var map_scene: PackedScene = load(MapManager.get_map_scene_path(MapManager.current_map_id))
 	var cur_map: Map = map_scene.instantiate() as Map
 	map.add_child(cur_map)
 	
@@ -293,16 +288,14 @@ func _on_card_drag_state_changed(is_dragging: bool, card: EquipmentCard) -> void
 
 ## 关闭隐藏商店界面
 func _on_shop_exit_button_pressed():
-	BackpackManager.set_grid_purchase_mode(false)
-	hide_shop()
-	show_map()
+	if not _switching_panels:
+		GameState.leave_current_node()
 
 
 ## 关闭隐藏锻造界面
 func _on_forge_exit_button_pressed():
-	BackpackManager.clear_forge_selection()
-	hide_forge()
-	show_map()
+	if not _switching_panels:
+		GameState.leave_current_node()
 
 
 #endregion

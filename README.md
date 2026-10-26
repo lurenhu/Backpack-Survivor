@@ -60,30 +60,105 @@ addons/                  SceneManager、PhantomCamera 等第三方插件
 ```text
 主菜单
   → 角色选择
-  → GameState.start_new_run()
+  → GameState.start_run(character_id)
   → 初始化角色、背包和第 1 张地图
   → 地图选点
       ├─ BATTLE → 战斗 → 结算 → 返回地图/进入下一张地图/结束游戏
-      ├─ SHOP   → 商店购买与整理背包 → 返回地图
-      └─ FORGE  → 装备合成与整理背包 → 返回地图
+      ├─ SHOP   → 商店购买与整理背包 → 返回地图/地图结算
+      └─ FORGE  → 装备合成与整理背包 → 返回地图/地图结算
 ```
 
-`GameState` 保存当前角色和累计拾取金币，并封装场景切换；可消费金币由 `BackpackManager` 独占，并通过 `gold_changed` 通知界面。`gaming.gd` 监听地图节点选择，根据节点类型打开对应面板或进入战斗。地图进度、背包装备和金币均由 Autoload 保存，因此切换场景后仍能延续当前对局。
+`GameState` 统一校验阶段并处理新局、节点进入、结算、继续、重试和返回菜单。`gaming.gd` 订阅 `phase_changed` 显示面板；节点按钮只提交请求，动画结束不再写进度。地图、库存、单场战斗分别由 `MapManager`、`BackpackManager`、`CombatManager` 保存，跨场景延续当前对局。
 
 ### 3. 配置与数据模块
 
-- **入口**：`scripts/game/config/game_config.gd`。
-- **输入**：角色、装备、怪物、掉落、商店、锻造、战斗和地图 CSV。
-- **处理**：`GameConfigData` 提供数值、数组、形状和嵌套字典解析；各 `*Data` 类负责将单行记录转换为领域数据。
-- **输出**：`GameConfig.characters`、`equipment`、`monsters`、`shops`、`forges`、`battles`、`map_nodes` 等只读式配置索引。
+`GameConfig` 保留装备、角色、怪物、拾取物、商店、配方、战斗和地图八组查询接口，正式配置统一来自一个 `ConfigSnapshot`。运行时代码只读取配置；金币、装备实例、地图访问状态仍属于各业务 Manager。没有新增 Autoload、修改 CSV 格式或修改第三方导入插件。
 
-配置层不直接操作场景；业务系统通过配置 ID 查询数据，再创建运行时对象或场景实例。新增内容应优先扩展 CSV 和对应 Data 类型，避免把平衡数值写死在 View 中。
+```text
+scripts/game/config/
+  game_config.gd                 配置就绪检查、加载入口、完整快照发布
+  data/config_snapshot.gd        八张表的 Data 对象索引
+  data/config_issue.gd           单条错误或警告及其来源
+  data/config_load_result.gd     加载结果、候选快照和问题列表
+  data/*_data.gd                 现有配置类型及转换函数
+  sys/config_loader.gd          导入资源适配、表结构声明、候选索引构建
+  sys/config_validator.gd       原始字段、资源及跨表业务校验
+```
+
+数据链路为：`CSV → 导入资源 records → 全表原始字段校验 → Data 转换 → 候选 ConfigSnapshot → 跨表校验 → 一次性发布 → GameState 允许进入游戏`。原始记录格式有错时汇总各表问题，不再基于不完整对象执行后续跨表检查。合法表的组合键仍允许父级重复，例如同一个 MapID 下可以有多层、多节点；完整组合重复则报错，不能静默保留第一条。
+
+`GameConfig.ensure_loaded()` 是正常启动与查询前的就绪入口，加载成功后不重复加载。首次失败保持未就绪且不发布任何表，修正并重新导入资源后可以重试。`load_configuration()` 为显式启动/工具入口，不提供游戏中的热更新 UI；失败的替换保留上一次完整快照。`GameState` 在启动、进入角色选择、开局和失败重试时接入检查，错误时保留当前进度。原先手动调用静态 `GameConfig._init()` 的位置已改为 `ensure_loaded()`。
+
+校验覆盖：
+
+- 必填字段、整数范围、有限数值、属性格式、重复属性、形状为等宽 0/1 矩阵且包含占用格；角色背包尺寸及初始装备的实际放置。
+- 装备类型、显式发射器/子弹类型、射击/范围装备的必要参数、角色和怪物 HP。
+- 角色初始装备、商店货架、配方材料/产物、战斗怪物，以及地图商店/战斗节点的跨表引用；相同材料及数量对应不同配方会报告歧义。
+- 同波次时限一致、地图起点存在、连接指向后续层的有效节点、非末层不出现无出口节点。无法从起点到达的节点产生警告。
+- 资源路径存在且能够加载为预期类型：Texture2D、SpriteFrames、Shape2D 或可实例化的 PackedScene。
+
+完整键分别为普通表的 `ID`、配方表的 `EquipmentID`、战斗表的 `ID + WaveID + MonsterID`、地图表的 `MapID + LayerIndex + NodeIndex`。诊断包含严重程度、错误码、文件、记录序号、记录键、字段和原因；记录序号从 1 开始，指数据记录，不冒充 CSV 物理行号。界面展示前 8 条问题，完整报告输出到日志；未知数值属性和不可达节点属于警告，不阻止发布。
+
+兼容现有规则：允许没有下一张地图、可选角色立绘为空、零怪物波次、零刷新间隔、无锻造配方；省略发射器/子弹类型时继续使用既有默认值。锻造节点不把 ConfigID 当作商店 ID。启动固定依赖地图 1，战斗金币掉落固定依赖 ID=1、Type=GOLD 的拾取配置，这两项也纳入校验。各业务入口的防御检查继续保留。
+
+测试不修改实际 CSV：`ConfigLoader` 可接受独立记录数据源。`tests/config/config_validation_test.tscn` 覆盖正式数据、非法字段、完整键重复、资源类型、引用、配方与地图规则；`config_loading_test.tscn` 覆盖首次失败、重试恢复、原快照保留和开局/重试阻断。
+
+```shell
+godot --headless --editor --path . --quit
+godot --headless --path . --script res://tests/run_project_test.gd -- res://tests/config/config_validation_test.tscn
+godot --headless --path . --script res://tests/run_project_test.gd -- res://tests/config/config_loading_test.tscn
+```
+
+编辑器手动验收：在临时副本中制造重复装备 ID、错误商店装备引用或不存在的资源路径，重新导入并运行，确认报告包含配置位置且不能开始对局；还原配置并重新导入后重试，确认可以进入角色选择和开始游戏。通过后的正式配置按只读约定使用，旧字典查询接口仍兼容现有业务和隔离测试，未宣称所有 Data 对象在语言层面不可变。
 
 ### 4. 全局状态与场景模块
 
-`GameState` 是一局游戏的总入口：开始新对局时重置累计拾取金币，通过 `BackpackManager.set_gold()` 初始化可消费金币，并调用 `BackpackManager.init_backpack()` 和 `MapManager.init_map()`；运行中负责查找玩家及切换 `main_menu`、`character_select`、`gaming`、`battle` 等场景。实际转场动画由 SceneManager 插件完成。
+主流程目录：
 
-主界面模块由 `main_menu.gd`、`character_select.gd`、`character_card.gd`、`gaming.gd` 和 `game_over.gd` 组成，分别负责开始游戏、角色选择、对局面板调度及战斗结算。`PanelManager` 统一控制地图、背包、商店和锻造面板，避免各页面互相直接切换。
+```text
+scripts/game/module/main/
+  data/run_state.gd        对局编号、角色、阶段、累计拾取金币、绑定的战斗编号
+  data/run_settlement.gd   结算编号、胜负、累计金币、下一步动作及下一张地图编号
+  sys/run_flow.gd          纯结算规则，不读取或修改界面和地图
+  sys/game_state.gd        对局入口、阶段校验、跨模块操作及通知
+  sys/scene_router.gd      场景资源预检、切换锁和 SceneManager 适配
+  view/                   主菜单、角色选择、对局面板和结算展示
+```
+
+`RunState` 阶段为 `MENU / CHARACTER_SELECT / MAP / SHOP / FORGE / BATTLE / SETTLEMENT / TRANSITIONING`。场景切换及同步通知过程中拒绝重复导航。`SceneRouter` 是 `GameState` 的普通子节点；`RunFlow` 为普通规则类，没有新增 Autoload 或修改插件。
+
+入口为 `show_character_select()`、`start_run(character_id)`、`enter_map_node(map_id, layer, index)`、`leave_current_node()`、`complete_battle(result, source_run_id)`、`continue_run(settlement_id)`、`retry_run(settlement_id)` 和 `return_to_menu()`。返回布尔值表示请求是否接受；资源或配置错误通过 `request_failed` 和提示框反馈，重复点击直接忽略。
+
+数据链路：
+
+```text
+UI 输入 → GameState 校验当前阶段与配置
+  → MapManager 校验当前地图成员、连接和访问状态
+  → BackpackManager 打开货架 / 取消材料选择
+  → SceneRouter 预先实例化目标场景
+  → 旧场景退出，新场景入树时提交进度，新场景子节点 ready
+  → phase_changed → Gaming / PanelManager 展示当前阶段
+
+CombatManager.battle_ended(BattleResult)
+  → battle.gd 携带来源对局编号提交 GameState（不依赖 HUD）
+  → 校验对局编号、绑定战斗编号和正式战斗结果
+  → RunFlow → RunSettlement → GameOver 展示副本
+  → 玩家点击继续/重试 → GameState 核对结算编号 → 明确推进或重建本局
+```
+
+结算显示和重复刷新不推进地图。普通胜利返回原地图，末层胜利进入下一张已配置地图或结束本局；末层商店/锻造退出也执行该规则。下一张地图保留装备实例、金币和累计统计。失败重试保留角色，创建新对局编号，重置背包、货架、锻造状态、累计金币和首张地图，初始余额沿用 999。旧结果和旧结算按钮不能影响新局。
+
+`GameState.current_character_id` 和 `total_gold_collected` 改为只读查询；旧的 `start_new_run`、任意 `change_scene` 和 `map_node_seleceted` 入口已移除。扩展 UI 时应调用对应业务入口，不直接切场或写入访问状态。
+
+回归测试为 `tests/main/run_flow_test.tscn` 和 `run_navigation_test.tscn`，覆盖只读结算、真实场景切换、连点、缺失场景、无效配置、跨地图保留库存、非战斗终点、无 HUD 结算、旧结果隔离和重试。可用以下命令运行（测试引导器会处理 SceneManager 的初始场景登记）：
+
+```shell
+godot --headless --editor --path . --quit
+godot --headless --path . --script res://tests/run_project_test.gd -- res://tests/main/run_flow_test.tscn
+godot --headless --path . --script res://tests/run_project_test.gd -- res://tests/main/run_navigation_test.tscn
+```
+
+编辑器手动检查步骤：从主菜单选择角色；快速连续点击地图节点；进入并退出商店、锻造；战斗胜利返回原地图；死亡后重复点击“再来一次”；走到末层商店后确认显示通关结算。新增多地图内容后，检查下一张地图保留装备和金币。自动测试不代替动画、布局及鼠标操作的人工验收。
 
 ### 5. 背包与装备模块
 
@@ -110,7 +185,7 @@ addons/                  SceneManager、PhantomCamera 等第三方插件
 
 `MapManager` 将 `map_data.csv` 转为 `MapNode` 列表，保存当前地图、当前节点和访问状态。节点包含层号、索引、类型、业务配置 ID 以及通往下一层的连接。
 
-`map.gd` 和 `MapNodeButton` 负责生成节点、连接线、拖动滚动及可达状态展示。第一次只能选择起点，之后只能进入当前节点 `connections` 中声明的节点。最终节点完成后，`check_and_init_next_map()` 尝试加载下一张地图；不存在下一张地图时结束本局。
+`map.gd` 和 `MapNodeButton` 负责生成节点、连接线、拖动滚动及可达状态展示。第一次只能选择起点，之后只能进入当前节点 `connections` 中声明的节点。`get_next_map_id()` 只查询下一张地图编号；`GameState.continue_run()` 接受请求后才调用 `init_map()`。初始化失败保留原地图。优先读取手工编排的 `map_<id>.tscn`，未提供时由基础地图按层生成节点及连接线；当前正式 CSV 仍只有地图 1。
 
 ### 8. 战斗模块
 

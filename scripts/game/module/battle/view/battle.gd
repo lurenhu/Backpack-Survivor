@@ -8,6 +8,7 @@ extends Node2D
 @onready var _bullet_spawner: BulletSpawner = $BulletSpawner
 
 var _battle_id: int = -1
+var _run_id: int = 0
 
 
 func _ready() -> void:
@@ -30,10 +31,15 @@ func _ready() -> void:
 		push_error("Battle: invalid configuration/context or previous battle has not been cleaned up")
 		return
 	_battle_id = CombatManager.battle_id
+	_run_id = GameState.run_id
+	if not GameState.bind_battle(_battle_id):
+		CombatManager.cleanup()
+		_stop_gameplay()
+		push_error("Battle: rejected run binding")
 
 
 func _process(delta: float) -> void:
-	if CombatManager.is_current_battle(_battle_id):
+	if not GameState.is_busy() and CombatManager.is_current_battle(_battle_id):
 		CombatManager.tick_combat(delta)
 
 
@@ -62,5 +68,7 @@ func _disconnect_signals() -> void:
 
 
 func _on_battle_ended(result: BattleResult) -> void:
-	if result.battle_id == _battle_id and is_instance_valid(_battle_ui):
-		_battle_ui.show_game_over(result.won)
+	if result.battle_id != _battle_id:
+		return
+	if GameState.complete_battle(result, _run_id) and is_instance_valid(_battle_ui):
+		_battle_ui.show_game_over(GameState.get_settlement())

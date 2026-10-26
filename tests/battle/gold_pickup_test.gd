@@ -16,7 +16,8 @@ func _run() -> void:
 	if not _assert(preload("res://tests/battle/battle_test_context.gd").start(self), "battle must start"):
 		return
 	BackpackManager.set_gold(10)
-	GameState.total_gold_collected = 3
+	GameState._run.phase = RunState.Phase.BATTLE
+	GameState.record_collected_gold(3)
 	_observed_balances.clear()
 	_observed_pickups.clear()
 

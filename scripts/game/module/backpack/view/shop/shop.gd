@@ -28,15 +28,6 @@ func get_cards() -> Array[EquipmentCard]:
 	return _cards.duplicate()
 
 
-func set_equipment_pool() -> void:
-	var node := MapManager.current_map_node
-	if node == null:
-		return
-	var key := "%s:%s:%s" % [node.map_id, node.layer_index, node.node_index]
-	BackpackManager.open_shop(key, node.config_id)
-	update_view()
-
-
 func refresh_shop(item_ids: Array[int] = []) -> void:
 	BackpackManager.refresh_shop(item_ids)
 

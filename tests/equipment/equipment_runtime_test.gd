@@ -9,7 +9,7 @@ func _ready() -> void:
 
 
 func _run() -> void:
-	GameConfig._init()
+	GameConfig.ensure_loaded()
 	if "--area-only" in OS.get_cmdline_user_args():
 		if not _test_equipment_type_parsing():
 			return
@@ -95,7 +95,7 @@ func _test_area_effect_factory() -> bool:
 
 
 func _test_area_equipment() -> bool:
-	GameState.current_character_id = 1
+	GameState._run.character_id = 1
 	BackpackManager.init_backpack(1)
 	var player := PLAYER_SCENE.instantiate() as Player
 	add_child(player)
@@ -205,7 +205,7 @@ func _test_enemy_shooter_timer() -> bool:
 
 
 func _test_rotate_equipment() -> bool:
-	GameState.current_character_id = 1
+	GameState._run.character_id = 1
 	BackpackManager.init_backpack(1)
 	if not _assert(BackpackManager.equipments.size() == 2, "warrior should start with two equipment items"):
 		return false
@@ -274,7 +274,7 @@ func _test_rotate_equipment() -> bool:
 
 
 func _test_shooter_equipment() -> bool:
-	GameState.current_character_id = 2
+	GameState._run.character_id = 2
 	BackpackManager.init_backpack(2)
 	if not _assert(BackpackManager.equipments.size() == 2, "mage should start with two equipment items"):
 		return false

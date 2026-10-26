@@ -13,6 +13,7 @@ var _dragging: bool = false
 var _drag_start_mouse_y: float = 0.0
 var _drag_start_content_y: float = 0.0
 var _scroll_tween: Tween = null
+var _selecting_node: bool = false
 
 func _ready() -> void:
 	_setup()
@@ -37,6 +38,8 @@ func scroll_to_current_map_node_button():
 		scroll_to_buttle()
 		return
 	var cur_node_button: MapNodeButton = _find_button(cur_node.layer_index, cur_node.node_index)
+	if cur_node_button == null:
+		return
 	_scroll_content_by_tween(-cur_node_button.position.y - cur_node_button.size.y + size.y)
 
 
@@ -56,9 +59,54 @@ func scroll_to_buttle():
 
 ## 初始化
 func _setup():
+	if map_node_container.get_child_count() == 0:
+		_build_default_layout()
 	for child: MapNodeButton in map_node_container.get_children():
 		map_node_buttons.append(child)
+		child.selection_requested.connect(_on_selection_requested)
 	_connect_map_node_with_line()
+
+
+## 动画完成后才提交业务请求；动画期间不改变访问状态，也不接受其他选点。
+func _on_selection_requested(map_button: MapNodeButton) -> void:
+	if _selecting_node or not is_visible_in_tree() or GameState.is_busy() or GameState.phase != RunState.Phase.MAP:
+		return
+	var target := map_button.node
+	if not MapManager.is_node_reachable(target):
+		return
+	_selecting_node = true
+	var source_run_id := GameState.run_id
+	var source_node := MapManager.current_map_node
+	await map_button.play_selection_animation()
+	_selecting_node = false
+	# 延迟期间可能退出地图或开始新局，旧动画不能推进新的流程。
+	if not is_instance_valid(map_button):
+		return
+	if not is_visible_in_tree() or GameState.run_id != source_run_id or MapManager.current_map_node != source_node:
+		update_map_nodes()
+		return
+	if MapManager.find_map_node(target.map_id, target.layer_index, target.node_index) != target:
+		update_map_nodes()
+		return
+	if not GameState.enter_map_node(target.map_id, target.layer_index, target.node_index):
+		update_map_nodes()
+
+
+## 未提供手工布局的新地图按层生成，沿用已有节点和连线场景。
+func _build_default_layout() -> void:
+	var scene := preload("res://scene/map/map_node_button.tscn")
+	var height := maxf(bg.size.y, (MapManager.get_max_layer() + 1) * 240.0)
+	bg.size.y = height
+	for layer in range(MapManager.get_max_layer() + 1):
+		var nodes := MapManager.get_layer_nodes(layer)
+		for i in nodes.size():
+			var node := nodes[i]
+			var button := scene.instantiate() as MapNodeButton
+			button.map_id = node.map_id
+			button.layer = node.layer_index
+			button.index = node.node_index
+			button.position = Vector2((i + 1.0) * size.x / (nodes.size() + 1.0) - 64.0, height - 200.0 - layer * 240.0)
+			map_node_container.add_child(button)
 
 ## 给地图节点连接线条
 func _connect_map_node_with_line():

@@ -149,7 +149,7 @@ func _test_cleanup_and_stale_callbacks() -> bool:
 
 
 func _test_scene_stop_and_reentry() -> bool:
-	GameState.start_new_run(1)
+	GameState._initialize_run(1)
 	for map_node in MapManager.current_map_nodes:
 		if map_node.node_type == "battle":
 			MapManager.current_map_node = map_node
@@ -193,8 +193,7 @@ func _test_scene_stop_and_reentry() -> bool:
 
 func _test_retry_navigation() -> bool:
 	# 测试节点保留在根节点下，真实场景交给 SceneManager 切换。
-	var battle := _create_battle_scene()
-	battle.reparent(get_tree().root)
+	var battle := _create_battle_scene(get_tree().root)
 	get_tree().current_scene = battle
 	var player := battle.get_node("Node/Player") as Player
 	CombatManager.apply_damage(DamageRequest.create(null, player, 10000.0))
@@ -204,15 +203,14 @@ func _test_retry_navigation() -> bool:
 		return false
 	if not _assert(CombatManager.state == CombatManager.State.IDLE and GameState.total_gold_collected == 0, "retry must leave finished combat and reset the run"):
 		return false
-	for map_node in MapManager.current_map_nodes:
-		if map_node.node_type == "battle":
-			MapManager.map_node_seleceted.emit(map_node)
-			break
+	GameState.enter_map_node(1, 0, 0)
+	GameState.leave_current_node()
+	GameState.enter_map_node(1, 1, 0)
 	if not await _wait_for_scene("res://scene/battle/battle.tscn"):
 		return false
 	if not _assert(CombatManager.is_battle_active, "map selection must start a fresh battle"):
 		return false
-	GameState.change_scene("main_menu")
+	GameState.return_to_menu()
 	if not await _wait_for_scene("res://scene/main/main_menu.tscn"):
 		return false
 	return _assert(CombatManager.state == CombatManager.State.IDLE, "returning to menu must clean active combat")
@@ -224,13 +222,16 @@ func _wait_for_scene(path: String) -> bool:
 		var scene := get_tree().current_scene
 		if is_instance_valid(scene) and scene.scene_file_path == path and not SceneManager._in_transition:
 			return true
-	return _assert(false, "scene transition timed out: " + path)
+	return _assert(false, "scene transition timed out: %s (phase=%s busy=%s error=%s current=%s)" % [path, GameState.phase, GameState.is_busy(), GameState.last_error, get_tree().current_scene.scene_file_path])
 
 
-func _create_battle_scene() -> Node:
+func _create_battle_scene(parent: Node = self) -> Node:
+	# 单场战斗用例显式准备流程上下文；导航用例走公开入口。
+	GameState._run.phase = RunState.Phase.BATTLE
+	GameState._run.battle_id = -1
 	var battle := BATTLE_SCENE.instantiate()
 	battle.get_node("Node/PhantomCamera2D").show_viewfinder_in_play = false
-	add_child(battle)
+	parent.add_child(battle)
 	return battle
 
 

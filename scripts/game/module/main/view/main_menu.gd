@@ -13,4 +13,4 @@ func _ready() -> void:
 
 ## 开始按钮回调：进入角色选择
 func _on_start_button_pressed() -> void:
-	GameState.change_scene("character_select")
+	GameState.show_character_select()

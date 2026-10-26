@@ -19,8 +19,8 @@ func _ready() -> void:
 #region 公开方法
 
 ## 展示游戏结束
-func show_game_over(won: bool) -> void:
-	_game_over.show_game_over(won)
+func show_game_over(settlement: RunSettlement) -> void:
+	_game_over.show_game_over(settlement)
 
 ## 初始化或刷新时从玩家节点同步血量到进度条。
 func update_health_bar() -> void:

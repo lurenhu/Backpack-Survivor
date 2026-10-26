@@ -9,7 +9,7 @@ func _ready() -> void:
 
 
 func _run() -> void:
-	GameState.start_new_run(1)
+	GameState._initialize_run(1)
 	FIXTURE.reset()
 	var panel := _panel()
 	var sword: Equipment = FIXTURE.add(1)
@@ -30,6 +30,7 @@ func _run() -> void:
 	if not _check(BackpackManager.gold == 90 and panel.package.backpack_cards.is_empty() and panel.forge.table_cards.is_empty(), "forge button must atomically update all views and charge the configured fee"):
 		return
 	var reward_id := BackpackManager.get_pending_forge_reward().instance_id
+	GameState._run.phase = RunState.Phase.FORGE
 	panel.forge.exit_button.pressed.emit()
 	panel.free()
 	panel = _panel()
@@ -52,6 +53,7 @@ func _run() -> void:
 func _panel() -> PanelManager:
 	var panel := PANEL_SCENE.instantiate() as PanelManager
 	add_child(panel)
+	panel.panel_animation.advance(1.0)
 	panel.panel_animation.stop()
 	panel.package.position = Vector2.ZERO
 	panel.forge.position = Vector2(650.0, 0.0)

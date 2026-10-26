@@ -92,7 +92,6 @@ func _on_right_pressed() -> void:
 ## 出击按钮回调：以选中角色开始新一局
 func _on_deploy_button_pressed() -> void:
 	if _selected_character_id > 0:
-		GameState.start_new_run(_selected_character_id)
-		GameState.change_scene("gaming")
+		GameState.start_run(_selected_character_id)
 
 #endregion

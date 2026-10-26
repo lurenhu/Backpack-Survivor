@@ -6,7 +6,7 @@ func _ready() -> void:
 
 
 func _run() -> void:
-	GameConfig._init()
+	GameConfig.ensure_loaded()
 	var staff := GameConfig.equipment.get(2) as EquipmentData
 	if not _assert(
 		staff != null

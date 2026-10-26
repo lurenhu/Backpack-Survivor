@@ -78,13 +78,14 @@ func _test_damage_system() -> bool:
 
 
 func _test_battle_damage_flow() -> bool:
-	GameState.start_new_run(1)
+	GameState._initialize_run(1)
 	for map_node in MapManager.current_map_nodes:
 		if map_node.node_type == "battle":
 			MapManager.current_map_node = map_node
 			break
 	if not _assert(MapManager.current_map_node != null, "test needs a configured battle node"):
 		return false
+	GameState._run.phase = RunState.Phase.BATTLE
 	var battle := BATTLE_SCENE.instantiate()
 	var original_hud := battle.get_node("BattleUI")
 	battle.remove_child(original_hud)

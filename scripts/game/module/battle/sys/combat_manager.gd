@@ -175,6 +175,10 @@ func cleanup() -> void:
 	last_result = null
 
 
+func can_start_config(config_id: int) -> bool:
+	return _validate_waves(GameConfig.battles.get(config_id, {}))
+
+
 func _validate_waves(wave_data: Dictionary) -> bool:
 	if wave_data.is_empty():
 		return false

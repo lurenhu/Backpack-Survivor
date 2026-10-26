@@ -87,6 +87,19 @@ static func _to_str(v, default := "") -> String:
 #   - 第一列重复时: {第一列值: {第二列值: DataObj}}, 以此类推
 # factory: 将单条记录转为数据对象的 Callable，如 EquipmentData.from_dict
 static func build_nested_dict(records: Array, key_columns: PackedStringArray, factory: Callable) -> Dictionary:
+	# 配置加载器提供带表名的诊断；独立调用也不能静默丢弃完整键冲突。
+	var seen := {}
+	if key_columns.is_empty():
+		push_error("GameConfigData: missing key columns")
+		return {}
+	for record in records:
+		var key: Array = []
+		for column in key_columns:
+			key.append(_to_dict_key(record.get(column)))
+		if seen.has(key):
+			push_error("GameConfigData: duplicate complete key %s" % [key])
+			return {}
+		seen[key] = true
 	return _build_level(records, key_columns, 0, factory)
 
 
@@ -110,7 +123,7 @@ static func _build_level(records: Array, key_columns: PackedStringArray, depth: 
 		if depth + 1 < key_columns.size():
 			result[dict_key] = _build_level(group_records, key_columns, depth + 1, factory)
 		else:
-			# 键列已用完但仍有重复，只取第一条
+			# 完整键唯一性已由入口检查，此处恰好一条记录。
 			result[dict_key] = factory.call(group_records[0])
 
 	return result

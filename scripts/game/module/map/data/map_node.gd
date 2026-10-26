@@ -18,5 +18,5 @@ static func init_from_dict(row: MapNodeData) -> MapNode:
 	node.node_index = row.node_index
 	node.node_type = row.node_type
 	node.config_id = row.config_id
-	node.connections = row.connections
+	node.connections = row.connections.duplicate()
 	return node

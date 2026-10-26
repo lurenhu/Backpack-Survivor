@@ -8,57 +8,45 @@ extends Control
 @onready var main_menu_button: Button = $Button/VBoxContainer/MainMenuButton
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-var _won: bool
+var _settlement: RunSettlement
 
 
 func _ready() -> void:
 	main_menu_button.pressed.connect(_on_main_menu_button_pressed)
 	continue_button.pressed.connect(_on_continue_button_pressed)
 
-#region 公开方法
 
-## 播放结算面板从屏幕上方滑落至中央的入场动画
-func show_game_over(won: bool) -> void:
-	_won = won
-	self.show()
+func show_game_over(settlement: RunSettlement) -> void:
+	if settlement == null:
+		return
+	_settlement = settlement.snapshot()
+	show()
 	update_score()
-	update_text(won)
+	update_text()
 	animation_player.play("show")
 
 
 func update_score() -> void:
-	var score: float = GameState.total_gold_collected
-	value_lab.text = str(score)
+	value_lab.text = str(_settlement.collected_gold)
 
 
-func update_text(won: bool) -> void:
-	if not won:
-		result_lab.text = "GameOver"
-		continue_button.text = "再来一次"
-	else:
-		if MapManager.is_map_final_node():
-			if MapManager.check_and_init_next_map():
-				result_lab.text = "Victory"
-				continue_button.text = "下一张图"
-			else:
-				result_lab.text = "Victory"
-				continue_button.visible = false
-		else:
-			result_lab.text = "Victory"
-			continue_button.text = "返回地图"
+func update_text() -> void:
+	result_lab.text = "Victory" if _settlement.won else "GameOver"
+	continue_button.visible = _settlement.next_action != RunSettlement.Action.END_RUN
+	match _settlement.next_action:
+		RunSettlement.Action.RETRY: continue_button.text = "再来一次"
+		RunSettlement.Action.NEXT_MAP: continue_button.text = "下一张图"
+		RunSettlement.Action.RETURN_TO_MAP: continue_button.text = "返回地图"
 
-#endregion
 
-#region 信号回调
-
-## 返回主菜单回调
 func _on_main_menu_button_pressed() -> void:
-	GameState.change_scene("main_menu")
+	GameState.return_to_menu()
 
-## 再来一局回调：使用相同角色重新开始
+
 func _on_continue_button_pressed() -> void:
-	if not _won:
-		GameState.start_new_run(GameState.current_character_id)
-	GameState.change_scene("gaming")
-
-#endregion
+	if _settlement == null:
+		return
+	if _settlement.next_action == RunSettlement.Action.RETRY:
+		GameState.retry_run(_settlement.settlement_id)
+	else:
+		GameState.continue_run(_settlement.settlement_id)

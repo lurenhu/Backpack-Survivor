@@ -9,7 +9,7 @@ func _ready() -> void:
 
 
 func _run() -> void:
-	GameConfig._init()
+	GameConfig.ensure_loaded()
 	if not await _test_tip_builds_all_configured_content():
 		return
 	if not await _test_tip_size_wraps_dynamic_content():

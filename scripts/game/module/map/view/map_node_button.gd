@@ -2,6 +2,8 @@ class_name MapNodeButton
 extends Control
 ## 地图节点按钮：单个地图节点，处理悬停和点击交互
 
+signal selection_requested(map_button: MapNodeButton)
+
 @onready var bg_texture: TextureRect = $BgTexture
 @onready var icon_texture: TextureRect = $IconTexture
 @onready var button: Button = $Button
@@ -54,6 +56,9 @@ func update_map_node():
 ## 初始化
 func _setup():
 	node = MapManager.find_map_node(map_id, layer, index)
+	if node == null:
+		button.disabled = true
+		return
 
 	match node.node_type:
 		"shop": icon_texture.texture = MapManager.SHOP_TEXTURE
@@ -65,9 +70,12 @@ func _setup():
 
 ## 判断当前地图节点是否已探索
 func _check_visited():
+	if node == null:
+		button.disabled = true
+		return
 	if not node.visited:
 		icon_texture.material.set_shader_parameter("modulate", Color.WHITE)
-		button.disabled = false
+		button.disabled = not MapManager.is_node_reachable(node)
 	else:
 		icon_texture.material.set_shader_parameter("modulate", Color(0.4, 0.4, 0.4, 1.0))
 		button.disabled = true
@@ -76,20 +84,16 @@ func _check_visited():
 
 #region 信号回调
 
-## 按钮点击回调：根据节点类型跳转对应场景
+## 地图统一协调点击动画，避免多个节点同时提交进入请求。
 func _on_visite() -> void:
-	if node == null:
-		return
+	selection_requested.emit(self)
 
-	if not MapManager.is_node_reachable(node):
-		return
 
-	node.visited = true
-	_check_visited()
-
+func play_selection_animation() -> void:
+	button.disabled = true
 	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
 	tween.tween_property(bg_texture.material, "shader_parameter/progress", 1.0, 0.5)
-	tween.finished.connect(func(): MapManager.map_node_seleceted.emit(node))
+	await tween.finished
 
 
 ## 处理鼠标移动事件：根据鼠标在卡片上的位置计算3D倾斜角度
