@@ -1,11 +1,18 @@
 [gd_scene format=3 uid="uid://dhp7edb77g4tt"]
 
 [ext_resource type="Script" uid="uid://brdxeras0isja" path="res://scripts/game/module/main/view/main_menu.gd" id="1_qims6"]
-[ext_resource type="StyleBox" uid="uid://brgbn8u1fmjkl" path="res://assets/preset/style_box_texture/button_normal.tres" id="2_wu84c"]
-[ext_resource type="StyleBox" uid="uid://cofb03f4qoc5d" path="res://assets/preset/style_box_texture/button_pressed.tres" id="3_8ln24"]
-[ext_resource type="Texture2D" uid="uid://c52ou6daw6f2n" path="res://assets/res/ui/底框.png" id="3_rtw2f"]
-[ext_resource type="Texture2D" uid="uid://dp8q3xawhi24n" path="res://assets/res/ui/主界面.jpg" id="3_tbmy8"]
-[ext_resource type="StyleBox" uid="uid://bt0lljh8r713" path="res://assets/preset/style_box_texture/button_hover.tres" id="4_rtw2f"]
+[ext_resource type="Texture2D" uid="uid://3sd17mb825e5" path="res://assets/res/ui/main/背景.png" id="2_qims6"]
+[ext_resource type="Texture2D" uid="uid://d2yk35kfc1tpe" path="res://assets/res/ui/main/logo.png" id="3_acbhw"]
+[ext_resource type="FontFile" uid="uid://e7ryidwas2dh" path="res://assets/res/font/ZhuoTeZiYouTi-2.otf" id="4_a23sd"]
+[ext_resource type="StyleBox" uid="uid://csmkqlqj2i1h5" path="res://assets/preset/style_box_texture/btn_yellow_normal.tres" id="4_acbhw"]
+[ext_resource type="StyleBox" uid="uid://cctvo44cu8gqr" path="res://assets/preset/style_box_texture/btn_yellow_pressed.tres" id="5_xnsce"]
+[ext_resource type="StyleBox" uid="uid://cmy7y5o5vjqxx" path="res://assets/preset/style_box_texture/btn_yellow_hover.tres" id="6_xnsce"]
+[ext_resource type="StyleBox" uid="uid://bwhyjpbkpmlp5" path="res://assets/preset/style_box_texture/btn_green_normal.tres" id="7_p7ily"]
+[ext_resource type="StyleBox" uid="uid://6okf3eostwjo" path="res://assets/preset/style_box_texture/btn_green_pressed.tres" id="8_g8y13"]
+[ext_resource type="StyleBox" uid="uid://cxq2n5nogi73h" path="res://assets/preset/style_box_texture/btn_green_hover.tres" id="9_3ev3m"]
+[ext_resource type="StyleBox" uid="uid://ci73ewfrgoxex" path="res://assets/preset/style_box_texture/btn_brown_normal.tres" id="10_3ev3m"]
+[ext_resource type="StyleBox" uid="uid://cp2avhel5y0mb" path="res://assets/preset/style_box_texture/btn_brown_pressed.tres" id="11_a23sd"]
+[ext_resource type="StyleBox" uid="uid://caufgceajuydo" path="res://assets/preset/style_box_texture/btn_brown_hover.tres" id="12_3ev3m"]
 
 [node name="MainMenu" type="Control" unique_id=859401355]
 layout_mode = 3
@@ -23,29 +30,36 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_tbmy8")
+texture = ExtResource("2_qims6")
 expand_mode = 1
 
-[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=267138848]
+[node name="Logo" type="TextureRect" parent="." unique_id=854412580]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.03828125
-anchor_top = 0.3777778
-anchor_right = 0.27265626
-anchor_bottom = 0.93333334
-offset_left = 1.0
-offset_top = -2.0000305
-offset_right = 1.0
-offset_bottom = -2.0
-grow_vertical = 0
-texture = ExtResource("3_rtw2f")
-patch_margin_left = 51
-patch_margin_top = 49
-patch_margin_right = 60
-patch_margin_bottom = 50
-metadata/_edit_use_anchors_ = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -330.0
+offset_top = 47.0
+offset_right = 330.0
+offset_bottom = 307.0
+grow_horizontal = 2
+texture = ExtResource("3_acbhw")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect" unique_id=549554124]
+[node name="BtnContainer" type="Control" parent="." unique_id=1259236712]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = 133.0
+offset_bottom = 133.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BtnContainer" unique_id=549554124]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,7 +69,7 @@ grow_vertical = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="StartButton" type="Button" parent="NinePatchRect/VBoxContainer" unique_id=1975709255]
+[node name="StartButton" type="Button" parent="BtnContainer/VBoxContainer" unique_id=1975709255]
 custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -63,14 +77,15 @@ size_flags_vertical = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = ExtResource("2_wu84c")
-theme_override_styles/pressed = ExtResource("3_8ln24")
-theme_override_styles/hover = ExtResource("4_rtw2f")
+theme_override_fonts/font = ExtResource("4_a23sd")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = ExtResource("4_acbhw")
+theme_override_styles/pressed = ExtResource("5_xnsce")
+theme_override_styles/hover = ExtResource("6_xnsce")
 text = "开始游戏"
 metadata/_edit_use_anchors_ = true
 
-[node name="SettingButton" type="Button" parent="NinePatchRect/VBoxContainer" unique_id=67630272]
+[node name="SettingButton" type="Button" parent="BtnContainer/VBoxContainer" unique_id=67630272]
 custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -78,14 +93,15 @@ size_flags_vertical = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = ExtResource("2_wu84c")
-theme_override_styles/pressed = ExtResource("3_8ln24")
-theme_override_styles/hover = ExtResource("4_rtw2f")
+theme_override_fonts/font = ExtResource("4_a23sd")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = ExtResource("7_p7ily")
+theme_override_styles/pressed = ExtResource("8_g8y13")
+theme_override_styles/hover = ExtResource("9_3ev3m")
 text = "设置"
 metadata/_edit_use_anchors_ = true
 
-[node name="ExitButton" type="Button" parent="NinePatchRect/VBoxContainer" unique_id=476313489]
+[node name="ExitButton" type="Button" parent="BtnContainer/VBoxContainer" unique_id=476313489]
 custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -93,9 +109,10 @@ size_flags_vertical = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = ExtResource("2_wu84c")
-theme_override_styles/pressed = ExtResource("3_8ln24")
-theme_override_styles/hover = ExtResource("4_rtw2f")
+theme_override_fonts/font = ExtResource("4_a23sd")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = ExtResource("10_3ev3m")
+theme_override_styles/pressed = ExtResource("11_a23sd")
+theme_override_styles/hover = ExtResource("12_3ev3m")
 text = "退出游戏"
 metadata/_edit_use_anchors_ = true

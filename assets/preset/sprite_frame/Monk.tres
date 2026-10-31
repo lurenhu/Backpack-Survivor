@@ -193,7 +193,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("39_kpxej")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 20.0
 }, {
@@ -297,15 +297,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("72_n0tnt")
 }],
-"loop": true,
+"loop": 1,
 "name": &"run",
 "speed": 16.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_7kugk")
-}],
-"loop": true,
-"name": &"sprite",
-"speed": 5.0
 }]

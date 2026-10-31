@@ -4,11 +4,11 @@ extends Control
 
 @onready var card_container: CarouselContainer = $Scroller/CardContainer
 @onready var container: Control = $Scroller/CardContainer/Container
-@onready var deploy_button: Button = $DeployButton
+@onready var deploy_button: Button = $Descript/DeployButton
 @onready var _left_button: Button = $Scroller/Left
 @onready var _right_button: Button = $Scroller/Right
 @onready var _descript_label: Label = $Descript/CenterContainer/Label
-@onready var _name_label: Label = $Name/Label
+@onready var _name_label: Label = $Descript/Name/Label
 @onready var _illustration_texture: TextureRect = $Show/TextureRect
 
 var _selected_character_id: int
@@ -38,7 +38,6 @@ func _populate_character_cards() -> void:
 		var card: CharacterCard = _card_scene.instantiate()
 		container.add_child(card)
 		card.setup(cid)
-		card.card_selected.connect(_on_character_selected)
 		
 
 ## 更新左右导航按钮的可见性

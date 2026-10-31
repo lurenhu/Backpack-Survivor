@@ -1,0 +1,7 @@
+[gd_resource type="StyleBoxTexture" format=3 uid="uid://cxq2n5nogi73h"]
+
+[ext_resource type="Texture2D" uid="uid://dg4dageje5s5c" path="res://assets/res/ui/button/战斗按钮.png" id="1_gb1af"]
+
+[resource]
+texture = ExtResource("1_gb1af")
+modulate_color = Color(1.2363764, 1.2363764, 1.2363764, 1)

@@ -1,6 +1,5 @@
 extends CanvasLayer
 
-@onready var panel: Panel = $Panel
 @onready var panel_manager: PanelManager = $PanelManager
 
 ## 播放背景着色
@@ -12,12 +11,6 @@ var _game_over: GameOver
 func _ready() -> void:
 	GameState.phase_changed.connect(_on_phase_changed)
 	_on_phase_changed(GameState.phase)
-
-
-func _process(delta: float) -> void:
-	var panel_material = panel.material as ShaderMaterial
-	timer += delta * speed
-	panel_material.set_shader_parameter("time_val", timer)
 
 
 func _on_phase_changed(phase: RunState.Phase) -> void:

@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cjkbe31qio8x3" path="res://assets/res/ui/backpack/标题1.png" id="3_rwv1s"]
 [ext_resource type="StyleBox" uid="uid://brgbn8u1fmjkl" path="res://assets/preset/style_box_texture/button_normal.tres" id="4_8r1wq"]
 [ext_resource type="StyleBox" uid="uid://cofb03f4qoc5d" path="res://assets/preset/style_box_texture/button_pressed.tres" id="5_ajxib"]
+[ext_resource type="FontFile" uid="uid://e7ryidwas2dh" path="res://assets/res/font/ZhuoTeZiYouTi-2.otf" id="5_grq32"]
 [ext_resource type="Texture2D" uid="uid://1f1p27n5x6on" path="res://assets/res/ui/backpack/道具底.png" id="5_xv67d"]
 [ext_resource type="PackedScene" uid="uid://02k27p5jqln6" path="res://scene/shop/equipment_card.tscn" id="6_xnav0"]
 [ext_resource type="StyleBox" uid="uid://bt0lljh8r713" path="res://assets/preset/style_box_texture/button_hover.tres" id="6_y6sft"]
@@ -15,13 +16,14 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_1nnao"]
 resource_local_to_scene = true
-font_size = 32
+font_size = 48
 font_color = Color(1.1294625, 0.83751404, 0.5196019, 1)
 shadow_size = 5
 shadow_color = Color(0, 0, 0, 0.4627451)
 
 [sub_resource type="LabelSettings" id="LabelSettings_phhfx"]
 resource_local_to_scene = true
+font_size = 32
 font_color = Color(1.1294625, 0.83751404, 0.5196019, 1)
 shadow_size = 5
 shadow_color = Color(0, 0, 0, 0.4627451)
@@ -81,13 +83,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -12.0
-offset_right = 20.0
-offset_bottom = 12.0
+offset_left = -35.0
+offset_top = -30.0
+offset_right = 35.0
+offset_bottom = 19.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_grq32")
 text = "商店"
 label_settings = SubResource("LabelSettings_1nnao")
 horizontal_alignment = 1
@@ -150,6 +153,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_grq32")
 text = "商品名称"
 label_settings = SubResource("LabelSettings_phhfx")
 horizontal_alignment = 1
@@ -207,6 +211,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_grq32")
 text = "商品名称"
 label_settings = SubResource("LabelSettings_phhfx")
 horizontal_alignment = 1
@@ -264,6 +269,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_grq32")
 text = "商品名称"
 label_settings = SubResource("LabelSettings_phhfx")
 horizontal_alignment = 1
@@ -321,6 +327,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_grq32")
 text = "商品名称"
 label_settings = SubResource("LabelSettings_phhfx")
 horizontal_alignment = 1
@@ -356,7 +363,8 @@ size_flags_vertical = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0.06100855, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0.0627451, 1)
-theme_override_font_sizes/font_size = 24
+theme_override_fonts/font = ExtResource("5_grq32")
+theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = ExtResource("4_8r1wq")
 theme_override_styles/pressed = ExtResource("5_ajxib")
 theme_override_styles/hover = ExtResource("6_y6sft")
@@ -380,7 +388,8 @@ size_flags_vertical = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0.06100855, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0.0627451, 1)
-theme_override_font_sizes/font_size = 24
+theme_override_fonts/font = ExtResource("5_grq32")
+theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = ExtResource("4_8r1wq")
 theme_override_styles/pressed = ExtResource("5_ajxib")
 theme_override_styles/hover = ExtResource("6_y6sft")
@@ -402,7 +411,8 @@ size_flags_vertical = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0.06100855, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0.0627451, 1)
-theme_override_font_sizes/font_size = 24
+theme_override_fonts/font = ExtResource("5_grq32")
+theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = ExtResource("11_grq32")
 theme_override_styles/pressed = ExtResource("12_xnav0")
 theme_override_styles/hover = ExtResource("13_22mpj")

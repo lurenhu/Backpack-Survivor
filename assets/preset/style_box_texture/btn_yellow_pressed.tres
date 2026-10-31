@@ -1,0 +1,7 @@
+[gd_resource type="StyleBoxTexture" format=3 uid="uid://cctvo44cu8gqr"]
+
+[ext_resource type="Texture2D" uid="uid://cd5b3deq84vl4" path="res://assets/res/ui/button/开始游戏按钮.png" id="1_nrahs"]
+
+[resource]
+texture = ExtResource("1_nrahs")
+modulate_color = Color(0.5686275, 0.5686275, 0.5686275, 1)

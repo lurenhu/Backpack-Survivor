@@ -230,7 +230,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("47_kxiss")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 23.0
 }, {
@@ -346,15 +346,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("84_j7t5v")
 }],
-"loop": true,
+"loop": 1,
 "name": &"run",
 "speed": 18.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_wfyjb")
-}],
-"loop": true,
-"name": &"sprite",
-"speed": 5.0
 }]

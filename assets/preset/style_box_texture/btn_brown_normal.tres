@@ -1,0 +1,6 @@
+[gd_resource type="StyleBoxTexture" format=3 uid="uid://ci73ewfrgoxex"]
+
+[ext_resource type="Texture2D" uid="uid://dl3u56dhwekok" path="res://assets/res/ui/button/退出游戏按钮.png" id="1_wf1mv"]
+
+[resource]
+texture = ExtResource("1_wf1mv")

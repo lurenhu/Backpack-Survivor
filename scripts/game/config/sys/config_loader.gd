@@ -5,7 +5,7 @@ extends RefCounted
 const TABLES: Dictionary = {
 	"equipment": {"file": "equipments.csv", "keys": ["ID"], "fields": {"ID": "id", "Name": "text", "Shape": "shape", "Rarity": "uint", "Attr": "attrs", "Price": "uint", "Source": "texture", "Type": "equipment_type"}},
 	"monsters": {"file": "monsters.csv", "keys": ["ID"], "fields": {"ID": "id", "Name": "text", "Attr": "attrs", "GoldDrop": "uint", "Source": "scene"}},
-	"characters": {"file": "characters.csv", "keys": ["ID"], "fields": {"ID": "id", "Name": "text", "Attr": "attrs", "BackpackShape": "backpack_shape", "InitEquipments": "optional_ids", "FramePath": "frames", "Illustration": "optional_texture"}},
+	"characters": {"file": "characters.csv", "keys": ["ID"], "fields": {"ID": "id", "Name": "text", "Attr": "attrs", "BackpackShape": "backpack_shape", "InitEquipments": "optional_ids", "FramePath": "frames", "Illustration": "optional_texture", "IconPath": "texture"}},
 	"pickups": {"file": "pickup.csv", "keys": ["ID"], "fields": {"ID": "id", "Name": "text", "Type": "pickup_type", "Source": "frames", "Collision": "collision"}},
 	"shops": {"file": "shop.csv", "keys": ["ID"], "fields": {"ID": "id", "EquipmentIDs": "ids"}},
 	"forges": {"file": "equipment_forge.csv", "keys": ["EquipmentID"], "fields": {"EquipmentID": "id", "MaterialIDs": "ids", "Coin": "uint"}},

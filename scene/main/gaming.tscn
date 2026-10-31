@@ -1,28 +1,18 @@
 [gd_scene format=3 uid="uid://bl67rrkhi40c7"]
 
 [ext_resource type="Script" uid="uid://0ntrmvmuu3kq" path="res://scripts/game/module/main/view/gaming.gd" id="1_kspih"]
-[ext_resource type="Shader" uid="uid://cm2y24yownplh" path="res://scripts/game/shader/background.gdshader" id="1_yncq1"]
+[ext_resource type="Texture2D" uid="uid://3sd17mb825e5" path="res://assets/res/ui/main/背景.png" id="2_kspih"]
 [ext_resource type="PackedScene" uid="uid://c3t2dhelg8ivr" path="res://scene/shop/panel_manager.tscn" id="2_yncq1"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_oa1go"]
-shader = ExtResource("1_yncq1")
-shader_parameter/time_val = 0.0
-shader_parameter/spin_time = 0.0
-shader_parameter/colour_1 = Color(0, 0, 0, 1)
-shader_parameter/colour_2 = Color(0, 0.4, 0.9, 1)
-shader_parameter/colour_3 = Color(1, 0, 0.2, 1)
-shader_parameter/contrast = 1.0
-shader_parameter/spin_amount = 1.05
 
 [node name="Gaming" type="CanvasLayer" unique_id=1956038167]
 script = ExtResource("1_kspih")
 
-[node name="Panel" type="Panel" parent="." unique_id=1145447779]
-material = SubResource("ShaderMaterial_oa1go")
+[node name="Bg" type="TextureRect" parent="." unique_id=1121768843]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("2_kspih")
 
 [node name="PanelManager" parent="." unique_id=605556412 instance=ExtResource("2_yncq1")]

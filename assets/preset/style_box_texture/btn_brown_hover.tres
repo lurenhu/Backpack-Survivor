@@ -1,0 +1,7 @@
+[gd_resource type="StyleBoxTexture" format=3 uid="uid://caufgceajuydo"]
+
+[ext_resource type="Texture2D" uid="uid://dl3u56dhwekok" path="res://assets/res/ui/button/退出游戏按钮.png" id="1_u4r6h"]
+
+[resource]
+texture = ExtResource("1_u4r6h")
+modulate_color = Color(1.2363764, 1.2363764, 1.2363764, 1)

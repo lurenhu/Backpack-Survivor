@@ -1,8 +1,8 @@
 extends Control
 
-@onready var start_button: Button = $NinePatchRect/VBoxContainer/StartButton
-@onready var setting_button: Button = $NinePatchRect/VBoxContainer/SettingButton
-@onready var exit_button: Button = $NinePatchRect/VBoxContainer/ExitButton
+@onready var start_button: Button = $BtnContainer/VBoxContainer/StartButton
+@onready var setting_button: Button = $BtnContainer/VBoxContainer/SettingButton
+@onready var exit_button: Button = $BtnContainer/VBoxContainer/ExitButton
 
 func _ready() -> void:
 	var fade_in_first_scene_options = SceneManager.create_options(1, "fade")
