@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://ueedh2fjpo6n"]
 
 [ext_resource type="Script" uid="uid://b6r471baoli8y" path="res://scripts/game/module/battle/view/Damage_Label.gd" id="1_ex46k"]
+[ext_resource type="FontFile" uid="uid://e7ryidwas2dh" path="res://assets/res/font/ZhuoTeZiYouTi-2.otf" id="1_va7yn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jg182"]
 resource_local_to_scene = true
-font_size = 32
+font_size = 48
 font_color = Color(0.77513033, 0.19102374, 0.20206481, 1)
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
@@ -12,6 +13,7 @@ outline_color = Color(0, 0, 0, 1)
 [node name="DamageLable" type="Label" unique_id=1418558387]
 offset_right = 40.0
 offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("1_va7yn")
 text = "9999"
 label_settings = SubResource("LabelSettings_jg182")
 horizontal_alignment = 1

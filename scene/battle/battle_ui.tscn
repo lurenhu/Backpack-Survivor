@@ -1,32 +1,27 @@
 [gd_scene format=3 uid="uid://cgpwcqun28n5o"]
 
 [ext_resource type="Script" uid="uid://b5l62ayawf3ib" path="res://scripts/game/module/battle/view/battle_UI.gd" id="1_8dqs6"]
-[ext_resource type="Texture2D" uid="uid://ct1d50oovjyh1" path="res://assets/res/ui/panels/BigBar_Base.png" id="2_40w83"]
-[ext_resource type="Texture2D" uid="uid://bic1yh7e0n4ex" path="res://assets/res/ui/panels/BigBar_Fill.png" id="3_xjcqp"]
-[ext_resource type="Texture2D" uid="uid://ca6adio31tkxc" path="res://assets/icon/progress_full.png" id="4_8dqs6"]
-[ext_resource type="Texture2D" uid="uid://dv6liywuq13x1" path="res://assets/icon/tool_sword_b.png" id="5_8dqs6"]
+[ext_resource type="Texture2D" uid="uid://bms0f1dm8ursh" path="res://assets/res/ui/panels/血量底.png" id="2_8dqs6"]
+[ext_resource type="Texture2D" uid="uid://bc8o2rlblqluy" path="res://assets/res/ui/panels/血量柱子.png" id="3_8dqs6"]
+[ext_resource type="Texture2D" uid="uid://cfgcfur1rr1kh" path="res://assets/res/ui/panels/金币数量.png" id="4_8dqs6"]
+[ext_resource type="Texture2D" uid="uid://behaqq8oot5xd" path="res://assets/res/ui/panels/头像框.png" id="4_vl7eb"]
+[ext_resource type="FontFile" uid="uid://e7ryidwas2dh" path="res://assets/res/font/ZhuoTeZiYouTi-2.otf" id="5_t7400"]
+[ext_resource type="Texture2D" uid="uid://dxpj4ejomg0a6" path="res://assets/res/ui/select/战士头像.png" id="5_wv4me"]
 [ext_resource type="PackedScene" uid="uid://cuko6bv1tbujy" path="res://scene/main/game_over.tscn" id="6_t7400"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_aomqe"]
-atlas = ExtResource("2_40w83")
-region = Rect2(104, 9, 112, 51)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xjcqp"]
-atlas = ExtResource("3_xjcqp")
-region = Rect2(0, 20, 64, 24)
+[ext_resource type="Texture2D" uid="uid://y7sya4y1qosd" path="res://assets/res/ui/panels/波次图标.png" id="8_wv4me"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aomqe"]
-texture = SubResource("AtlasTexture_xjcqp")
+texture = ExtResource("3_8dqs6")
 
 [sub_resource type="LabelSettings" id="LabelSettings_aomqe"]
 resource_local_to_scene = true
-font_size = 32
+font_size = 48
 font_color = Color(1, 1, 0, 1)
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_a20gn"]
-font_size = 32
+font_size = 48
 font_color = Color(1, 0, 0, 1)
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
@@ -37,8 +32,10 @@ script = ExtResource("1_8dqs6")
 [node name="HealthBar" type="Control" parent="." unique_id=497570354]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 300.0
-offset_bottom = 50.0
+offset_left = 83.0
+offset_top = 21.0
+offset_right = 383.0
+offset_bottom = 72.99998
 
 [node name="BG" type="NinePatchRect" parent="HealthBar" unique_id=999259594]
 layout_mode = 1
@@ -47,8 +44,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("AtlasTexture_aomqe")
-region_rect = Rect2(0, 0, 112, 51)
+texture = ExtResource("2_8dqs6")
+region_rect = Rect2(0, 0, 175, 22)
 patch_margin_left = 20
 patch_margin_top = 16
 patch_margin_right = 19
@@ -72,19 +69,57 @@ theme_override_styles/fill = SubResource("StyleBoxTexture_aomqe")
 value = 70.0
 show_percentage = false
 
+[node name="Head" type="Control" parent="." unique_id=1731869189]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 100.0
+offset_bottom = 100.0
+
+[node name="Bg" type="TextureRect" parent="Head" unique_id=222851082]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_vl7eb")
+
+[node name="Icon" type="TextureRect" parent="Head" unique_id=1154107620]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -50.0
+offset_right = 40.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_wv4me")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="Gold" type="Control" parent="." unique_id=1431910082]
 layout_mode = 3
 anchors_preset = 0
-offset_top = 60.0
+offset_top = 100.0
 offset_right = 150.0
-offset_bottom = 123.99996
+offset_bottom = 163.99997
 
 [node name="Icon" type="TextureRect" parent="Gold" unique_id=1567073755]
-layout_mode = 0
-anchor_right = 0.42666668
-anchor_bottom = 1.0000006
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("4_8dqs6")
-metadata/_edit_use_anchors_ = true
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Value" type="Label" parent="Gold" unique_id=60485487]
 layout_mode = 1
@@ -92,11 +127,12 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 64.0
-offset_top = -22.5
-offset_right = 119.0
-offset_bottom = 22.5
+offset_top = -24.5
+offset_right = 65.0
+offset_bottom = 24.5
 grow_vertical = 2
-text = "666"
+theme_override_fonts/font = ExtResource("5_t7400")
+text = "999"
 label_settings = SubResource("LabelSettings_aomqe")
 vertical_alignment = 1
 
@@ -115,7 +151,7 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.42666668
 anchor_bottom = 1.0000006
-texture = ExtResource("5_8dqs6")
+texture = ExtResource("8_wv4me")
 metadata/_edit_use_anchors_ = true
 
 [node name="Value" type="Label" parent="Wave" unique_id=25816401]
@@ -128,6 +164,7 @@ offset_top = -22.5
 offset_right = 119.0
 offset_bottom = 22.5
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_t7400")
 text = "666"
 label_settings = SubResource("LabelSettings_a20gn")
 vertical_alignment = 1

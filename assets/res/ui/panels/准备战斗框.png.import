@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ct1d50oovjyh1"
-path="res://.godot/imported/BigBar_Base.png-380fab9098e35dac9bc3ffbaf50047a0.ctex"
+uid="uid://b02t3ocj2c17p"
+path="res://.godot/imported/准备战斗框.png-8328dbc5da58f2b6e38d10dd906cacb0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/res/ui/panels/BigBar_Base.png"
-dest_files=["res://.godot/imported/BigBar_Base.png-380fab9098e35dac9bc3ffbaf50047a0.ctex"]
+source_file="res://assets/res/ui/panels/准备战斗框.png"
+dest_files=["res://.godot/imported/准备战斗框.png-8328dbc5da58f2b6e38d10dd906cacb0.ctex"]
 
 [params]
 

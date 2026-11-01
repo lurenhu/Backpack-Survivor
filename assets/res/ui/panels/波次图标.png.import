@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dp8q3xawhi24n"
-path="res://.godot/imported/主界面.jpg-fad8c2249d2cd7413d9412df357a2e5f.ctex"
+uid="uid://y7sya4y1qosd"
+path="res://.godot/imported/波次图标.png-72e446b87f183366cddc8a4aa49c3985.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/res/ui/主界面.jpg"
-dest_files=["res://.godot/imported/主界面.jpg-fad8c2249d2cd7413d9412df357a2e5f.ctex"]
+source_file="res://assets/res/ui/panels/波次图标.png"
+dest_files=["res://.godot/imported/波次图标.png-72e446b87f183366cddc8a4aa49c3985.ctex"]
 
 [params]
 

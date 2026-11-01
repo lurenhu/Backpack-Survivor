@@ -1,14 +1,15 @@
 [gd_scene format=3 uid="uid://cuko6bv1tbujy"]
 
 [ext_resource type="Script" uid="uid://bmt1241pp2vjj" path="res://scripts/game/module/main/view/game_over.gd" id="1_oq5cf"]
-[ext_resource type="Texture2D" uid="uid://c52ou6daw6f2n" path="res://assets/res/ui/底框.png" id="2_55ym5"]
-[ext_resource type="StyleBox" uid="uid://brgbn8u1fmjkl" path="res://assets/preset/style_box_texture/button_normal.tres" id="2_racf3"]
-[ext_resource type="StyleBox" uid="uid://cofb03f4qoc5d" path="res://assets/preset/style_box_texture/button_pressed.tres" id="3_7m3ot"]
-[ext_resource type="StyleBox" uid="uid://bt0lljh8r713" path="res://assets/preset/style_box_texture/button_hover.tres" id="4_v3hpu"]
+[ext_resource type="Texture2D" uid="uid://b02t3ocj2c17p" path="res://assets/res/ui/panels/准备战斗框.png" id="2_qmojh"]
+[ext_resource type="FontFile" uid="uid://e7ryidwas2dh" path="res://assets/res/font/ZhuoTeZiYouTi-2.otf" id="3_qmojh"]
+[ext_resource type="StyleBox" uid="uid://ci73ewfrgoxex" path="res://assets/preset/style_box_texture/btn_brown_normal.tres" id="4_qmojh"]
+[ext_resource type="StyleBox" uid="uid://cp2avhel5y0mb" path="res://assets/preset/style_box_texture/btn_brown_pressed.tres" id="5_or46d"]
+[ext_resource type="StyleBox" uid="uid://caufgceajuydo" path="res://assets/preset/style_box_texture/btn_brown_hover.tres" id="6_cgbx2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_55ym5"]
 resource_local_to_scene = true
-font_size = 96
+font_size = 128
 font_color = Color(1, 0.3133042, 0, 1)
 outline_size = 8
 outline_color = Color(0.3491902, 0, 0, 1)
@@ -17,7 +18,7 @@ shadow_color = Color(0, 0, 0, 0.4)
 shadow_offset = Vector2(2, 2)
 
 [sub_resource type="LabelSettings" id="LabelSettings_qmojh"]
-font_size = 80
+font_size = 96
 font_color = Color(1, 0.85430586, 0, 1)
 outline_size = 8
 outline_color = Color(0.3491902, 0, 0, 1)
@@ -26,7 +27,7 @@ shadow_color = Color(0, 0, 0, 0.4)
 shadow_offset = Vector2(2, 2)
 
 [sub_resource type="LabelSettings" id="LabelSettings_or46d"]
-font_size = 64
+font_size = 80
 font_color = Color(1, 1, 0.48452926, 1)
 outline_size = 8
 outline_color = Color(0.3491902, 0, 0, 1)
@@ -63,82 +64,70 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Bg:scale")
+tracks/2/path = NodePath("ResultLab:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(52, -32)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ResultLab:position")
+tracks/3/path = NodePath("Score:size")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(52, -32)]
+"values": [Vector2(600, 200)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Score:size")
+tracks/4/path = NodePath("Button:size")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(600, 200)]
+"values": [Vector2(300, 120)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Button:size")
+tracks/5/path = NodePath("Score:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(300, 100)]
+"values": [Vector2(0, 90)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Score:position")
+tracks/6/path = NodePath("Score:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 90)]
+"update": 1,
+"values": [true]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Score:visible")
+tracks/7/path = NodePath("Button:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("Button:visible")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -175,82 +164,70 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Bg:scale")
+tracks/2/path = NodePath("ResultLab:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.55, 0.7, 0.75, 0.95),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 0.3), Vector2(1, 0.5), Vector2(1, 0.5), Vector2(1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("ResultLab:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0.4, 0.6, 0.75, 0.95),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(52, 156), Vector2(52, 48), Vector2(52, 48), Vector2(52, -32)]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Score:size")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Score:size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0.55, 0.7),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(600, 0), Vector2(600, 200)]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Button:size")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Button:size")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0.8, 0.95),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(300, 0), Vector2(300, 100)]
+"values": [Vector2(300, 0), Vector2(300, 120)]
 }
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Score:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Score:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0.75, 0.95),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, 142), Vector2(0, 90)]
 }
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Score:visible")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Score:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.35, 1),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [false, false, true, true]
 }
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("Button:visible")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Button:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.35, 1),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
@@ -265,6 +242,7 @@ _data = {
 
 [node name="GameOver" type="Control" unique_id=540687642]
 custom_minimum_size = Vector2(600, 450)
+clip_contents = true
 layout_mode = 3
 anchor_left = 0.265625
 anchor_top = 0.1875
@@ -285,22 +263,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
-texture = ExtResource("2_55ym5")
-patch_margin_left = 42
+texture = ExtResource("2_qmojh")
+patch_margin_left = 25
 patch_margin_top = 41
-patch_margin_right = 51
+patch_margin_right = 25
 patch_margin_bottom = 45
 
 [node name="ResultLab" type="Label" parent="." unique_id=1551018321]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.086666666
-anchor_top = -0.128
+anchor_top = -0.0711111
 anchor_right = 0.91333336
-anchor_bottom = 0.136
-offset_top = 25.60001
-offset_bottom = 38.800537
+anchor_bottom = 0.22221975
+offset_bottom = 3.0517578e-05
 grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_qmojh")
 text = "GameOver"
 label_settings = SubResource("LabelSettings_55ym5")
 horizontal_alignment = 1
@@ -308,8 +286,8 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Score" type="Control" parent="." unique_id=1187364329]
-clip_contents = true
 custom_minimum_size = Vector2(600, 0)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -326,17 +304,19 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="Score" unique_id=1930548105]
 clip_contents = true
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = -1
 anchor_right = 1.0
-offset_bottom = 198.0
+anchor_bottom = 0.99
 grow_horizontal = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_override_constants/separation = 0
 alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="ScoreLab" type="Label" parent="Score/VBoxContainer" unique_id=1523168849]
 layout_mode = 2
-text = "Score"
+theme_override_fonts/font = ExtResource("3_qmojh")
+text = "分数"
 label_settings = SubResource("LabelSettings_qmojh")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -344,6 +324,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="ValueLab" type="Label" parent="Score/VBoxContainer" unique_id=768797523]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_qmojh")
 text = "999999999"
 label_settings = SubResource("LabelSettings_or46d")
 horizontal_alignment = 1
@@ -351,8 +332,8 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Button" type="Control" parent="." unique_id=792380294]
-clip_contents = true
 custom_minimum_size = Vector2(300, 0)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -360,42 +341,54 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -150.0
-offset_top = -150.0
+offset_top = -115.00006
 offset_right = 150.0
-offset_bottom = -50.0
+offset_bottom = 4.999939
 grow_horizontal = 2
 grow_vertical = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Button" unique_id=2128549335]
+custom_minimum_size = Vector2(200, 0)
 clip_contents = true
-custom_minimum_size = Vector2(300, 0)
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.98
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -120.0
+offset_right = 100.0
+offset_bottom = -16.0
 grow_horizontal = 2
+grow_vertical = 0
 pivot_offset_ratio = Vector2(0.5, 0.5)
 alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="ContinueButton" type="Button" parent="Button/VBoxContainer" unique_id=55717317]
+custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_racf3")
-theme_override_styles/pressed = ExtResource("3_7m3ot")
-theme_override_styles/hover = ExtResource("4_v3hpu")
+theme_override_fonts/font = ExtResource("3_qmojh")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("4_qmojh")
+theme_override_styles/pressed = ExtResource("5_or46d")
+theme_override_styles/hover = ExtResource("6_cgbx2")
 text = "再来一局"
 
 [node name="MainMenuButton" type="Button" parent="Button/VBoxContainer" unique_id=930771835]
+custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_racf3")
-theme_override_styles/pressed = ExtResource("3_7m3ot")
-theme_override_styles/hover = ExtResource("4_v3hpu")
+theme_override_fonts/font = ExtResource("3_qmojh")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("4_qmojh")
+theme_override_styles/pressed = ExtResource("5_or46d")
+theme_override_styles/hover = ExtResource("6_cgbx2")
 text = "返回主菜单"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1158238154]
